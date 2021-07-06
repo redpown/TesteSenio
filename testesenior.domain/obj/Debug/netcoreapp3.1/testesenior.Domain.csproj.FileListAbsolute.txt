@@ -1,7 +1,6 @@
 E:\Projetos\VisualStudio\TesteSenior\testesenior.domain\bin\Debug\netcoreapp3.1\testesenior.Domain.deps.json
 E:\Projetos\VisualStudio\TesteSenior\testesenior.domain\bin\Debug\netcoreapp3.1\testesenior.Domain.dll
 E:\Projetos\VisualStudio\TesteSenior\testesenior.domain\bin\Debug\netcoreapp3.1\testesenior.Domain.pdb
-E:\Projetos\VisualStudio\TesteSenior\testesenior.domain\obj\Debug\netcoreapp3.1\testesenior.Domain.csproj.AssemblyReference.cache
 E:\Projetos\VisualStudio\TesteSenior\testesenior.domain\obj\Debug\netcoreapp3.1\testesenior.Domain.AssemblyInfoInputs.cache
 E:\Projetos\VisualStudio\TesteSenior\testesenior.domain\obj\Debug\netcoreapp3.1\testesenior.Domain.AssemblyInfo.cs
 E:\Projetos\VisualStudio\TesteSenior\testesenior.domain\obj\Debug\netcoreapp3.1\testesenior.Domain.csproj.CoreCompileInputs.cache
