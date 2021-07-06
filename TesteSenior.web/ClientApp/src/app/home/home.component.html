@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Código Cidade</th>
+      <th scope="col">Nome Cidade</th>
+      <th scope="col">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cidade of cidades">
+      <td>{{cidade.codigoCidade}}</td>
+      <td>{{cidade.nomeCidade}}</td>
+      <td>{{cidade.estado}}</td>
+          
+    </tr>
+
+  </tbody>
+</table>
+
+
