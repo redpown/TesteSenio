@@ -8,6 +8,7 @@ using testesenior.domain.Entity;
 using testesenior.domain.Interface;
 using testesenior.Domain.DTO;
 using TesteSenior.Data.Repositories;
+using TesteSenior.Service.Service;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,9 +19,9 @@ namespace TesteSenior.web.Controllers
     public class TabelaApartamentoController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ITabelaApartamentoRepository _ITabelaApartamentoRepository;
+        private readonly TabelaApartamentoService _ITabelaApartamentoRepository;
         
-        public TabelaApartamentoController(ITabelaApartamentoRepository iTabelaApartamentoRepository, IMapper mapper)
+        public TabelaApartamentoController(TabelaApartamentoService iTabelaApartamentoRepository, IMapper mapper)
         {
             _ITabelaApartamentoRepository = iTabelaApartamentoRepository;
             _mapper = mapper;

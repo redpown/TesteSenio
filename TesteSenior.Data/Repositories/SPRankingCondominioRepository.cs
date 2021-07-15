@@ -18,13 +18,6 @@ namespace TesteSenior.Data.Repositories
         public SPRankingCondominioRepository(TesteSeniorConext testeSeniorConext, IMapper mapper) : base(testeSeniorConext, mapper)
         {
         }
-        public IEnumerable<SPRankingCondominio> GetProcedure()
-        {
-            return _TesteSeniorConext.Set<SPRankingCondominio>()
-                 .FromSqlRaw("EXEC  [dbo].[sp_ranking_condominio] @dt_inicio = '10-02-2011', @dt_termino = '10-06-2011';")
-                 .ToList();
-        }
-
-       
+              
     }
 }

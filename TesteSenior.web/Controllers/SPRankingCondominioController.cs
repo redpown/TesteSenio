@@ -8,6 +8,7 @@ using testesenior.domain.Entity;
 using testesenior.domain.Interface;
 using testesenior.Domain.DTO;
 using TesteSenior.Data.Context;
+using TesteSenior.Service.Service;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,9 +19,9 @@ namespace TesteSenior.web.Controllers
     public class SPRankingCondominioController : ControllerBase
     {
 
-        private readonly ISPRankingCondominioRepository _ISPRankingCondominioRepository;
+        private readonly TabelaSPRankingCondominioService _ISPRankingCondominioRepository;
 
-        public SPRankingCondominioController(ISPRankingCondominioRepository iSPRankingCondominioRepository)
+        public SPRankingCondominioController(TabelaSPRankingCondominioService iSPRankingCondominioRepository)
         {
             _ISPRankingCondominioRepository = iSPRankingCondominioRepository;
         }

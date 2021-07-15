@@ -10,7 +10,7 @@ namespace testesenior.domain.Interface
 {
     public interface ISPRankingCondominioRepository : IBaseRepository<SPRankingCondominio>
     {
-        public IEnumerable<SPRankingCondominio> GetProcedure();
+       
     }
     
     

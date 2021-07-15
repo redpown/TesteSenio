@@ -50,6 +50,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TesteSenior.Data\TesteSenior.Data.csproj" />
+    <ProjectReference Include="..\TesteSenior.Service\TesteSenior.Service.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using testesenior.domain.Entity;
 using testesenior.domain.Interface;
 using testesenior.Domain.DTO;
+using TesteSenior.Service.Service;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,9 +18,9 @@ namespace TesteSenior.web.Controllers
     public class TabelaCidadeController : ControllerBase
     {
 
-        private readonly ITabelaCidadeRepository _ITabelaCidadeRepository;
+        private readonly TabelaCidadeService _ITabelaCidadeRepository;
 
-        public TabelaCidadeController(ITabelaCidadeRepository iTabelaCidadeRepository)
+        public TabelaCidadeController(TabelaCidadeService iTabelaCidadeRepository)
         {
             _ITabelaCidadeRepository = iTabelaCidadeRepository;
         }

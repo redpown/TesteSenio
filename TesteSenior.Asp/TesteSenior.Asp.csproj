@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TesteSenior.Data\TesteSenior.Data.csproj" />
+    <ProjectReference Include="..\testesenior.domain\testesenior.Domain.csproj" />
+    <ProjectReference Include="..\TesteSenior.Service\TesteSenior.Service.csproj" />
+  </ItemGroup>
+
+</Project>

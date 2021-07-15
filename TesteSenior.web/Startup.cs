@@ -14,6 +14,7 @@ using testesenior.domain.Interface;
 using testesenior.Domain.Mapper;
 using TesteSenior.Data.Context;
 using TesteSenior.Data.Repositories;
+using TesteSenior.Service.Service;
 
 namespace TesteSenior.web
 {
@@ -67,11 +68,12 @@ namespace TesteSenior.web
 
             services.AddAutoMapper(typeof(EntityDtoProfile), typeof(DtoEntityProfile));
 
-            services.AddScoped<ITabelaCidadeRepository, TabelaCidadeRepository>();
-            services.AddScoped<ITabelaApartamentoRepository, TabelaApartamentoRepository>();
-            services.AddScoped<ITabelaEdificioRepository, TabelaEdificioRepository>();
-            services.AddScoped<ITabelaPagamentosCondominioRepository, TabelaPagamentosCondominioRepository>();
-            services.AddScoped<ISPRankingCondominioRepository, SPRankingCondominioRepository>();
+            
+            services.AddScoped<TabelaApartamentoService>();
+            services.AddScoped<TabelaCidadeService>();
+            services.AddScoped<TabelaEdificioService>();
+            services.AddScoped<TabelaPagamentoService>();
+            services.AddScoped<TabelaSPRankingCondominioService>();
 
             // Add the processing server as IHostedService
             services.AddHangfireServer();

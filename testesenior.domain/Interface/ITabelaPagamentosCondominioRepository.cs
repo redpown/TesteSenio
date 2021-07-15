@@ -10,14 +10,7 @@ namespace testesenior.domain.Interface
 {
     public interface ITabelaPagamentosCondominioRepository : IBaseRepository<TabelaPagamentosCondominio>
     {
-        public NovoTabelaPagamentosCondominioDTO SelectDTO(int id);
-        public void InsertDTO(NovoTabelaPagamentosCondominioDTO entity);
-        public void DeleteId(int id);
-
-        public void UpdateByDTO(TabelaPagamentosCondominioDTO Obj);
-
-        public IEnumerable<TabelaPagamentosCondominioDTO> GetAllFromDto();
-
+        
         
     }
 }

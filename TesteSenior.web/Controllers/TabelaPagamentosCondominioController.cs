@@ -8,6 +8,7 @@ using testesenior.domain.Entity;
 using testesenior.domain.Interface;
 using testesenior.Domain.DTO;
 using TesteSenior.Data.Context;
+using TesteSenior.Service.Service;
 
 namespace TesteSenior.web.Controllers
 {
@@ -16,10 +17,10 @@ namespace TesteSenior.web.Controllers
     public class TabelaPagamentosCondominioController : ControllerBase
     {
 
-        private readonly ITabelaPagamentosCondominioRepository _ITabelaPagamentosCondominioRepository;
+        private readonly TabelaPagamentoService _ITabelaPagamentosCondominioRepository;
 
         public TesteSeniorConext _TesteSeniorConext = new TesteSeniorConext();
-        public TabelaPagamentosCondominioController(ITabelaPagamentosCondominioRepository iTabelaPagamentosCondominioRepository)
+        public TabelaPagamentosCondominioController(TabelaPagamentoService iTabelaPagamentosCondominioRepository)
         {
             _ITabelaPagamentosCondominioRepository = iTabelaPagamentosCondominioRepository;
            

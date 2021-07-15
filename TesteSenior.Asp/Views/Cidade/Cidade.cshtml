@@ -1,0 +1,62 @@
+﻿@model testesenior.domain.Entity.TabelaCidade;
+
+@{ ViewData["Title"] = "Cidade"; }
+
+<h2>Cidade</h2>
+<hr />
+<form asp-controller="Cidade" asp-action="Cadastrar" method="post" class="w3-container">
+
+
+
+    <!--<h1 class="h4 mb-2 login">Pesquisar cep</h1>-->
+    <h1 class="h4 mb-2 login">Cidade @Model.nomeCidade</h1>
+    
+    <!------------------------------------------------------------------------->
+    <label for="nomeCidade" class="sr-only">Nome Cidade</label>
+    <input type="text"
+           asp-for="nomeCidade"
+           id="nomeCidade"
+           value="@Model.nomeCidade"
+           class="form-control mb-2"
+           required />
+
+    <label for="estado" class="sr-only">Estado</label>
+    <input type="text"
+           asp-for="estado"
+           id="nomeCidade"
+           value="@Model.estado"
+           class="form-control mb-2"
+           required />
+    
+    <button class="btn btn-primary btn-block mb-3" (click)="Buscar(cidadeId)">
+        Buscar
+    </button>
+
+    <button class="btn btn-primary btn-block mb-3"  (click)="Atualizar(cidade)">
+        Atualizar
+    </button>
+
+    <button class="btn btn-primary btn-block mb-3" onclick="Excluir(@Model.codigoCidade)">
+        Deletar
+    </button>
+    <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Criar(cidade)">
+        Criar
+    </button>
+
+</form>
+<script>function Novo() {
+        Request("Cadastro");
+    }
+
+    function Listagem() {
+        Request("");
+    }
+
+    function Excluir(Codigo) {
+        Request("Excluir/" + Codigo);
+    }
+
+    function Request(request) {
+        window.location = window.origin + "/Cidade/" + request;
+    }</script>
+

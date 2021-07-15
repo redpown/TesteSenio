@@ -18,6 +18,7 @@ namespace TesteSenior.Data.Repositories
         public TabelaCidadeRepository(TesteSeniorConext testeSeniorConext, IMapper mapper) : base(testeSeniorConext, mapper)
         {
         }
+        /*
         public void InsertDTO(TabelaCidadeDTO value) {
             TabelaCidade novaCidade = new TabelaCidade(value.nomeCidade, value.estado);
             _TesteSeniorConext.Set<TabelaCidade>().Add(novaCidade);
@@ -45,5 +46,6 @@ namespace TesteSenior.Data.Repositories
 
             return _mapper.Map<List<TabelaCidadeDTO>>(obj);
         }
+        */
     }
 }

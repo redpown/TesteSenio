@@ -18,6 +18,7 @@ namespace TesteSenior.Data.Repositories
         public TabelaEdificioRepository(TesteSeniorConext testeSeniorConext, IMapper mapper) : base(testeSeniorConext, mapper)
         {
         }
+        /*
         public void InsertDTO(NovoTabelaEdificioDTO entity) {
 
            
@@ -71,5 +72,6 @@ namespace TesteSenior.Data.Repositories
             }
             return objSelecionado;
         }
+        */
     }
 }
