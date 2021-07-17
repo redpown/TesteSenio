@@ -1,0 +1,45 @@
+﻿@model IEnumerable<testesenior.Domain.DTO.TabelaApartamentoDTO>
+
+@{
+    ViewData["Title"] = "Apartamentos";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Código Apartamento</th>
+            <th scope="col">Numero de Quartos</th>
+            <th scope="col">Metragem</th>
+            <th scope="col">Andar</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{ foreach (var item in Model)
+            {
+                <tr onclick="Editar(@item.codigoApartamento)" style="cursor:pointer">
+                    <td>@item.codigoApartamento</td>
+                    <td>@item.numeroQuartos</td>
+                    <td>@item.metragem</td>
+                    <td>@item.andar</td>
+                </tr>
+            }
+        }
+
+
+    </tbody>
+</table>
+
+
+<script>
+
+    function Editar(Codigo) {
+        window.location = window.origin + "/Apartamento/Apartamento/" + Codigo;
+        console.log("Editar")
+    }
+
+    function Cadastrar() {
+        window.location = window.origin + "/Apartamento/Cadastrar";
+    }
+
+</script>

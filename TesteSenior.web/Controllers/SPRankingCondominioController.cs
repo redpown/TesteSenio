@@ -1,4 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*******************************************************************************
+ |                               ***Andre Marques***
+ |
+ |Classe    : SPRankingCondominioController.cs
+ |Data      : 07/16/2021
+ |Descrição : Classe de controller para o endpoint SPRankingCondominio
+ |Autor     : Andre Marques
+ |
+ |Ataualizações:
+ |Autor    :    
+ |Data     :
+ |Linha    :
+ |Descrição:
+ ********************************************************************************/
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,7 +40,14 @@ namespace TesteSenior.web.Controllers
             _ISPRankingCondominioRepository = iSPRankingCondominioRepository;
         }
 
-        // GET: api/<SPRankingCondominioController>
+
+        /*******************************************************************************
+	     |Método    : Get
+	     |Data      : 07/16/2021
+	     |Descrição : Retorna Procedure SPRankingCondominio
+         |GET       : api/SPRankingCondominio
+         |Autor     : Andre Marques
+	     ********************************************************************************/
         [HttpGet]
         public IActionResult Get()
         {
@@ -40,72 +61,5 @@ namespace TesteSenior.web.Controllers
             }
         }
 
-        /*
-
-        // GET api/<SPRankingCondominioController>/5
-        [HttpGet("{id}")]
-        public SPRankingCondominio Get(int id)
-        {
-            return _ISPRankingCondominioRepository.Select(id);
-        }
-
-        // POST api/<SPRankingCondominioController>
-        [HttpPost]
-        public IActionResult Post([FromBody] SPRankingCondominio value)
-        {
-            try
-            {
-                var valueInsert = _ISPRankingCondominioRepository.Select(value.codigoCidade);
-
-                if (valueInsert != null)
-                {
-                    return BadRequest("Usuario já cadastrado no sistema");
-                }
-                else
-                {
-                    _ISPRankingCondominioRepository.Insert(value);
-                }
-
-                return Ok();
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
-        }
-
-        // PUT api/<SPRankingCondominioController>/5
-        [HttpPut]
-        public IActionResult Put([FromBody] SPRankingCondominio value)
-        {
-            try
-            {
-                _ISPRankingCondominioRepository.Update(value);
-                 return Ok();
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
-}
-
-        // DELETE api/<SPRankingCondominioController>/5
-        [HttpDelete]
-        public IActionResult Delete([FromBody] SPRankingCondominio value)
-        {
-            try
-            {
-                _ISPRankingCondominioRepository.Delete(value);
-                return Ok();
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
-        }
-        */
     }
 }

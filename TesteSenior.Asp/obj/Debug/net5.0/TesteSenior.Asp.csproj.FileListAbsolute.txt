@@ -46,8 +46,10 @@ E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\runtimes\w
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenior.Data.dll
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\testesenior.Domain.dll
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenior.Service.dll
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenior.Data.pdb
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\testesenior.Domain.pdb
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenior.Service.pdb
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.csproj.AssemblyReference.cache
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.GeneratedMSBuildEditorConfig.editorconfig
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.AssemblyInfoInputs.cache
@@ -62,6 +64,8 @@ E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\scopedcss\
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.TagHelpers.input.cache
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.TagHelpers.output.cache
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.RazorCoreGenerate.cache
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\Razor\Views\Apartamento\Apartamento.cshtml.g.cs
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\Razor\Views\Apartamento\Index.cshtml.g.cs
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\Razor\Views\Cidade\Cidade.cshtml.g.cs
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\Razor\Views\Cidade\Index.cshtml.g.cs
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
@@ -79,7 +83,3 @@ E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenio
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\ref\TesteSenior.Asp.dll
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.pdb
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.genruntimeconfig.cache
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenior.Service.dll
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenior.Service.pdb
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\Razor\Views\Apartamento\Apartamento.cshtml.g.cs
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\Razor\Views\Apartamento\Index.cshtml.g.cs
