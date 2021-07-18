@@ -15,8 +15,6 @@ namespace TesteSenior.Data.Config
         public void Configure(EntityTypeBuilder<SPRankingCondominio> builder)
         {
             builder.HasNoKey();
-
-            
         }
     }
 }

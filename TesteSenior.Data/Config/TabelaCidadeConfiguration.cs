@@ -13,7 +13,8 @@ namespace TesteSenior.Data.Config
     {
         public void Configure(EntityTypeBuilder<TabelaCidade> builder)
         {
-            //builder.ToTable("teste");
+            builder.ToTable("TABELA_CIDADE");
+
             builder.HasKey(tabelaCidade => tabelaCidade.codigoCidade);
 
             builder.Property(tabelaCidade => tabelaCidade.nomeCidade)
@@ -24,8 +25,19 @@ namespace TesteSenior.Data.Config
             builder.Property(tabelaCidade => tabelaCidade.estado)
                 .IsRequired()
                 .HasMaxLength(2);
-                      
-            
+
+            builder.HasData(
+                  
+                  new { nomeCidade = "Campinas", estado = "SP" },
+                  new { nomeCidade = "Rio de Janeiro", estado = "RJ" },
+                  new { nomeCidade = "São Paulo", estado = "SP" },
+                  new { nomeCidade = "Sorocaba", estado = "SP" },
+                  new { nomeCidade = "Jundiaí", estado = "SP" },
+                  new { nomeCidade = "Hortolândia", estado = "SP" }
+
+                );
+
+
         }
     }
 }

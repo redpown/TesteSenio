@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*******************************************************************************
+ |                               ***Andre Marques***
+ |
+ |Classe    : DtoEntityProfile.cs
+ |Data      : 07/16/2021
+ |Descrição : Classe de mapeamento de entiade para DTO 
+ |Autor     : Andre Marques
+ |
+ |Ataualizações:
+ |Autor    :    
+ |Data     :
+ |Linha    :
+ |Descrição:
+ ********************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

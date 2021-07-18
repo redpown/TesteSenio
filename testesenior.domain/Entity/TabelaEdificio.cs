@@ -20,8 +20,8 @@ namespace testesenior.domain.Entity
         [Column("NUMERO__APTO_ANDAR")]
         public int numeroAptoAndar { get; set; }
 
-        public virtual ICollection<TabelaApartamento> tabelaApartamento { get; set; }
         public TabelaEdificio() { }
+
         public TabelaEdificio(string nomeEdificio, int andares, int numeroAptoAndar) {
             this.nomeEdificio = nomeEdificio;
             this.andares = andares;

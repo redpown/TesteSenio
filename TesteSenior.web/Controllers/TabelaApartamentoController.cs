@@ -1,4 +1,18 @@
-﻿using AutoMapper;
+﻿/*******************************************************************************
+ |                               ***Andre Marques***
+ |
+ |Classe    : TabelaApartamentoController.cs
+ |Data      : 07/16/2021
+ |Descrição : Classe de controller para o endpoint TabelaApartamento
+ |Autor     : Andre Marques
+ |
+ |Ataualizações:
+ |Autor    :    
+ |Data     :
+ |Linha    :
+ |Descrição:
+ ********************************************************************************/
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -27,7 +41,15 @@ namespace TesteSenior.web.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/<TabelaApartamentoController>
+        /*******************************************************************************
+	     |Método    : Get()
+	     |Data      : 07/16/2021
+	     |Descrição : Retorna todo DTO da entidade Tabela apartamento
+         |GET       : api/TabelaApartamento
+         |Autor     : Andre Marques
+	     ********************************************************************************/
+
+
         [HttpGet]
         public IActionResult Get()
         {
@@ -42,22 +64,34 @@ namespace TesteSenior.web.Controllers
             }
         }
 
-        // GET api/<TabelaApartamentoController>/5
+        /*******************************************************************************
+	     |Método    : Get(int id)
+	     |Data      : 07/16/2021
+	     |Descrição : Retorna um DTO da entidade Tabela apartamento
+         |GET       : api/TabelaApartamento/id
+         |Autor     : Andre Marques
+	     ********************************************************************************/
+       
         [HttpGet("{id}")]
         public NovoTabelaApartamentoDTO Get(int id)
         {
             return _ITabelaApartamentoRepository.SelectDTO(id);
         }
 
-        // POST api/<TabelaApartamentoController>
+        /*******************************************************************************
+	     |Método    : Post()
+	     |Data      : 07/16/2021
+	     |Descrição : cria na base se o id for null
+         |POST      : api/TabelaApartamento
+         |Autor     : Andre Marques
+	     ********************************************************************************/
+       
         [HttpPost]
         public IActionResult Post([FromBody] NovoTabelaApartamentoDTO value)
         {
             try
             {
  
-                   
-
                 var valueInsert = _ITabelaApartamentoRepository.Select(value.codigoApartamento);
 
                 if (valueInsert != null)
@@ -79,7 +113,14 @@ namespace TesteSenior.web.Controllers
             }
         }
 
-        // PUT api/<TabelaApartamentoController>/5
+        /*******************************************************************************
+        |Método    : Put()
+        |Data      : 07/16/2021
+        |Descrição : Atualiza pelo novo valor passado atraves do DTO da entidade
+        |Put       : api/TabelaApartamento
+        |Autor     : Andre Marques
+        ********************************************************************************/
+ 
         [HttpPut]
         public IActionResult Put([FromBody] NovoTabelaApartamentoDTO value)
         {
@@ -95,7 +136,14 @@ namespace TesteSenior.web.Controllers
             }
         }
 
-        // DELETE api/<TabelaApartamentoController>/5
+        /*******************************************************************************
+        |Método    : Delete(id)
+        |Data      : 07/16/2021
+        |Descrição : Deleta da base o id passado
+        |Delete    : api/TabelaApartamento/id
+        |Autor     : Andre Marques
+        ********************************************************************************/
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
