@@ -1,0 +1,6 @@
+The type 'TabelaEdificio' cannot be configured as non-owned because an owned entity type with the same name already exists.
+
+esse erro quer dizer q a clase é virtual, somente para navegação do entity
+
+The property or navigation 'tabelaCidade' cannot be added to the entity type 'TabelaEdificio' 
+because a property or navigation with the same name already exists on entity type 'TabelaEdificio'.

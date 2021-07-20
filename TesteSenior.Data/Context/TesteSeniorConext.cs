@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using testesenior.domain.Entity;
 using testesenior.Domain.DTO;
 using TesteSenior.Data.Config;
+using TesteSenior.Data.StoreProcedure;
 
 namespace TesteSenior.Data.Context
 {
     public class TesteSeniorConext : DbContext
     {
+        //public StoreProcedures procedure;
+
         public DbSet<TabelaApartamento> tabelaApartamentos { get; set; }
 
         public DbSet<TabelaCidade> tabelaCidades { get; set; }
@@ -24,10 +27,12 @@ namespace TesteSenior.Data.Context
 
         public TesteSeniorConext(DbContextOptions options) : base(options)
         {
+
         }
 
         public TesteSeniorConext()
         {
+           // procedure = new StoreProcedures();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,7 +43,7 @@ namespace TesteSenior.Data.Context
             modelBuilder.ApplyConfiguration(new TabelaEdificioConfiguration());
             modelBuilder.ApplyConfiguration(new TabelaPagamentosCondominioConfiguration());
             modelBuilder.ApplyConfiguration(new SPRankingCondominioConfiguration());
-       
+        
         }
     }
 }

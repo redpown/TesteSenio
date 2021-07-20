@@ -83,3 +83,5 @@ E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenio
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\ref\TesteSenior.Asp.dll
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.pdb
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.genruntimeconfig.cache
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\Razor\Views\Edificio\Edificio.cshtml.g.cs
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\Razor\Views\Edificio\Index.cshtml.g.cs

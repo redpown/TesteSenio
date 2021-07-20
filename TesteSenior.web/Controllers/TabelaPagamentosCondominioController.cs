@@ -20,6 +20,7 @@ namespace TesteSenior.web.Controllers
         private readonly TabelaPagamentoService _ITabelaPagamentosCondominioRepository;
 
         public TesteSeniorConext _TesteSeniorConext = new TesteSeniorConext();
+
         public TabelaPagamentosCondominioController(TabelaPagamentoService iTabelaPagamentosCondominioRepository)
         {
             _ITabelaPagamentosCondominioRepository = iTabelaPagamentosCondominioRepository;
@@ -66,11 +67,11 @@ namespace TesteSenior.web.Controllers
 
         // PUT api/<TabelaPagamentosCondominioController>/5
         [HttpPut]
-        public IActionResult Put([FromBody] TabelaPagamentosCondominio value)
+        public IActionResult Put([FromBody] TabelaPagamentosCondominioDTO value)
         {
             try
             {
-                _ITabelaPagamentosCondominioRepository.Update(value);
+                _ITabelaPagamentosCondominioRepository.UpdateByDTO(value);
                  return Ok();
 
             }

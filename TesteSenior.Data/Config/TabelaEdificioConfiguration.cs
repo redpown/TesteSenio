@@ -15,33 +15,53 @@ namespace TesteSenior.Data.Config
         {
             builder.ToTable("TABELA_EDIFICIO");
 
-            builder.HasKey(tabelaEdificio => tabelaEdificio.codigoEdificio);
+            builder.HasKey(tabelaEdificio => tabelaEdificio.codigoEdificio).HasName("CODIGO_EDIFICIO_ID");
+
+            builder.Property(tabelaEdificio => tabelaEdificio.codigoEdificio)
+                .ValueGeneratedOnAdd()
+                .HasMaxLength(50)
+                .HasColumnName("CODIGO_EDIFICIO");
+
+            builder.Property(tabelaEdificio => tabelaEdificio.tabelaCidadeId)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnName("CODIGO_CIDADE");
+
+            builder.Property(tabelaEdificio => tabelaEdificio.nomeEdificio)
+               .HasMaxLength(50)
+               .HasColumnName("NOME_EDIFICIO");
 
             builder.Property(tabelaEdificio => tabelaEdificio.andares)
-                .IsRequired()
-                .HasMaxLength(50);
-
+                .HasMaxLength(50)
+                .HasColumnName("ANDARES");
 
             builder.Property(tabelaEdificio => tabelaEdificio.numeroAptoAndar)
                 .IsRequired()
-                .HasMaxLength(12);
+                .HasMaxLength(12)
+                .HasColumnName("NUMERO__APTO_ANDAR");
 
             builder.HasOne(b => b.tabelaCidade)
-           .WithMany()
-           .IsRequired()
-           .OnDelete(DeleteBehavior.Cascade);
-
+             .WithMany()
+             .HasForeignKey(x => x.tabelaCidadeId)
+             .IsRequired()
+             .OnDelete(DeleteBehavior.Cascade);
+            
             builder.HasData(
 
-                new { nomeEdificio = "Edifício Esplanada", andares = 5, tabelaCidade = 1, numeroAptoAndar = 4 },
-                new { nomeEdificio = "Edifício Vera", andares = 10, tabelaCidade = 2, numeroAptoAndar = 3 },
-                new { nomeEdificio = "Edifício Sônia", andares = 5, tabelaCidade = 1, numeroAptoAndar = 4 },
-                new { nomeEdificio = "Edifício Tavares", andares = 7, tabelaCidade = 3, numeroAptoAndar = 4 },
-                new { nomeEdificio = "Edifício Renata", andares = 12, tabelaCidade = 3, numeroAptoAndar = 2 },
-                new { nomeEdificio = "Edifício Tiago", andares = 14, tabelaCidade = 1, numeroAptoAndar = 4 },
-                new { nomeEdificio = "Edifício Sol", andares = 15, tabelaCidade = 1, numeroAptoAndar = 2 }
+                new { codigoEdificio = 1, nomeEdificio = "Edifício Esplanada", andares = 5, tabelaCidadeId = 1, numeroAptoAndar = 4 },
+                new { codigoEdificio = 2, nomeEdificio = "Edifício Vera", andares = 10, tabelaCidadeId = 2, numeroAptoAndar = 3 },
+                new { codigoEdificio = 3, nomeEdificio = "Edifício Sônia", andares = 5, tabelaCidadeId = 1, numeroAptoAndar = 4 },
+                new { codigoEdificio = 4, nomeEdificio = "Edifício Tavares", andares = 7, tabelaCidadeId = 3, numeroAptoAndar = 4 },
+                new { codigoEdificio = 5, nomeEdificio = "Edifício Renata", andares = 12, tabelaCidadeId = 3, numeroAptoAndar = 2 },
+                new { codigoEdificio = 6, nomeEdificio = "Edifício Tiago", andares = 14, tabelaCidadeId = 1, numeroAptoAndar = 4 },
+                new { codigoEdificio = 7, nomeEdificio = "Edifício Sol", andares = 15, tabelaCidadeId = 1, numeroAptoAndar = 2 }
 
                );
+            
+            
+
+
+
 
         }
     }

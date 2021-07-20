@@ -1,5 +1,7 @@
-﻿using System;
+﻿//
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,11 +11,13 @@ namespace testesenior.domain.Entity
 {
     public class TabelaCidade
     {
-        [Column("CODIGO_CIDADE")]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Column("CODIGO_CIDADE")]
         public int codigoCidade { get; set; }
-        [Column("NOME_CIDADE")]
+        //[Column("NOME_CIDADE")]
         public string nomeCidade { get; set; }
-        [Column("ESTADO")]
+        //[Column("ESTADO")]
         public string estado { get; set; }
              
        

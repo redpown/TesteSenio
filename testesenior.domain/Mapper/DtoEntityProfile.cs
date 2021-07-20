@@ -36,9 +36,9 @@ namespace testesenior.Domain.Mapper
 
             CreateMap<NovoTabelaApartamentoDTO, TabelaApartamento>();
 
-            CreateMap<NovoTabelaEdificioDTO, TabelaEdificio>()
-                .ForMember(dest => dest.tabelaCidade.nomeCidade, m => m.MapFrom(a => a.nomeCidade))
-                .ForMember(dest => dest.tabelaCidade.estado, m => m.MapFrom(a => a.estado));
+            CreateMap<NovoTabelaEdificioDTO, TabelaEdificio>();
+                //.ForMember(dest => dest.tabelaCidade.nomeCidade, m => m.MapFrom(a => a.nomeCidade))
+                //.ForMember(dest => dest.tabelaCidade.estado, m => m.MapFrom(a => a.estado));
 
             CreateMap<NovoTabelaPagamentosCondominioDTO, TabelaPagamentosCondominio>();
         }
