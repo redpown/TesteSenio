@@ -10,6 +10,7 @@ using testesenior.domain.Interface;
 using testesenior.Domain.DTO;
 using TesteSenior.Data.Context;
 using TesteSenior.Data.Repositorios;
+using TesteSenior.Data.StoreProcedure;
 
 namespace TesteSenior.Data.Repositories
 {
@@ -17,6 +18,7 @@ namespace TesteSenior.Data.Repositories
     {
         public SPRankingCondominioRepository(TesteSeniorConext testeSeniorConext, IMapper mapper) : base(testeSeniorConext, mapper)
         {
+            testeSeniorConext.Database.ExecuteSqlRaw(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
         }
               
     }

@@ -27,13 +27,9 @@ namespace TesteSenior.Data.Context
 
         public TesteSeniorConext(DbContextOptions options) : base(options)
         {
-
+            //base.Database.ExecuteSqlRaw(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
         }
-
-        public TesteSeniorConext()
-        {
-           // procedure = new StoreProcedures();
-        }
+        public TesteSeniorConext() { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,7 +39,7 @@ namespace TesteSenior.Data.Context
             modelBuilder.ApplyConfiguration(new TabelaEdificioConfiguration());
             modelBuilder.ApplyConfiguration(new TabelaPagamentosCondominioConfiguration());
             modelBuilder.ApplyConfiguration(new SPRankingCondominioConfiguration());
-        
+           
         }
     }
 }

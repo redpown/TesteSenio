@@ -9,12 +9,12 @@ import { SPRankingCondominio } from '../../models/sprankingcondominio-model/spra
 })
 export class SPRankingCondominioService {
 //aqui crio funcoes que retonar apenas um Observable
-  private url: string;
-  //url = 'https://localhost:44324/api/TabelaEdificio'; // api
+public url: string =  document.getElementsByTagName('base')[0].href; // api private url: string;
+
 
   // injetando o HttpClient
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.url = baseUrl + "api/SPRankingCondominio";
+  constructor(private httpClient: HttpClient) {
+    this.url = this.url + "api/SPRankingCondominio";
   }
 
   // Headers

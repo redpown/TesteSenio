@@ -12,10 +12,10 @@ import { SPRankingCondominioService } from '../services/sprankingcondominio/spra
 export class SPRankingCondominioComponent implements OnInit {
   //aqui só pego o retorno do Observable(q é m array) e jogo no subscribe
 
-  public spRankingCondominio: SPRankingCondominio[];
-  public msg: string;
-  public returnUrl: string;
-  public mensagem: string;
+  public spRankingCondominio: SPRankingCondominio[] = [];
+  public msg: string = "";
+  public returnUrl: string = "";
+  public mensagem: string ="";
 
   ngOnInit() {
     this.returnUrl = this.activatedRouter.snapshot.queryParams['returnUrl'];

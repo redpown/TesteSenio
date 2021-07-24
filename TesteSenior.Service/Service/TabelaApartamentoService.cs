@@ -24,6 +24,7 @@ namespace TesteSenior.Service.Service
 
         public void InsertDTO(NovoTabelaApartamentoDTO entity)
         {
+      
             TabelaApartamento novoAPTO = new TabelaApartamento(entity.metragem, entity.andar, entity.numeroQuartos);
             TabelaEdificio novoEdificio = new TabelaEdificio(entity.nomeEdificio, entity.andares, entity.numeroAptoAndar);
             TabelaCidade novaCidade = new TabelaCidade(entity.nomeCidade, entity.estado);

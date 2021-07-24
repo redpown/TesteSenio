@@ -9,12 +9,11 @@ import { Edificio } from '../../models/edificio-model/edificio';
 })
 export class EdificioService {
 //aqui crio funcoes que retonar apenas um Observable
-  private url: string;
-  //url = 'https://localhost:44324/api/TabelaEdificio'; // api
+ public url: string =  document.getElementsByTagName('base')[0].href; // api
 
   // injetando o HttpClient
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.url = baseUrl + "api/TabelaEdificio";
+  constructor(private httpClient: HttpClient) {
+    this.url = this.url + "api/TabelaEdificio";
   }
 
   // Headers

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TesteSenior.Data.Migrations
 {
-    public partial class v001 : Migration
+    public partial class v0100 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,7 +36,7 @@ namespace TesteSenior.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("CODIGO_CIDADE", x => x.CODIGO_CIDADE);
+                    table.PrimaryKey("CODIGO_CIDADE_ID", x => x.CODIGO_CIDADE);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,7 +52,7 @@ namespace TesteSenior.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("CODIGO_EDIFICIO", x => x.CODIGO_EDIFICIO);
+                    table.PrimaryKey("CODIGO_EDIFICIO_ID", x => x.CODIGO_EDIFICIO);
                     table.ForeignKey(
                         name: "FK_TABELA_EDIFICIO_TABELA_CIDADE_CODIGO_CIDADE",
                         column: x => x.CODIGO_CIDADE,
@@ -74,7 +74,7 @@ namespace TesteSenior.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("CODIGO_APARTAMENTO", x => x.CODIGO_APARTAMENTO);
+                    table.PrimaryKey("CODIGO_APARTAMENTO_ID", x => x.CODIGO_APARTAMENTO);
                     table.ForeignKey(
                         name: "FK_TABELA_APARTAMENTO_TABELA_EDIFICIO_CODIGO_EDIFICIO",
                         column: x => x.CODIGO_EDIFICIO,

@@ -15,18 +15,20 @@ export class CidadeComponent implements OnInit {
 
 //aqui só pego o retorno do Observable(q é m array) e jogo no subscribe
 
-  public cidade: Cidade;
-  public cidadeId: number;
-  public returnUrl: string;
-  public mensagem: string;
- 
+  public cidade: Cidade = new Cidade();
+  public cidadeId: number =0;
+  public returnUrl: string = "";
+public mensagem: string = "";
+  public cidades: Cidade[] =[];
+  public msg: string = "";
+
 
   constructor(private router: Router, private activatedRouter: ActivatedRoute,
     private cidadeService: CidadeService) {
-    
-   
+
+
   }
-  
+
   ngOnInit() {
     this.returnUrl = this.activatedRouter.snapshot.queryParams['returnUrl'];
     this.cidadeId = 0;
@@ -35,15 +37,17 @@ export class CidadeComponent implements OnInit {
     this.cidade.codigoCidade = 0;
     this.cidade.nomeCidade = "";
     this.cidade.estado = "";
-    
+    this.msg = "ola";
+    this.carregarCidades();
+
   }
 
   Buscar(id:number) {
-  
+
     this.cidadeService.getCidadeById(id)
       .subscribe(
         getJson => {
-          if (getJson != null) { 
+          if (getJson != null) {
               this.cidade = getJson;
               console.log(getJson);
           } else { console.log("getJson está vazio!")}
@@ -51,7 +55,7 @@ export class CidadeComponent implements OnInit {
         err => {
           console.log(err.error);
           this.mensagem = err.error;
-         
+
         }
       );
 
@@ -64,7 +68,7 @@ export class CidadeComponent implements OnInit {
         getJson => {
             getJson = this.cidade
             console.log(getJson);
-            console.log("Cidade Atualizada!") 
+            console.log("Cidade Atualizada!")
         },
         err => {
           console.log(err.error);
@@ -81,7 +85,7 @@ export class CidadeComponent implements OnInit {
         getJson => {
             getJson = this.cidade
             console.log(getJson);
-            console.log("Cidade Criada!") 
+            console.log("Cidade Criada!")
         },
         err => {
           console.log(err.error);
@@ -97,6 +101,25 @@ export class CidadeComponent implements OnInit {
       .subscribe(
         ()=>console.log("Deletado!")
       );
-     
+
   }
+
+  carregarCidades() {
+
+    this.cidadeService.getCidades()
+      .subscribe(
+        getJson => {
+          this.cidades = getJson;
+          console.log(getJson);
+          console.log("Cidades carregadas!");
+        },
+        err => {
+          console.log(err.error);
+          this.mensagem = err.error;
+
+        }
+      );
+
+  }
+
 }

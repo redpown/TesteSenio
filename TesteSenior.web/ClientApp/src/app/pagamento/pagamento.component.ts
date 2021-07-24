@@ -11,7 +11,7 @@ import { PagamentoService } from '../services/pagamento/pagamento.services';
 @Component({
   selector: 'app-pagamento-component',
   templateUrl: './pagamento.component.html',
-  
+
 })
 
 
@@ -20,10 +20,10 @@ export class PagamentoComponent implements OnInit {
 
 //aqui só pego o retorno do Observable(q é m array) e jogo no subscribe
 
-  public pagamento: Pagamento;
-  public pagamentoId: number;
-  public returnUrl: string;
-  public mensagem: string;
+  public pagamento: Pagamento = new Pagamento();
+  public pagamentoId: number = 0;
+  public returnUrl: string = "";
+  public mensagem: string = "";
 
 
   constructor(private router: Router, private activatedRouter: ActivatedRoute, private service: PagamentoService, private datePipe: DatePipe) {
@@ -34,7 +34,7 @@ export class PagamentoComponent implements OnInit {
   ngOnInit() {
     this.returnUrl = this.activatedRouter.snapshot.queryParams['returnUrl'];
     this.pagamentoId = 0;
-    
+
     //para uso na variavel de templete as variaveis devem estar inicializadas
     this.pagamento = new Pagamento();
     this.pagamento.codigoPagamentoCondominio = 0;
@@ -46,19 +46,19 @@ export class PagamentoComponent implements OnInit {
     this.pagamento.metragem = 0;
     this.pagamento.andar = 0;
     this.pagamento.numeroQuartos  = 0;
-    this.pagamento.dataPagamento  = "01/01/2021"
-    this.pagamento.valorPagamento = null;
+    this.pagamento.dataPagamento = "";
+    this.pagamento.valorPagamento = 0.0;
   }
 
   Buscar(id: number) {
-    
-   
+
+
     this.service.getPagamentoById(id)
       .subscribe(
         getJson => {
           if (getJson != null) {
             this.pagamento = getJson;
-            this.pagamento.dataPagamento = this.datePipe.transform(getJson.dataPagamento, 'yyyy-MM-dd')
+            this.pagamento.dataPagamento = this.datePipe.transform(getJson.dataPagamento, 'yyyy-MM-dd')?.toString();
             console.log(getJson);
             console.log(this.pagamento);
           } else { console.log("getJson está vazio!")}
@@ -69,7 +69,7 @@ export class PagamentoComponent implements OnInit {
 
         }
       );
-  
+
   }
 
   Atualizar(pagamento: Pagamento) {
@@ -79,7 +79,7 @@ export class PagamentoComponent implements OnInit {
         getJson => {
           getJson = pagamento;
           console.log(getJson);
-         
+
           console.log("Pagamento Atualizado!")
         },
         err => {

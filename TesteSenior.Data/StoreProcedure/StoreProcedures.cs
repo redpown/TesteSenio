@@ -2,11 +2,10 @@
 
 namespace TesteSenior.Data.StoreProcedure
 {
-    public partial class StoreProcedures : Migration
+    public class StoreProceduresSPRankingCondominio 
     {
-		public string storeProcedure = @"
-            DROP PROCEDURE IF EXISTS dbo.sp_ranking_condominio
-			CREATE PROCEDURE sp_ranking_condominio(@dt_inicio as smalldatetime, @dt_termino as smalldatetime)
+		public const string STORE_PROCEDURE_SP_RANKING_CONDOMINIO = @"
+            CREATE OR ALTER PROCEDURE sp_ranking_condominio(@dt_inicio as smalldatetime, @dt_termino as smalldatetime)
 			AS
 			BEGIN
 				SET NOCOUNT ON;
@@ -75,18 +74,11 @@ namespace TesteSenior.Data.StoreProcedure
 				INNER JOIN #tbl_apartamentos A ON ( PC.CODIGO_APARTAMENTO = A.CODIGO_APARTAMENTO )
 				INNER JOIN #tbl_edificios ED ON ( ED.CODIGO_EDIFICIO = A.CODIGO_EDIFICIO )
 				INNER JOIN #tbl_cidades C ON ( C.CODIGO_CIDADE = ED.CODIGO_CIDADE )
-			END";
+			END;
+			CREATE OR ALTER VIEW [Products Above Average Price] AS
+				SELECT CODIGO_CIDADE, ESTADO
+				FROM TABELA_CIDADE;";
 
-		protected override void Up(MigrationBuilder migrationBuilder)
-        {
-
-			migrationBuilder.Sql(storeProcedure);
-
-		}
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-			migrationBuilder.Sql(storeProcedure);
-		}
+		
     }
 }

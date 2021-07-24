@@ -9,12 +9,12 @@ import { Cidade } from 'src/app/models/cidade-model/cidade';
 })
 export class CidadeService {
 //aqui crio funcoes que retonar apenas um Observable
-  private url: string;
-  //url = 'https://localhost:44324/api/TabelaCidade'; // api
+  public url: string =  document.getElementsByTagName('base')[0].href; // api
+
 
   // injetando o HttpClient
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.url = baseUrl + "api/TabelaCidade";
+  constructor(private httpClient: HttpClient) {
+    this.url = this.url + "api/TabelaCidade";
   }
 
   // Headers
@@ -22,7 +22,7 @@ export class CidadeService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  // Obtem todos os Cidades
+  // Obtem todos as Cidades
   getCidades(): Observable<Cidade[]> {
     return this.httpClient.get<Cidade[]>(this.url)
       .pipe(
@@ -50,8 +50,6 @@ export class CidadeService {
 
   // utualiza uma Cidade
   updateCidade(cidade: Cidade): Observable<Cidade> {
-                                       //url      ,body,                 , headers
-                                       //this.url, JSON.stringify(cidade), this.httpOptions)
     return this.httpClient.put<Cidade>(this.url, JSON.stringify(cidade), this.httpOptions)
       .pipe(
         retry(1),

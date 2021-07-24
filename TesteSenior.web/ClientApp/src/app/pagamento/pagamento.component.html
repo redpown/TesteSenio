@@ -109,22 +109,22 @@
 
 
 
-  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Buscar(pagamentoId)" [disabled]="ativar_spinner">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativar_spinner"></span>
+  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Buscar(pagamentoId)" >
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ></span>
     Buscar
   </button>
 
-  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Atualizar(pagamento)" [disabled]="ativar_spinner">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativar_spinner"></span>
+  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Atualizar(pagamento)" >
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ></span>
     Atualizar
   </button>
 
-  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Deletar(pagamentoId)" [disabled]="ativar_spinner">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativar_spinner"></span>
+  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Deletar(pagamentoId)" >
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ></span>
     Deletar
   </button>
-  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Criar(pagamento)" [disabled]="ativar_spinner">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativar_spinner"></span>
+  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Criar(pagamento)" >
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ></span>
     Criar
   </button>
 
@@ -132,7 +132,7 @@
 <!--
 
 prestar atencao no atributo name do input se tiverem o mesmo name , vai dar bug
-  (click)="entrar()" [disabled]="ativar_spinner"
+  (click)="entrar()"
 {
   "cep": "13181-720",
   "logradouro": "Rua Marcos Dutra Pereira",

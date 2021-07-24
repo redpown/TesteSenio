@@ -69,22 +69,22 @@
 
 
 
-  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Buscar(edificioId)" [disabled]="ativar_spinner">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"  *ngIf="ativar_spinner"></span>
+  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Buscar(edificioId)" >
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"  ></span>
     Buscar
   </button>
 
-  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Atualizar(edificio)" [disabled]="ativar_spinner">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"  *ngIf="ativar_spinner"></span>
+  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Atualizar(edificio)" >
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"  ></span>
     Atualizar
   </button>
 
-  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Deletar(edificioId)" [disabled]="ativar_spinner">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"  *ngIf="ativar_spinner"></span>
+  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Deletar(edificioId)" >
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"  ></span>
     Deletar
   </button>
-  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Criar(edificio)" [disabled]="ativar_spinner">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"  *ngIf="ativar_spinner"></span>
+  <button class="btn btn-primary btn-block mb-3" type="submit" (click)="Criar(edificio)" >
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"  ></span>
     Criar
   </button>
 
@@ -92,7 +92,7 @@
 <!--
 
 prestar atencao no atributo name do input se tiverem o mesmo name , vai dar bug
-  (click)="entrar()" [disabled]="ativar_spinner"
+  (click)="entrar()"
 {
   "cep": "13181-720",
   "logradouro": "Rua Marcos Dutra Pereira",

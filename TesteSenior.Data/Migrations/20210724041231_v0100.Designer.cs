@@ -10,8 +10,8 @@ using TesteSenior.Data.Context;
 namespace TesteSenior.Data.Migrations
 {
     [DbContext(typeof(TesteSeniorConext))]
-    [Migration("20210720162307_v001")]
-    partial class v001
+    [Migration("20210724041231_v0100")]
+    partial class v0100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,7 +92,7 @@ namespace TesteSenior.Data.Migrations
                         .HasColumnName("CODIGO_EDIFICIO");
 
                     b.HasKey("codigoApartamento")
-                        .HasName("CODIGO_APARTAMENTO");
+                        .HasName("CODIGO_APARTAMENTO_ID");
 
                     b.HasIndex("tabelaEdificioID");
 
@@ -187,7 +187,7 @@ namespace TesteSenior.Data.Migrations
                         .HasColumnName("NOME_CIDADE");
 
                     b.HasKey("codigoCidade")
-                        .HasName("CODIGO_CIDADE");
+                        .HasName("CODIGO_CIDADE_ID");
 
                     b.ToTable("TABELA_CIDADE");
 
@@ -260,7 +260,7 @@ namespace TesteSenior.Data.Migrations
                         .HasColumnName("CODIGO_CIDADE");
 
                     b.HasKey("codigoEdificio")
-                        .HasName("CODIGO_EDIFICIO");
+                        .HasName("CODIGO_EDIFICIO_ID");
 
                     b.HasIndex("tabelaCidadeId");
 
