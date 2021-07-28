@@ -18,7 +18,7 @@ namespace TesteSenior.Data.Repositories
     {
         public SPRankingCondominioRepository(TesteSeniorConext testeSeniorConext, IMapper mapper) : base(testeSeniorConext, mapper)
         {
-            testeSeniorConext.Database.ExecuteSqlRaw(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
+            
         }
               
     }

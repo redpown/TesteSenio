@@ -8,8 +8,8 @@
 						<h2>Gerenciar <b>Cidades</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a (click)="modalCriar(addEmployeeModal)" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Novo</span></a>
+						<a (click)="modalExcluir(deleteEmployeeModal)" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Excluir</span></a>
 					</div>
 				</div>
 			</div>
@@ -18,7 +18,7 @@
 					<tr>
 						<th>
 							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
+								<input type="checkbox" id="selectAll" checked ={{checkedBox}}>
 								<label for="selectAll"></label>
 							</span>
 						</th>
@@ -28,21 +28,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let cidade of cidades">
+					<tr *ngFor="let local of cidades">
 						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="0">
+							<span class="custom-checkbox" (click)="checkClick(local.codigoCidade)">
+								<input type="checkbox" id="checkbox1" name="options" value="1" checked = {{checkedBox}}>
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-            <td>{{cidade.nomeCidade}}</td>
-            <td>{{cidade.estado}}</td>
+						<td>{{local.nomeCidade}}</td>
+						<td>{{local.estado}}</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a  (click)="modalEditar(editEmployeeModal,local)" class="edit cursor" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+							<a  (click)="modalExcluirId(deleteEmployeeModal,local.codigoCidade)"    class="delete cursor" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Excluir">&#xE872;</i></a>
 						</td>
 					</tr>
-        </tbody>
+				</tbody>
 			</table>
 			<div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
@@ -57,98 +57,131 @@
 				</ul>
 			</div>
 		</div>
-	</div>        
-</div>
-<!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Add Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Edit Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Delete Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
-				</div>
-			</form>
-		</div>
 	</div>
 </div>
 
+<!-- Edit Modal HTML -->
+<ng-template #addEmployeeModal let-c="close" let-d="dismiss" class="modal fade">
+			<form>
+				<div class="modal-header">
+					<h4 class="modal-title">Nova Cidade</h4>
+					<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Nome da Cidade</label>
+						<input type="text" class="form-control"
+									  id ="nomeCidade"
+									  placeholder="Teste"
+									  name="nomeCidade"
+									  #nomeCidade="ngModel"
+									  [(ngModel)]="cidade.nomeCidade"
+								 required>
+					</div>
+					
+					<div class="form-group">
+						<label>Estado</label>
+						<input type="text" class="form-control" 
+						id ="codigoCidade"
+							placeholder="Teste"
+							name="estado"
+							#estado="ngModel"
+							[(ngModel)]="cidade.estado"
+						required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" (click)="modalCancelar(addEmployeeModal)" value="Cancelar">
+					<input  (click)="Criar(cidade)" type="submit" class="btn btn-success" value="Salvar">
+				</div>
+			</form>
+</ng-template>
+
+<!-- Edit Modal HTML -->
+<ng-template #editEmployeeModal let-c="close" let-d="dismiss" class="modal fade">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Edit Employee</h4>
+						<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+						<label>Nome da Cidade</label>
+						<input type="text" class="form-control"
+									  id ="nomeCidade"
+									  placeholder="Teste"
+									  name="nomeCidade"
+									  #nomeCidade="ngModel"
+									  [(ngModel)]="cidade.nomeCidade"
+								 required>
+						</div>
+						
+						<div class="form-group">
+							<label>Estado</label>
+							<input type="text" class="form-control" 
+								id ="estado"
+								placeholder="Teste"
+								name="estado"
+								#estado="ngModel"
+								[(ngModel)]="cidade.estado"
+							required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" (click)="modalCancelar(editEmployeeModal)" value="Cancelar">
+						<input type="submit" class="btn btn-info" (click)="atualizarSelecionado()"value="Salvar">
+					</div>
+				</form>
+</ng-template>
+
+	<!-- Delete Modal HTML -->
+<ng-template #deleteEmployeeModal let-c="close" let-d="dismiss" class="modal fade">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Delete Employee</h4>
+						<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" (click)="modalCancelar(deleteEmployeeModal)" value="Cancelar">
+						<input type="submit" class="btn btn-danger" (click)="excluirSelecionado(cidadeId)"value="Excluir">
+					</div>
+				</form>
+			</ng-template>
+
+	<ng-template #content let-c="close" let-d="dismiss">
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+			<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<p>Hello, World!</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+		</div>
+	</ng-template>
+
+	<!--<button class="btn btn-lg btn-outline-primary" (click)="open(editEmployeeModal)">Launch demo modal</button>-->
+	<ng-template #alertas let-c="close" let-d="dismiss" class="modal fade">
+		<form>
+			<div class="modal-header">
+				<h4 class="modal-title">Selecionar um item para exclusão</h4>
+				<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Você não selecionou nenhum item para excluir</p>
+				<p class="text-warning"><small>Favor selecionar um item.</small></p>
+			</div>
+			<div class="modal-footer">
+				<input type="button" class="btn btn-default" aria-label="Close" (click)="d('Cross click')">
+				
+			</div>
+		</form>
+	</ng-template>
 

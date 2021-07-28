@@ -1,8 +1,8 @@
 export class Edificio {
-  public codigoEdificio:number;
-  public nomeCidade: string;
-  public estado: string;
-  public nomeEdificio: string;
-  public andares:number;
-  public numeroAptoAndar: number;
+  public codigoEdificio:number = 0;
+  public nomeCidade: string = "";
+  public estado: string = "";
+  public nomeEdificio: string = "";
+  public andares: number = 0;
+  public numeroAptoAndar: number = 0;
   }

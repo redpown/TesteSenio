@@ -22,6 +22,7 @@ using testesenior.domain.Entity;
 using testesenior.domain.Interface;
 using testesenior.Domain.DTO;
 using TesteSenior.Data.Context;
+using TesteSenior.Data.StoreProcedure;
 using TesteSenior.Service.Service;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -34,10 +35,13 @@ namespace TesteSenior.web.Controllers
     {
 
         private readonly TabelaSPRankingCondominioService _ISPRankingCondominioRepository;
+        public  TesteSeniorConext _teste = new TesteSeniorConext();
 
         public SPRankingCondominioController(TabelaSPRankingCondominioService iSPRankingCondominioRepository)
         {
             _ISPRankingCondominioRepository = iSPRankingCondominioRepository;
+            //_context.Database.ExecuteSqlInterpolatedAsync(sql);
+           
         }
 
 

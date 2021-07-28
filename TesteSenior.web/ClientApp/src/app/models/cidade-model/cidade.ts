@@ -1,5 +1,11 @@
 export class Cidade {
-  codigoCidade: number;
-  nomeCidade: string;
-  estado: string;
+  public codigoCidade: number = 0;
+  public nomeCidade: string = "";
+  public estado: string = "";
+
+   public  Limpar(){
+      this.codigoCidade = 0;
+      this.nomeCidade = "";
+      this.estado = "";
+    }
   }
