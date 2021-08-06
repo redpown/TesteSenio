@@ -26,6 +26,7 @@ export class CidadeComponent implements OnInit {
 
   public cidade: Cidade = new Cidade();
   public cidadeId: number[] = [];
+  public atencao: number = 0;
   public returnUrl: string = "";
   public checkedBox: boolean = false;
   public mensagem: string = "";
@@ -159,6 +160,13 @@ export class CidadeComponent implements OnInit {
    }
 
    modalExcluir(templateID: any) {
+     console.log(this.cidadeId)
+    if(this.cidadeId.length>0){
+      this.atencao = 0;
+    }
+    else{
+      this.atencao = 1;
+    }
     this.modalService.open(templateID);
    }
    modalExcluirId(templateID: any,id:number) {
@@ -170,10 +178,20 @@ export class CidadeComponent implements OnInit {
     this.modalService.dismissAll();
     this.cidade.Limpar();
    }
-   checkClickTrueFalse(){
-      if(this.checkedBox===false){
-        this.checkedBox=true;
-      }else{this.checkedBox=false;}
+   checkClickTrueFalse(caixa:boolean){
+      if(caixa == false){
+       
+        caixa = true;
+        console.log("caixa = true: " +caixa);
+        //return null;
+      }else{
+       
+        caixa = false;
+        console.log("caixa = false :"+caixa);
+        //return true;
+     }
+       //this.ngOnInit();
+      
    }
    checkClick(id:number){
 let vetor:any = this.cidadeId.find(f => f == id);
@@ -194,15 +212,13 @@ let vetor:any = this.cidadeId.find(f => f == id);
     console.log(this.cidadeId);
    }
    excluirSelecionado(id:number[]){
-     if(id.length>0)
-        for(var i =0;i<id.length;i++){
-          this.Deletar(id[i]);
-        }else{
-          this.modalCriar(this.templateref);
-        }
-     
-     this.modalService.dismissAll();
-   }
+
+    for(var i =0;i<id.length;i++){
+      this.Deletar(id[i]);
+      this.modalService.dismissAll();
+    }
+    this.cidadeId=[];
+  }
    atualizarSelecionado(){
     this.Atualizar(this.cidade)
     this.modalService.dismissAll();
