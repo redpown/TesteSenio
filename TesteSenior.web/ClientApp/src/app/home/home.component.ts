@@ -11,10 +11,10 @@ import { CidadeService } from '../services/cidade/cidade.services';
 export class HomeComponent implements OnInit {
   //aqui só pego o retorno do Observable(q é m array) e jogo no subscribe
 
-  public cidades: Cidade[];
-  public msg: string;
-  public returnUrl: string;
-  public mensagem: string;
+  public cidades: Cidade[] = [];
+  public msg: string = "";
+  public returnUrl: string = "";
+  public mensagem: string = "";
 
   ngOnInit() {
     this.returnUrl = this.activatedRouter.snapshot.queryParams['returnUrl'];

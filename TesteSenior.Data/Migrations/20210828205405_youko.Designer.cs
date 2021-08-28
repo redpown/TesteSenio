@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TesteSenior.Data.Context;
 
 namespace TesteSenior.Data.Migrations
 {
     [DbContext(typeof(TesteSeniorConext))]
-    partial class TesteSeniorConextModelSnapshot : ModelSnapshot
+    [Migration("20210828205405_youko")]
+    partial class youko
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -31,7 +31,7 @@
 					<tr *ngFor="let local of cidades">
 						<td>
 							<span class="custom-checkbox" (click)="checkClick(local.codigoCidade)">
-								<input type="checkbox" id="checkbox-c-{{local.codigoCidade}}" name="options" value="1" [checked]="local.checkbox" (change)="checkClickTrueFalse(local.checkbox)">
+								<input type="checkbox" id="checkbox-c-{{local.codigoCidade}}" name="options" value="1" [checked]="local.checkbox" (change)="checkClickTrueFalse(local.checkbox)"  [(ngModel)]="local.checkbox" >
 								<label for="checkbox-c-{{local.codigoCidade}}"></label>
 							</span>
 						</td>

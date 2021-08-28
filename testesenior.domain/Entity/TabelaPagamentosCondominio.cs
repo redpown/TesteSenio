@@ -16,7 +16,7 @@ namespace testesenior.domain.Entity
         public int codigoPagamentoCondominio { get; set; }
         //[ForeignKey("CODIGO_APARTAMENTO")]
         public virtual TabelaApartamento tabelaApartamento { get; set; }
-
+        //[ForeignKey("CODIGO_APARTAMENTO")]
         public int tabelaApartamentoID { get; set; }
         //[Column("DATA_PAGAMENTO")]
         public DateTime dataPagamento { get; set; }

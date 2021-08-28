@@ -17,10 +17,10 @@ export class ApartamentoComponent implements OnInit {
 
 //aqui só pego o retorno do Observable(q é m array) e jogo no subscribe
 
-  public apartamento: Apartamento;
-  public apartamentoId: number;
-  public returnUrl: string;
-  public mensagem: string;
+  public apartamento: Apartamento = new Apartamento();
+  public apartamentoId: number = 0;
+  public returnUrl: string = "";
+  public mensagem: string = "";
 
 
   constructor(private router: Router, private activatedRouter: ActivatedRoute, private service: ApartamentoService) {
@@ -32,7 +32,7 @@ export class ApartamentoComponent implements OnInit {
     this.returnUrl = this.activatedRouter.snapshot.queryParams['returnUrl'];
     this.apartamentoId = 0;
     //para uso na variavel de templete as variaveis devem estar inicializadas
-    this.apartamento = new Apartamento();
+    
     this.apartamento.codigoApartamento = 0;
     this.apartamento.nomeCidade = "";
     this.apartamento.estado = "";

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using testesenior.domain.Entity;
 using testesenior.Domain.DTO;
+using testesenior.Domain.Entity;
 using TesteSenior.Data.Config;
 using TesteSenior.Data.StoreProcedure;
 
@@ -23,6 +24,8 @@ namespace TesteSenior.Data.Context
 
         public DbSet<TabelaPagamentosCondominio> tabelaPagamentosCondominios { get; set; }
 
+        public DbSet<Usuario> usuarios { get; set; }
+
         public DbSet<SPRankingCondominio> spRankingCondominio { get; set; }
 
         public TesteSeniorConext(DbContextOptions options) : base(options)
@@ -38,6 +41,7 @@ namespace TesteSenior.Data.Context
             modelBuilder.ApplyConfiguration(new TabelaCidadeConfiguration());
             modelBuilder.ApplyConfiguration(new TabelaEdificioConfiguration());
             modelBuilder.ApplyConfiguration(new TabelaPagamentosCondominioConfiguration());
+            modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
             modelBuilder.ApplyConfiguration(new SPRankingCondominioConfiguration());
            
         }

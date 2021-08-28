@@ -108,6 +108,7 @@ namespace TesteSenior.web
             app.UseCors("Cors");
 
             // Register the Swagger generator and the Swagger UI middlewares
+            app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
