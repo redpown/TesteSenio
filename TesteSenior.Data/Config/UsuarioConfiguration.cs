@@ -14,7 +14,13 @@ namespace TesteSenior.Data.Config
             builder.ToTable("TABELA_USUARIOS");
 
             builder.HasKey(tabelaUsuario => tabelaUsuario.id)
-                .HasName("USUARIO_ID");
+                .HasName("USUARIO_IDS");
+
+            builder.Property(tabelaUsuario => tabelaUsuario.id)
+                .ValueGeneratedOnAdd()
+                .HasMaxLength(50)
+                .HasColumnName("USUARIO_ID");
+               
 
             builder.Property(tabelaUsuario => tabelaUsuario.nome)
                 .HasMaxLength(50)
@@ -24,14 +30,14 @@ namespace TesteSenior.Data.Config
                 .HasMaxLength(50)
                 .HasColumnName("USUARIO_EMAIL");
 
-            builder.Property(tabelaUsuario => tabelaUsuario.Senha)
+            builder.Property(tabelaUsuario => tabelaUsuario.senha)
                 .HasMaxLength(256)
                 .HasColumnName("USUARIO_SENHA");
 
             builder.HasData(
 
-                new { id = 1, nome = "andre", email = "teste@teste.com", senha = "1234" },
-                new { id = 2, nome = "youko", email = "teste@teste.com", senha = "1234" }
+                new Usuario{ id = 1, nome = "andre", email = "teste@teste.com", senha = "1234"},
+                new Usuario { id = 2, nome = "youko", email = "teste@teste.com", senha = "1234"}
                 
                );
 

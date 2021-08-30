@@ -60,17 +60,263 @@ namespace TesteSenior.Data.Migrations
                     b.ToTable("spRankingCondominio");
                 });
 
-            modelBuilder.Entity("testesenior.Domain.Entity.Usuario", b =>
+            modelBuilder.Entity("testesenior.Domain.Entity.Coleta", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("COLETAS_ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Senha")
+                    b.Property<string>("descricao")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("COLETA_DESCRICAO");
+
+                    b.HasKey("id")
+                        .HasName("COLETA_IDS");
+
+                    b.ToTable("TABELA_COLETA");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            descricao = "Recebido"
+                        },
+                        new
+                        {
+                            id = 2,
+                            descricao = "Recoleta"
+                        },
+                        new
+                        {
+                            id = 3,
+                            descricao = "Não Coletado"
+                        });
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.ExameStatus", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasColumnName("EXAMES_STATUS_ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("descricao")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("EXAMES_STATUS_DESCRICAO");
+
+                    b.HasKey("id")
+                        .HasName("EXAMES_STATUS_IDS");
+
+                    b.ToTable("TABELA_EXAMES_STATUS");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            descricao = "Aguaradando Liberação"
+                        },
+                        new
+                        {
+                            id = 2,
+                            descricao = "Liberado"
+                        },
+                        new
+                        {
+                            id = 3,
+                            descricao = "Enviado"
+                        });
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.Exames", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasColumnName("EXAMES_ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("descricao")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("EXAME_DESCRICAO");
+
+                    b.HasKey("id")
+                        .HasName("EXAMES_IDS");
+
+                    b.ToTable("TABELA_EXAMES");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            descricao = "Ureia"
+                        },
+                        new
+                        {
+                            id = 2,
+                            descricao = "Creatinina"
+                        },
+                        new
+                        {
+                            id = 3,
+                            descricao = "Urina 1"
+                        },
+                        new
+                        {
+                            id = 4,
+                            descricao = "Hemograma"
+                        },
+                        new
+                        {
+                            id = 5,
+                            descricao = "LDH"
+                        },
+                        new
+                        {
+                            id = 6,
+                            descricao = "Ácido Úrico"
+                        },
+                        new
+                        {
+                            id = 7,
+                            descricao = "HIV"
+                        },
+                        new
+                        {
+                            id = 8,
+                            descricao = "HBSAG"
+                        });
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.QualidadeMetricas", b =>
+                {
+                    b.Property<int>("qmId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasColumnName("QM_ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("qmColetaId")
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasColumnName("QM_COLETA_ID");
+
+                    b.Property<DateTime>("qmData")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("USUARIO_SENHA");
+                        .HasColumnType("date")
+                        .HasColumnName("QM_DATA");
+
+                    b.Property<int>("qmExameId")
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasColumnName("QM_EXAME_ID");
+
+                    b.Property<int>("qmExameStatusId")
+                        .HasMaxLength(256)
+                        .HasColumnType("int")
+                        .HasColumnName("QM_EXAME_STATUS_ID");
+
+                    b.Property<int>("qmQuantidade")
+                        .HasMaxLength(256)
+                        .HasColumnType("int")
+                        .HasColumnName("QM_QUANTIDADE");
+
+                    b.Property<int>("qmTipoExame")
+                        .HasMaxLength(256)
+                        .HasColumnType("int")
+                        .HasColumnName("QN_TIPO");
+
+                    b.Property<int>("qmTotal")
+                        .HasMaxLength(256)
+                        .HasColumnType("int")
+                        .HasColumnName("QM_TOTAL");
+
+                    b.HasKey("qmId")
+                        .HasName("QUALIDADEMETRICAS_IDS");
+
+                    b.HasIndex("qmColetaId");
+
+                    b.HasIndex("qmExameId");
+
+                    b.HasIndex("qmExameStatusId");
+
+                    b.HasIndex("qmTipoExame");
+
+                    b.ToTable("TABELA_QUALIDADEMETRICAS");
+
+                    b.HasData(
+                        new
+                        {
+                            qmId = 1,
+                            qmColetaId = 1,
+                            qmData = new DateTime(2011, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            qmExameId = 1,
+                            qmExameStatusId = 1,
+                            qmQuantidade = 1,
+                            qmTipoExame = 1,
+                            qmTotal = 1
+                        },
+                        new
+                        {
+                            qmId = 2,
+                            qmColetaId = 2,
+                            qmData = new DateTime(2015, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            qmExameId = 2,
+                            qmExameStatusId = 2,
+                            qmQuantidade = 2,
+                            qmTipoExame = 2,
+                            qmTotal = 2
+                        });
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.TipoExame", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasColumnName("TIPO_EXAMES_ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("descricao")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("TIPO_EXAME_DESCRICAO");
+
+                    b.HasKey("id")
+                        .HasName("TIPO_EXAME_IDS");
+
+                    b.ToTable("TABELA_TIPO_EXAME");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            descricao = "Interno"
+                        },
+                        new
+                        {
+                            id = 2,
+                            descricao = "Externo"
+                        });
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.Usuario", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasColumnName("USUARIO_ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("email")
                         .HasMaxLength(50)
@@ -82,8 +328,13 @@ namespace TesteSenior.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("USUARIO_NOME");
 
+                    b.Property<string>("senha")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("USUARIO_SENHA");
+
                     b.HasKey("id")
-                        .HasName("USUARIO_ID");
+                        .HasName("USUARIO_IDS");
 
                     b.ToTable("TABELA_USUARIOS");
 
@@ -92,13 +343,15 @@ namespace TesteSenior.Data.Migrations
                         {
                             id = 1,
                             email = "teste@teste.com",
-                            nome = "andre"
+                            nome = "andre",
+                            senha = "1234"
                         },
                         new
                         {
                             id = 2,
                             email = "teste@teste.com",
-                            nome = "youko"
+                            nome = "youko",
+                            senha = "1234"
                         });
                 });
 
@@ -461,6 +714,33 @@ namespace TesteSenior.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("testesenior.Domain.Entity.QualidadeMetricas", b =>
+                {
+                    b.HasOne("testesenior.Domain.Entity.Coleta", null)
+                        .WithMany("qmId")
+                        .HasForeignKey("qmColetaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("testesenior.Domain.Entity.Exames", null)
+                        .WithMany("qmId")
+                        .HasForeignKey("qmExameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("testesenior.Domain.Entity.ExameStatus", null)
+                        .WithMany("qmId")
+                        .HasForeignKey("qmExameStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("testesenior.Domain.Entity.TipoExame", null)
+                        .WithMany("qmId")
+                        .HasForeignKey("qmTipoExame")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("testesenior.domain.Entity.TabelaApartamento", b =>
                 {
                     b.HasOne("testesenior.domain.Entity.TabelaEdificio", "tabelaEdificio")
@@ -492,6 +772,26 @@ namespace TesteSenior.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("tabelaApartamento");
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.Coleta", b =>
+                {
+                    b.Navigation("qmId");
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.ExameStatus", b =>
+                {
+                    b.Navigation("qmId");
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.Exames", b =>
+                {
+                    b.Navigation("qmId");
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.TipoExame", b =>
+                {
+                    b.Navigation("qmId");
                 });
 #pragma warning restore 612, 618
         }

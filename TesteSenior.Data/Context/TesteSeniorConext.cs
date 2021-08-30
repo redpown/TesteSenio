@@ -26,6 +26,12 @@ namespace TesteSenior.Data.Context
 
         public DbSet<Usuario> usuarios { get; set; }
 
+        public DbSet<QualidadeMetricas> qualidadeMetricas { get; set; }
+        public DbSet<Exames> sxames { get; set; }
+        public DbSet<ExameStatus> exameStatus { get; set; }
+        public DbSet<TipoExame> tipoExame { get; set; }
+        public DbSet<Coleta> Coleta { get; set; }
+
         public DbSet<SPRankingCondominio> spRankingCondominio { get; set; }
 
         public TesteSeniorConext(DbContextOptions options) : base(options)
@@ -42,6 +48,11 @@ namespace TesteSenior.Data.Context
             modelBuilder.ApplyConfiguration(new TabelaEdificioConfiguration());
             modelBuilder.ApplyConfiguration(new TabelaPagamentosCondominioConfiguration());
             modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
+            modelBuilder.ApplyConfiguration(new QualidadeMetricasConfiguration());
+            modelBuilder.ApplyConfiguration(new ExameConfiguration());
+            modelBuilder.ApplyConfiguration(new ExameStatusConfiguration());
+            modelBuilder.ApplyConfiguration(new TipoExameConfiguration());
+            modelBuilder.ApplyConfiguration(new ColetaConfiguration());
             modelBuilder.ApplyConfiguration(new SPRankingCondominioConfiguration());
            
         }

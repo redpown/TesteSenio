@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TesteSenior.Data.Migrations
 {
-    public partial class v0100 : Migration
+    public partial class youko9995 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,6 +40,73 @@ namespace TesteSenior.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TABELA_COLETA",
+                columns: table => new
+                {
+                    COLETAS_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    COLETA_DESCRICAO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("COLETA_IDS", x => x.COLETAS_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TABELA_EXAMES",
+                columns: table => new
+                {
+                    EXAMES_ID = table.Column<int>(type: "int", maxLength: 50, nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EXAME_DESCRICAO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("EXAMES_IDS", x => x.EXAMES_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TABELA_EXAMES_STATUS",
+                columns: table => new
+                {
+                    EXAMES_STATUS_ID = table.Column<int>(type: "int", maxLength: 50, nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EXAMES_STATUS_DESCRICAO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("EXAMES_STATUS_IDS", x => x.EXAMES_STATUS_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TABELA_TIPO_EXAME",
+                columns: table => new
+                {
+                    TIPO_EXAMES_ID = table.Column<int>(type: "int", maxLength: 50, nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TIPO_EXAME_DESCRICAO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("TIPO_EXAME_IDS", x => x.TIPO_EXAMES_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TABELA_USUARIOS",
+                columns: table => new
+                {
+                    USUARIO_ID = table.Column<int>(type: "int", maxLength: 50, nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    USUARIO_NOME = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    USUARIO_EMAIL = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    USUARIO_SENHA = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("USUARIO_IDS", x => x.USUARIO_ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TABELA_EDIFICIO",
                 columns: table => new
                 {
@@ -58,6 +125,49 @@ namespace TesteSenior.Data.Migrations
                         column: x => x.CODIGO_CIDADE,
                         principalTable: "TABELA_CIDADE",
                         principalColumn: "CODIGO_CIDADE",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TABELA_QUALIDADEMETRICAS",
+                columns: table => new
+                {
+                    QM_ID = table.Column<int>(type: "int", maxLength: 50, nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QM_TOTAL = table.Column<int>(type: "int", maxLength: 256, nullable: false),
+                    QM_EXAME_ID = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    QM_QUANTIDADE = table.Column<int>(type: "int", maxLength: 256, nullable: false),
+                    QM_COLETA_ID = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    QN_TIPO = table.Column<int>(type: "int", maxLength: 256, nullable: false),
+                    QM_EXAME_STATUS_ID = table.Column<int>(type: "int", maxLength: 256, nullable: false),
+                    QM_DATA = table.Column<DateTime>(type: "datetime2", maxLength: 256, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("QUALIDADEMETRICAS_IDS", x => x.QM_ID);
+                    table.ForeignKey(
+                        name: "FK_TABELA_QUALIDADEMETRICAS_TABELA_COLETA_QM_COLETA_ID",
+                        column: x => x.QM_COLETA_ID,
+                        principalTable: "TABELA_COLETA",
+                        principalColumn: "COLETAS_ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TABELA_QUALIDADEMETRICAS_TABELA_EXAMES_QM_EXAME_ID",
+                        column: x => x.QM_EXAME_ID,
+                        principalTable: "TABELA_EXAMES",
+                        principalColumn: "EXAMES_ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TABELA_QUALIDADEMETRICAS_TABELA_EXAMES_STATUS_QM_EXAME_STATUS_ID",
+                        column: x => x.QM_EXAME_STATUS_ID,
+                        principalTable: "TABELA_EXAMES_STATUS",
+                        principalColumn: "EXAMES_STATUS_ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TABELA_QUALIDADEMETRICAS_TABELA_TIPO_EXAME_QN_TIPO",
+                        column: x => x.QN_TIPO,
+                        principalTable: "TABELA_TIPO_EXAME",
+                        principalColumn: "TIPO_EXAMES_ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -115,6 +225,15 @@ namespace TesteSenior.Data.Migrations
                     { 4, "SP", "Sorocaba" },
                     { 5, "SP", "Jundiaí" },
                     { 6, "SP", "Hortolândia" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TABELA_USUARIOS",
+                columns: new[] { "USUARIO_ID", "USUARIO_EMAIL", "USUARIO_NOME", "USUARIO_SENHA" },
+                values: new object[,]
+                {
+                    { 1, "teste@teste.com", "andre", "1234" },
+                    { 2, "teste@teste.com", "youko", "1234" }
                 });
 
             migrationBuilder.InsertData(
@@ -176,6 +295,26 @@ namespace TesteSenior.Data.Migrations
                 name: "IX_TABELA_PAGAMENTOS_CONDOMINIO_CODIGO_APARTAMENTO",
                 table: "TABELA_PAGAMENTOS_CONDOMINIO",
                 column: "CODIGO_APARTAMENTO");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TABELA_QUALIDADEMETRICAS_QM_COLETA_ID",
+                table: "TABELA_QUALIDADEMETRICAS",
+                column: "QM_COLETA_ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TABELA_QUALIDADEMETRICAS_QM_EXAME_ID",
+                table: "TABELA_QUALIDADEMETRICAS",
+                column: "QM_EXAME_ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TABELA_QUALIDADEMETRICAS_QM_EXAME_STATUS_ID",
+                table: "TABELA_QUALIDADEMETRICAS",
+                column: "QM_EXAME_STATUS_ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TABELA_QUALIDADEMETRICAS_QN_TIPO",
+                table: "TABELA_QUALIDADEMETRICAS",
+                column: "QN_TIPO");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -187,7 +326,25 @@ namespace TesteSenior.Data.Migrations
                 name: "TABELA_PAGAMENTOS_CONDOMINIO");
 
             migrationBuilder.DropTable(
+                name: "TABELA_QUALIDADEMETRICAS");
+
+            migrationBuilder.DropTable(
+                name: "TABELA_USUARIOS");
+
+            migrationBuilder.DropTable(
                 name: "TABELA_APARTAMENTO");
+
+            migrationBuilder.DropTable(
+                name: "TABELA_COLETA");
+
+            migrationBuilder.DropTable(
+                name: "TABELA_EXAMES");
+
+            migrationBuilder.DropTable(
+                name: "TABELA_EXAMES_STATUS");
+
+            migrationBuilder.DropTable(
+                name: "TABELA_TIPO_EXAME");
 
             migrationBuilder.DropTable(
                 name: "TABELA_EDIFICIO");

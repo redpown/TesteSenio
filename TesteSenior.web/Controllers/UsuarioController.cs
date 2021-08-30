@@ -16,44 +16,46 @@ namespace TesteSenior.web.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly UsuarioService _IUsuarioService;
+        private readonly UsuarioService _usuarioService;
 
-        public UsuarioController(UsuarioService iTabelaApartamentoRepository, IMapper mapper)
+        public UsuarioController(UsuarioService usuarioService, IMapper mapper)
         {
-            _IUsuarioService = iTabelaApartamentoRepository;
+            _usuarioService = usuarioService;
             _mapper = mapper;
         }
-
         // GET: api/<UsuarioController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Usuario> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _usuarioService.GetAllUsuario();
         }
 
         // GET api/<UsuarioController>/5
-        [HttpGet]
-        public Usuario Get([FromBody] Usuario user )
+        [HttpGet("{id}")]
+        public Usuario Get(int id)
         {
-            return _IUsuarioService.GetUsuario(user);
-        }
+            return _usuarioService.Select(id);
+;        }
 
         // POST api/<UsuarioController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] UsuarioDTO value)
         {
+            _usuarioService.InsertDTO(value);
         }
 
         // PUT api/<UsuarioController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put([FromBody] Usuario value)
         {
+            _usuarioService.UpdateByDTO(value);
         }
 
         // DELETE api/<UsuarioController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+             _usuarioService.DeleteId(id);
         }
     }
 }

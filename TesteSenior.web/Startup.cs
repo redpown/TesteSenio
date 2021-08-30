@@ -65,7 +65,7 @@ namespace TesteSenior.web
                UsePageLocksOnDequeue = false,
                DisableGlobalLocks = false
            }));
-
+            //registra os servicos para serem executados pelo aplicacao
             services.AddAutoMapper(typeof(EntityDtoProfile), typeof(DtoEntityProfile));
 
             
@@ -74,6 +74,9 @@ namespace TesteSenior.web
             services.AddScoped<TabelaEdificioService>();
             services.AddScoped<TabelaPagamentoService>();
             services.AddScoped<TabelaSPRankingCondominioService>();
+            services.AddScoped<UsuarioService>();
+            services.AddScoped<QualidadeMetricasService>();
+            
 
             // Add the processing server as IHostedService
             services.AddHangfireServer();
