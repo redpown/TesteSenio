@@ -3,7 +3,7 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">TesteSenior.web</a>
+      <a class="navbar-brand" [routerLink]="['/']">Metricas de Qualidade</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -20,30 +20,23 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
-           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/apartamento']"
-              >Apartamento</a
-            >
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/apartamento']">Apartamento</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/edificio']"
-              >Edificio</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/edificio']">Edificio</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/cidade']"
-              >Cidade</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/cidade']">Cidade</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/pagamento']"
-              >Pagamento</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/pagamento']">Pagamento</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/Ranking-Condominio']"
-              >SP Ranking Condominio</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/Ranking-Condominio']">SP Ranking Condominio</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/metricas-de-qualidade']">Metricas de Qualidade</a>
           </li>
         </ul>
       </div>

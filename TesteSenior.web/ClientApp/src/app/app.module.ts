@@ -18,6 +18,9 @@ import { ApartamentoService } from './services/apartamento/apartamento.services'
 import { PagamentoService } from './services/pagamento/pagamento.services';
 import { SPRankingCondominioService } from './services/sprankingcondominio/sprankingcondominio.services';
 import { SPRankingCondominioComponent } from './sprankingcondominio/sprankingcondominio.component';
+import { QualidadeMetricasComponent } from './qualidademetricas/qualidademetricas.component';
+import { QualidadeMetricasService } from './services/qualidade-metricas/qualidade-metricas.services';
+import { GenericoService } from './services/generico/generico.services';
 
 
 @NgModule({
@@ -29,6 +32,7 @@ import { SPRankingCondominioComponent } from './sprankingcondominio/sprankingcon
     EdificioComponent,
     PagamentoComponent,
     ApartamentoComponent,
+    QualidadeMetricasComponent,
     SPRankingCondominioComponent
 
   ],
@@ -42,10 +46,12 @@ import { SPRankingCondominioComponent } from './sprankingcondominio/sprankingcon
       { path: 'edificio', component: EdificioComponent },
       { path: 'cidade', component: CidadeComponent },
       { path: 'pagamento', component: PagamentoComponent },
+      { path: 'metricas-de-qualidade', component: QualidadeMetricasComponent },
       { path: 'Ranking-Condominio', component: SPRankingCondominioComponent }
     ])
   ],
   providers: [CidadeService, EdificioService, ApartamentoService, PagamentoService, SPRankingCondominioService,
+    QualidadeMetricasService, GenericoService,
     DatePipe],
   bootstrap: [AppComponent]
 })

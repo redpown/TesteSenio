@@ -76,7 +76,11 @@ namespace TesteSenior.web
             services.AddScoped<TabelaSPRankingCondominioService>();
             services.AddScoped<UsuarioService>();
             services.AddScoped<QualidadeMetricasService>();
-            
+            services.AddScoped<TipoExameService>();
+            services.AddScoped<ExameStatusService>();
+            services.AddScoped<ExamesService>();
+            services.AddScoped<ColetasService>();
+
 
             // Add the processing server as IHostedService
             services.AddHangfireServer();
