@@ -21,6 +21,8 @@ import { SPRankingCondominioComponent } from './sprankingcondominio/sprankingcon
 import { QualidadeMetricasComponent } from './qualidademetricas/qualidademetricas.component';
 import { QualidadeMetricasService } from './services/qualidade-metricas/qualidade-metricas.services';
 import { GenericoService } from './services/generico/generico.services';
+import { ChartsModule } from 'ng2-charts';
+import { DashBoardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -33,13 +35,15 @@ import { GenericoService } from './services/generico/generico.services';
     PagamentoComponent,
     ApartamentoComponent,
     QualidadeMetricasComponent,
-    SPRankingCondominioComponent
+    SPRankingCondominioComponent,
+    DashBoardComponent
 
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ChartsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'apartamento', component: ApartamentoComponent },
@@ -47,7 +51,9 @@ import { GenericoService } from './services/generico/generico.services';
       { path: 'cidade', component: CidadeComponent },
       { path: 'pagamento', component: PagamentoComponent },
       { path: 'metricas-de-qualidade', component: QualidadeMetricasComponent },
+      { path: 'dashboard', component: DashBoardComponent },
       { path: 'Ranking-Condominio', component: SPRankingCondominioComponent }
+      
     ])
   ],
   providers: [CidadeService, EdificioService, ApartamentoService, PagamentoService, SPRankingCondominioService,
