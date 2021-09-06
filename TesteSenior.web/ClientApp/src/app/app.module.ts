@@ -23,6 +23,8 @@ import { QualidadeMetricasService } from './services/qualidade-metricas/qualidad
 import { GenericoService } from './services/generico/generico.services';
 import { ChartsModule } from 'ng2-charts';
 import { DashBoardComponent } from './dashboard/dashboard.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import { DashBoardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     FormsModule,
     ChartsModule,
+    NgxPaginationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'apartamento', component: ApartamentoComponent },

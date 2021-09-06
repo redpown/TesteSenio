@@ -35,7 +35,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let dadosQm of qualidadeMetricas">
+          <tr *ngFor="let dadosQm of qualidadeMetricas | paginate : {
+            itemsPerPage: pageSize,
+            currentPage: page,
+            totalItems: count
+          };
+    let i = index
+  "
+  [class.active]="i == currentIndex">
             <td>
               <span class="custom-checkbox">
                 <input type="checkbox" id="checkbox-c-{{dadosQm.qmId}}" name="options" value="1">
@@ -60,6 +67,7 @@
         </tbody>
       </table>
       <div class="clearfix">
+        <!--
         <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
         <ul class="pagination">
           <li class="page-item disabled"><a href="#">Previous</a></li>
@@ -71,6 +79,17 @@
           <li class="page-item"><a href="#" class="page-link">Next</a></li>
         </ul>
       </div>
+    -->
+
+    <div class="col-md-12">
+      <pagination-controls
+      previousLabel="Anterior"
+      nextLabel="Proximo"
+      [responsive]="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+    </div>
+
     </div>
   </div>
 </div>

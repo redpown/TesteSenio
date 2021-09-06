@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Inject, Injectable, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Generic } from '../models/generic-model/generic';
 import { QualidadeMetricas } from '../models/qualidade-metricas-model/qualidade-metricas';
@@ -55,6 +56,9 @@ export class QualidadeMetricasComponent implements OnInit {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
+
+    
+
   }
 
   ngOnInit() {
@@ -75,6 +79,8 @@ export class QualidadeMetricasComponent implements OnInit {
     this.msg = "ola";
     this.carregarGenericos();
     this.carregarqualidadeMetricass();
+
+    
 
   }
 
@@ -341,5 +347,39 @@ let vetor:any = this.qualidadeMetricasIds.find(f => f == id);
     console.log("set Exame: " + this.qualidadeMetrica.qmExameId);
    
   }
+
+  //https://www.bezkoder.com/angular-11-pagination-ngx/
+  //We need to install ngx-pagination with command:
+  //npm install ngx-pagination --save
+  //import { NgxPaginationModule } from 'ngx-pagination'; no app.Modules
+/* em caso de conflito com ngcc
+I'd faced similar problem few days ago. I solved it by adding the following script inside my package.json file.
+
+"scripts": {
+    "postinstall": "ngcc"
+  }
+you can even npm run postinstall to try to figure if it will work. – 
+
+ */
+  title = 'Angular Pagination Tutorial';
+  // Some array of things.
+  public employeedata = [];
+  // Pagination parameters.
+
+
+  currentIndex = -1;
+  
+  page : number = 1;
+  count : number= 0;
+  pageSize : number = 13;
+  pageSizes : number[]= [3, 6, 9];
+ 
+  
+  handlePageChange(event: number): void {
+    this.page = event;
+    //this.retrieveTutorials();
+  }
+    
+  
 }
 
