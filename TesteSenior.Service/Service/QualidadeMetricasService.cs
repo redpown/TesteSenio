@@ -61,7 +61,7 @@ namespace TesteSenior.Service.Service
         */
         public IEnumerable<QualidadeMetricas> GetAllFromDto()
         {
-           
+
 
             return _TesteSeniorConext.Set<QualidadeMetricas>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
         }
@@ -86,5 +86,54 @@ namespace TesteSenior.Service.Service
             return objSelecionado;
         }
         */
+
+        public void GerarDados()
+        {
+            int totalDias = 1400;
+            /*
+            Random r = new Random();
+            int rInt = r.Next(0, 100); //for ints
+            int range = 100;
+            double rDouble = r.NextDouble() * range; //for doubles
+            */
+            Random r = new Random();
+            int meses = r.Next(0, 12);
+            int dias = r.Next(0, 28);
+            int anos = r.Next(2019, 2021);
+            int exame = r.Next(0, 8);
+            int tipo = r.Next(0, 2);
+            int coleta = r.Next(0, 3);
+            int status = r.Next(0, 3);
+
+            for (int i = 0; i < totalDias; i++)
+            {
+
+                QualidadeMetricas QMA = new QualidadeMetricas();
+                meses = r.Next(1, 12);
+                dias = r.Next(1, 28);
+                anos = r.Next(2019, 2021);
+                exame = r.Next(1, 8);
+                tipo = r.Next(1, 2);
+                coleta = r.Next(1, 3);
+                status = r.Next(1, 3);
+
+                if ((tipo == 1) && (status == 3))
+                {
+                    status = r.Next(0, 2);
+                }
+
+                QMA.qmExameId = coleta;
+                QMA.qmColetaId = coleta;
+                QMA.qmExameStatusId = coleta;
+                QMA.qmTipoExame = coleta;
+                QMA.qmData = DateTime.Parse(anos.ToString()+"-"+ meses.ToString().PadLeft(2,'0')+"-" + dias.ToString().PadLeft(2, '0'));
+                QMA.qmTotal = 0;
+                QMA.qmQuantidade = 0;
+                _TesteSeniorConext.qualidadeMetricas.Add(QMA);
+                _TesteSeniorConext.SaveChanges();
+            }
+
+            // return _TesteSeniorConext.Set<QualidadeMetricas>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
+        }
     }
 }

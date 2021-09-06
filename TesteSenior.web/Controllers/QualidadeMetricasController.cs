@@ -27,7 +27,15 @@ namespace TesteSenior.web.Controllers
         [HttpGet]
         public IEnumerable<QualidadeMetricas> Get()
         {
-            return _qMetricas.GetAll();
+            try
+            {
+                return _qMetricas.GetAll();
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(Ex.Message);
+            }
+         
         }
 
         // GET api/<QualidadeMetricasController>/5
@@ -56,6 +64,13 @@ namespace TesteSenior.web.Controllers
         public void Delete(int id)
         {
             _qMetricas.DeleteId(id);
+        }
+
+        // POST api/<QualidadeMetricasController>
+        [HttpPost("AmostraDedados")]
+        public void AmostraDedados()
+        {
+            _qMetricas.GerarDados();
         }
     }
 }
