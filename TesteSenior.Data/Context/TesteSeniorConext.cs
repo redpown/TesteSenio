@@ -16,23 +16,25 @@ namespace TesteSenior.Data.Context
     {
         //public StoreProcedures procedure;
 
-        public DbSet<TabelaApartamento> tabelaApartamentos { get; set; }
+        public DbSet<TabelaApartamento> TabelaApartamentos { get; set; }
 
-        public DbSet<TabelaCidade> tabelaCidades { get; set; }
+        public DbSet<TabelaCidade> TabelaCidades { get; set; }
 
-        public DbSet<TabelaEdificio> tabelaEdificios { get; set; }
+        public DbSet<TabelaEdificio> TabelaEdificios { get; set; }
 
-        public DbSet<TabelaPagamentosCondominio> tabelaPagamentosCondominios { get; set; }
+        public DbSet<TabelaPagamentosCondominio> TabelaPagamentosCondominios { get; set; }
 
-        public DbSet<Usuario> usuarios { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
-        public DbSet<QualidadeMetricas> qualidadeMetricas { get; set; }
-        public DbSet<Exames> sxames { get; set; }
-        public DbSet<ExameStatus> exameStatus { get; set; }
-        public DbSet<TipoExame> tipoExame { get; set; }
+        public DbSet<QualidadeMetricas> QualidadeMetricas { get; set; }
+        public DbSet<Exames> Exames { get; set; }
+        public DbSet<ExameStatus> ExameStatus { get; set; }
+        public DbSet<TipoExame> TipoExames { get; set; }
         public DbSet<Coleta> Coleta { get; set; }
+        public virtual DbSet<Metrica> Metricas { get; set; }
+        public virtual DbSet<MetricasTipoMes> MetricaTipoMes { get; set; }
 
-        public DbSet<SPRankingCondominio> spRankingCondominio { get; set; }
+        public DbSet<SPRankingCondominio> SpRankingCondominio { get; set; }
 
         public TesteSeniorConext(DbContextOptions options) : base(options)
         {
@@ -54,7 +56,7 @@ namespace TesteSenior.Data.Context
             modelBuilder.ApplyConfiguration(new TipoExameConfiguration());
             modelBuilder.ApplyConfiguration(new ColetaConfiguration());
             modelBuilder.ApplyConfiguration(new SPRankingCondominioConfiguration());
-           
+
         }
     }
 }

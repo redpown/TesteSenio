@@ -64,7 +64,7 @@ namespace TesteSenior.Service.Service
         public NovoTabelaPagamentosCondominioDTO SelectDTO(int id)
         {
 
-            TabelaPagamentosCondominio obj = _TesteSeniorConext.tabelaPagamentosCondominios.Find(id);
+            TabelaPagamentosCondominio obj = _TesteSeniorConext.TabelaPagamentosCondominios.Find(id);
 
             NovoTabelaPagamentosCondominioDTO objSelecionado = new NovoTabelaPagamentosCondominioDTO();
             if (obj != null)

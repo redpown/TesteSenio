@@ -1,3 +1,7 @@
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.csproj.AssemblyReference.cache
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.AssemblyInfoInputs.cache
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.AssemblyInfo.cs
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.csproj.CoreCompileInputs.cache
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\bin\Debug\netcoreapp3.1\TesteSenior.Data.deps.json
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\bin\Debug\netcoreapp3.1\TesteSenior.Data.runtimeconfig.json
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\bin\Debug\netcoreapp3.1\TesteSenior.Data.runtimeconfig.dev.json
@@ -5,10 +9,6 @@ E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\bin\Debug\netcoreapp3.1\Te
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\bin\Debug\netcoreapp3.1\TesteSenior.Data.pdb
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\bin\Debug\netcoreapp3.1\testesenior.Domain.dll
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\bin\Debug\netcoreapp3.1\testesenior.Domain.pdb
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.csproj.AssemblyReference.cache
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.AssemblyInfoInputs.cache
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.AssemblyInfo.cs
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.csproj.CoreCompileInputs.cache
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.csproj.CopyComplete
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.dll
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Data\obj\Debug\netcoreapp3.1\TesteSenior.Data.pdb

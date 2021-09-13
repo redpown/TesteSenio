@@ -74,10 +74,7 @@ namespace TesteSenior.Data.StoreProcedure
 				INNER JOIN #tbl_apartamentos A ON ( PC.CODIGO_APARTAMENTO = A.CODIGO_APARTAMENTO )
 				INNER JOIN #tbl_edificios ED ON ( ED.CODIGO_EDIFICIO = A.CODIGO_EDIFICIO )
 				INNER JOIN #tbl_cidades C ON ( C.CODIGO_CIDADE = ED.CODIGO_CIDADE )
-			END;
-			CREATE OR ALTER VIEW [Products Above Average Price] AS
-				SELECT CODIGO_CIDADE, ESTADO
-				FROM TABELA_CIDADE;";
+			END;";
 
 		
     }

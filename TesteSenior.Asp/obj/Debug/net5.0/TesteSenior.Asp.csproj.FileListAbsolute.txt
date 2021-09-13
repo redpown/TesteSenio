@@ -1,3 +1,11 @@
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.csproj.AssemblyReference.cache
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.AssemblyInfoInputs.cache
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.AssemblyInfo.cs
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.csproj.CoreCompileInputs.cache
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.MvcApplicationPartsAssemblyInfo.cache
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.RazorAssemblyInfo.cache
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.RazorAssemblyInfo.cs
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\appsettings.Development.json
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\appsettings.json
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenior.Asp.exe
@@ -50,14 +58,6 @@ E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenio
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenior.Data.pdb
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\testesenior.Domain.pdb
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\bin\Debug\net5.0\TesteSenior.Service.pdb
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.csproj.AssemblyReference.cache
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.GeneratedMSBuildEditorConfig.editorconfig
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.AssemblyInfoInputs.cache
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.AssemblyInfo.cs
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.csproj.CoreCompileInputs.cache
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.MvcApplicationPartsAssemblyInfo.cache
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.RazorAssemblyInfo.cache
-E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\TesteSenior.Asp.RazorAssemblyInfo.cs
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\staticwebassets\TesteSenior.Asp.StaticWebAssets.Manifest.cache
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\staticwebassets\TesteSenior.Asp.StaticWebAssets.xml
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Asp\obj\Debug\net5.0\scopedcss\bundle\TesteSenior.Asp.styles.css

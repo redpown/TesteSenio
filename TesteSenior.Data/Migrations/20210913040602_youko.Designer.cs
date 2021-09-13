@@ -10,8 +10,8 @@ using TesteSenior.Data.Context;
 namespace TesteSenior.Data.Migrations
 {
     [DbContext(typeof(TesteSeniorConext))]
-    [Migration("20210830000141_youko9992")]
-    partial class youko9992
+    [Migration("20210913040602_youko")]
+    partial class youko
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,7 +59,7 @@ namespace TesteSenior.Data.Migrations
                         .HasColumnType("float")
                         .HasColumnName("VALOR_PAGAMENTO");
 
-                    b.ToTable("spRankingCondominio");
+                    b.ToTable("SpRankingCondominio");
                 });
 
             modelBuilder.Entity("testesenior.Domain.Entity.Coleta", b =>
@@ -100,19 +100,19 @@ namespace TesteSenior.Data.Migrations
 
             modelBuilder.Entity("testesenior.Domain.Entity.ExameStatus", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasColumnName("EXAMES_STATUS_ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("descricao")
+                    b.Property<string>("Descricao")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("EXAMES_STATUS_DESCRICAO");
 
-                    b.HasKey("id")
+                    b.HasKey("ID")
                         .HasName("EXAMES_STATUS_IDS");
 
                     b.ToTable("TABELA_EXAMES_STATUS");
@@ -120,18 +120,18 @@ namespace TesteSenior.Data.Migrations
                     b.HasData(
                         new
                         {
-                            id = 1,
-                            descricao = "Aguaradando Liberação"
+                            ID = 1,
+                            Descricao = "Aguaradando Liberação"
                         },
                         new
                         {
-                            id = 2,
-                            descricao = "Liberado"
+                            ID = 2,
+                            Descricao = "Liberado"
                         },
                         new
                         {
-                            id = 3,
-                            descricao = "Enviado"
+                            ID = 3,
+                            Descricao = "Enviado"
                         });
                 });
 
@@ -195,6 +195,63 @@ namespace TesteSenior.Data.Migrations
                             id = 8,
                             descricao = "HBSAG"
                         });
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.Metrica", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Ano")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Coleta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Exame")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Total")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Metricas");
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.MetricasTipoMes", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Ano")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Mes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Total")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("MetricaTipoMes");
                 });
 
             modelBuilder.Entity("testesenior.Domain.Entity.QualidadeMetricas", b =>
@@ -731,7 +788,7 @@ namespace TesteSenior.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("testesenior.Domain.Entity.ExameStatus", null)
-                        .WithMany("qmId")
+                        .WithMany("QmID")
                         .HasForeignKey("qmExameStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -783,7 +840,7 @@ namespace TesteSenior.Data.Migrations
 
             modelBuilder.Entity("testesenior.Domain.Entity.ExameStatus", b =>
                 {
-                    b.Navigation("qmId");
+                    b.Navigation("QmID");
                 });
 
             modelBuilder.Entity("testesenior.Domain.Entity.Exames", b =>

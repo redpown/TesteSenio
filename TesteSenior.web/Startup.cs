@@ -156,10 +156,8 @@ namespace TesteSenior.web
             });
 
             //Execute Automatic Migrations
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                serviceScope.ServiceProvider.GetService<TesteSeniorConext>().Database.Migrate();
-            }
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            serviceScope.ServiceProvider.GetService<TesteSeniorConext>().Database.Migrate();
         }
     }
 }

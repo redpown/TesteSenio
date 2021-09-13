@@ -13,41 +13,41 @@ namespace TesteSenior.Data.Config
         {
             builder.ToTable("TABELA_EXAMES_STATUS");
 
-            builder.HasKey(tabelaExame => tabelaExame.id)
+            builder.HasKey(tabelaExame => tabelaExame.ID)
                 .HasName("EXAMES_STATUS_IDS");
 
-            builder.Property(tabelaExame => tabelaExame.id)
+            builder.Property(tabelaExame => tabelaExame.ID)
                 .ValueGeneratedOnAdd()
                 .HasMaxLength(50)
                 .HasColumnName("EXAMES_STATUS_ID");
                
 
-            builder.Property(tabelaExame => tabelaExame.descricao)
+            builder.Property(tabelaExame => tabelaExame.Descricao)
                 .HasMaxLength(50)
                 .HasColumnName("EXAMES_STATUS_DESCRICAO");
 
-          builder.HasMany(b => b.qmId)
+          builder.HasMany(b => b.QmID)
           .WithOne()
           .HasForeignKey(x => x.qmExameStatusId);
 
             builder.HasData(
 
-                new Coleta
+                new ExameStatus
                 {
-                    id = 1,
-                    descricao = "Aguaradando Liberação"
+                    ID = 1,
+                    Descricao = "Aguaradando Liberação"
 
                 },
-                new Coleta
+                new ExameStatus
                 {
-                    id = 2,
-                    descricao = "Liberado"
+                    ID = 2,
+                    Descricao = "Liberado"
 
                 },
-                new Coleta
+                new ExameStatus
                 {
-                    id = 3,
-                    descricao = "Enviado"
+                    ID = 3,
+                    Descricao = "Enviado"
 
                 }
                                );

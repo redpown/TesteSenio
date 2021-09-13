@@ -3,12 +3,47 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TesteSenior.Data.Migrations
 {
-    public partial class youko9995 : Migration
+    public partial class youko : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "spRankingCondominio",
+                name: "Metricas",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Total = table.Column<int>(type: "int", nullable: true),
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Coleta = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Exame = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ano = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Metricas", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MetricaTipoMes",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Total = table.Column<int>(type: "int", nullable: true),
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ano = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MetricaTipoMes", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpRankingCondominio",
                 columns: table => new
                 {
                     CODIGO_APARTAMENTO = table.Column<int>(type: "int", nullable: false),
@@ -140,7 +175,7 @@ namespace TesteSenior.Data.Migrations
                     QM_COLETA_ID = table.Column<int>(type: "int", maxLength: 50, nullable: false),
                     QN_TIPO = table.Column<int>(type: "int", maxLength: 256, nullable: false),
                     QM_EXAME_STATUS_ID = table.Column<int>(type: "int", maxLength: 256, nullable: false),
-                    QM_DATA = table.Column<DateTime>(type: "datetime2", maxLength: 256, nullable: false)
+                    QM_DATA = table.Column<DateTime>(type: "date", maxLength: 256, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -219,12 +254,56 @@ namespace TesteSenior.Data.Migrations
                 columns: new[] { "CODIGO_CIDADE", "ESTADO", "NOME_CIDADE" },
                 values: new object[,]
                 {
-                    { 1, "SP", "Campinas" },
-                    { 2, "RJ", "Rio de Janeiro" },
-                    { 3, "SP", "São Paulo" },
+                    { 6, "SP", "Hortolândia" },
                     { 4, "SP", "Sorocaba" },
-                    { 5, "SP", "Jundiaí" },
-                    { 6, "SP", "Hortolândia" }
+                    { 3, "SP", "São Paulo" },
+                    { 2, "RJ", "Rio de Janeiro" },
+                    { 1, "SP", "Campinas" },
+                    { 5, "SP", "Jundiaí" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TABELA_COLETA",
+                columns: new[] { "COLETAS_ID", "COLETA_DESCRICAO" },
+                values: new object[,]
+                {
+                    { 1, "Recebido" },
+                    { 2, "Recoleta" },
+                    { 3, "Não Coletado" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TABELA_EXAMES",
+                columns: new[] { "EXAMES_ID", "EXAME_DESCRICAO" },
+                values: new object[,]
+                {
+                    { 2, "Creatinina" },
+                    { 1, "Ureia" },
+                    { 8, "HBSAG" },
+                    { 6, "Ácido Úrico" },
+                    { 5, "LDH" },
+                    { 4, "Hemograma" },
+                    { 3, "Urina 1" },
+                    { 7, "HIV" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TABELA_EXAMES_STATUS",
+                columns: new[] { "EXAMES_STATUS_ID", "EXAMES_STATUS_DESCRICAO" },
+                values: new object[,]
+                {
+                    { 3, "Enviado" },
+                    { 2, "Liberado" },
+                    { 1, "Aguaradando Liberação" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TABELA_TIPO_EXAME",
+                columns: new[] { "TIPO_EXAMES_ID", "TIPO_EXAME_DESCRICAO" },
+                values: new object[,]
+                {
+                    { 1, "Interno" },
+                    { 2, "Externo" }
                 });
 
             migrationBuilder.InsertData(
@@ -248,6 +327,15 @@ namespace TesteSenior.Data.Migrations
                     { 2, 10, "Edifício Vera", 3, 2 },
                     { 4, 7, "Edifício Tavares", 4, 3 },
                     { 5, 12, "Edifício Renata", 2, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TABELA_QUALIDADEMETRICAS",
+                columns: new[] { "QM_ID", "QM_COLETA_ID", "QM_DATA", "QM_EXAME_ID", "QM_EXAME_STATUS_ID", "QM_QUANTIDADE", "QN_TIPO", "QM_TOTAL" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2011, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 1, 1 },
+                    { 2, 2, new DateTime(2015, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 2, 2, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -320,7 +408,13 @@ namespace TesteSenior.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "spRankingCondominio");
+                name: "Metricas");
+
+            migrationBuilder.DropTable(
+                name: "MetricaTipoMes");
+
+            migrationBuilder.DropTable(
+                name: "SpRankingCondominio");
 
             migrationBuilder.DropTable(
                 name: "TABELA_PAGAMENTOS_CONDOMINIO");

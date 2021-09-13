@@ -8,16 +8,19 @@ namespace testesenior.Domain.Entity
     {
 
 
-        public int id { get; set; }
-        public string descricao { get; set; }
-        public virtual ICollection<QualidadeMetricas> qmId { get; set; }
+        public int ID { get; set; }
+        public string Descricao { get; set; }
+        public virtual ICollection<QualidadeMetricas> QmID { get; set; }
         public ExameStatus()
         {
         }
-        public ExameStatus(int id, string descricao)
+        public ExameStatus(int? id, string descricao)
         {
-            this.id = id;
-            this.descricao = descricao;
+            if (id != null) {
+                this.ID = (int)id;
+            }
+            
+            this.Descricao = descricao;
         }
     }
 }
