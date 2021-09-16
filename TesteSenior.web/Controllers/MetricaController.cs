@@ -25,11 +25,11 @@ namespace TesteSenior.web.Controllers
         }
         // GET: api/<MetricaController>
         [HttpGet]
-        public IEnumerable<Metrica> Get()
+        public IEnumerable<ViewMetrica> Get()
         {
             try
             {
-                return _qMetricas.GetAll();
+                return _qMetricas.GetView();
             }
             catch (Exception Ex)
             {
@@ -40,21 +40,21 @@ namespace TesteSenior.web.Controllers
 
         // GET api/<MetricaController>/5
         [HttpGet("{id}")]
-        public Metrica Get(int id)
+        public ViewMetrica Get(int id)
         {
             return _qMetricas.Select(id);
 ;        }
 
         // POST api/<MetricaController>
         [HttpPost]
-        public void Post([FromBody] Metrica value)
+        public void Post([FromBody] ViewMetrica value)
         {
             _qMetricas.Insert(value);
         }
 
         // PUT api/<MetricaController>/5
         [HttpPut]
-        public void Put([FromBody] Metrica value)
+        public void Put([FromBody] ViewMetrica value)
         {
             _qMetricas.Update(value);
         }

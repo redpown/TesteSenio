@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "hzGUjPGI2lvn6wti7fWnEMXREUjCuHQcniZkDPacZJ0OuY5Ro80xvtG+IyH4adaNEMb/0ByhkTlB7tuBZbVnCQ==",
+  "dgSpecHash": "ryA6A3lQZJTYe28tDtn2THtb1fXMnhOF4vQ8H2FB+654h9y9mjYD9m21gB9wj3kMFQC83c46uu/13e0e3rcNpA==",
   "success": true,
   "projectFilePath": "E:\\Projetos\\VisualStudio\\TesteSenior\\testesenior.domain\\testesenior.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Redpo\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Redpo\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\Redpo\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Redpo\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.7\\microsoft.entityframeworkcore.abstractions.5.0.7.nupkg.sha512",
     "C:\\Users\\Redpo\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
     "C:\\Users\\Redpo\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
     "C:\\Users\\Redpo\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",

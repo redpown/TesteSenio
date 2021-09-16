@@ -100,7 +100,7 @@ namespace TesteSenior.Service.Service
             int meses;
             int dias;
             int anos;
-           // int exame;
+            int exame;
             int tipo;
             int coleta;
             int status;
@@ -112,7 +112,7 @@ namespace TesteSenior.Service.Service
                 meses = r.Next(1, 12);
                 dias = r.Next(1, 28);
                 anos = r.Next(2019, 2021);
-                //exame = r.Next(1, 8);
+                exame = r.Next(1, 8);
                 tipo = r.Next(1, 2);
                 coleta = r.Next(1, 3);
                 status = r.Next(1, 3);
@@ -122,10 +122,10 @@ namespace TesteSenior.Service.Service
                     status = r.Next(0, 2);
                 }
 
-                QMA.qmExameId = coleta;
+                QMA.qmExameId = exame;
                 QMA.qmColetaId = coleta;
-                QMA.qmExameStatusId = coleta;
-                QMA.qmTipoExame = coleta;
+                QMA.qmExameStatusId = status;
+                QMA.qmTipoExame = tipo;
                 QMA.qmData = DateTime.Parse(anos.ToString()+"-"+ meses.ToString().PadLeft(2,'0')+"-" + dias.ToString().PadLeft(2, '0'));
                 QMA.qmTotal = 0;
                 QMA.qmQuantidade = 0;

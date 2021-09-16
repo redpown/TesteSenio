@@ -10,7 +10,7 @@ using TesteSenior.Data.Context;
 namespace TesteSenior.Data.Migrations
 {
     [DbContext(typeof(TesteSeniorConext))]
-    [Migration("20210913040602_youko")]
+    [Migration("20210916010358_youko")]
     partial class youko
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,63 +197,6 @@ namespace TesteSenior.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("testesenior.Domain.Entity.Metrica", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Ano")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Coleta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Exame")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Mes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tipo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Total")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Metricas");
-                });
-
-            modelBuilder.Entity("testesenior.Domain.Entity.MetricasTipoMes", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Ano")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Mes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tipo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Total")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("MetricaTipoMes");
-                });
-
             modelBuilder.Entity("testesenior.Domain.Entity.QualidadeMetricas", b =>
                 {
                     b.Property<int>("qmId")
@@ -412,6 +355,52 @@ namespace TesteSenior.Data.Migrations
                             nome = "youko",
                             senha = "1234"
                         });
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.ViewMetrica", b =>
+                {
+                    b.Property<int?>("Ano")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Coleta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Exame")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Total")
+                        .HasColumnType("int");
+
+                    b.ToTable("Metricas");
+                });
+
+            modelBuilder.Entity("testesenior.Domain.Entity.ViewMetricasTipoMes", b =>
+                {
+                    b.Property<int?>("Ano")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Mes")
+                        .HasMaxLength(9)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<string>("Tipo")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("Total")
+                        .HasColumnType("int");
+
+                    b.ToView("vw_Metricas_Tipo_Mes");
                 });
 
             modelBuilder.Entity("testesenior.domain.Entity.TabelaApartamento", b =>

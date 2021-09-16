@@ -1433,7 +1433,8 @@
       "testesenior.Domain/1.0.0": {
         "dependencies": {
           "AutoMapper": "10.1.1",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.1"
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.1",
+          "Microsoft.EntityFrameworkCore.Abstractions": "5.0.7"
         },
         "runtime": {
           "testesenior.Domain.dll": {}

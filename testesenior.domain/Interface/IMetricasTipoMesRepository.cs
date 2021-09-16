@@ -6,7 +6,7 @@ using testesenior.Domain.Entity;
 
 namespace testesenior.Domain.Interface
 {
-    public interface IMetricasTipoMesRepository : IBaseRepository<MetricasTipoMes>
+    public interface IMetricasTipoMesRepository : IBaseRepository<ViewMetricasTipoMes>
     {
     }
 }

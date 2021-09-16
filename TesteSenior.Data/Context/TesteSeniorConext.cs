@@ -31,8 +31,8 @@ namespace TesteSenior.Data.Context
         public DbSet<ExameStatus> ExameStatus { get; set; }
         public DbSet<TipoExame> TipoExames { get; set; }
         public DbSet<Coleta> Coleta { get; set; }
-        public virtual DbSet<Metrica> Metricas { get; set; }
-        public virtual DbSet<MetricasTipoMes> MetricaTipoMes { get; set; }
+        public virtual DbSet<ViewMetrica> Metricas { get; set; }
+        public virtual DbSet<ViewMetricasTipoMes> MetricaTipoMes { get; set; }
 
         public DbSet<SPRankingCondominio> SpRankingCondominio { get; set; }
 
@@ -56,6 +56,8 @@ namespace TesteSenior.Data.Context
             modelBuilder.ApplyConfiguration(new TipoExameConfiguration());
             modelBuilder.ApplyConfiguration(new ColetaConfiguration());
             modelBuilder.ApplyConfiguration(new SPRankingCondominioConfiguration());
+            modelBuilder.ApplyConfiguration(new ViewMetricaConfiguration());
+            modelBuilder.ApplyConfiguration(new ViewMetricasTipoMesConfiguration());
 
         }
     }

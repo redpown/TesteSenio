@@ -23,7 +23,7 @@ namespace TesteSenior.Service.Service
 
         /*
 
-        public void InsertDTO(QualidadeMetricas entity)
+        public void InsertDTO(ViewMetrica entity)
         {
       
             TabelaApartamento novoAPTO = new TabelaApartamento(entity.metragem, entity.andar, entity.numeroQuartos);
@@ -42,16 +42,16 @@ namespace TesteSenior.Service.Service
 
         public void DeleteId(int id)
         {
-            QualidadeMetricas deletar = new();
-            deletar.qmId = id;
-            _TesteSeniorConext.Set<QualidadeMetricas>().Remove(deletar);
+            ViewMetrica deletar = new();
+          //  deletar.qmId = id;
+            _TesteSeniorConext.Set<ViewMetrica>().Remove(deletar);
             _TesteSeniorConext.SaveChanges();
         }
         /*
-        public void UpdateByDTO(QualidadeMetricas novoObj)
+        public void UpdateByDTO(ViewMetrica novoObj)
         {
            
-            QualidadeMetricas velhoObj = Select(novoObj.qmId);
+            ViewMetrica velhoObj = Select(novoObj.qmId);
             velhoObj.qmColetaId = novoObj.qmColetaId;
             velhoObj.andar = novoObj.andar;
             velhoObj.numeroQuartos = novoObj.numeroQuartos;
@@ -59,16 +59,25 @@ namespace TesteSenior.Service.Service
             _TesteSeniorConext.SaveChanges();
         }
         */
-        public IEnumerable<QualidadeMetricas> GetAllFromDto()
+        public IEnumerable<ViewMetrica> GetAllFromDto()
         {
 
 
-            return _TesteSeniorConext.Set<QualidadeMetricas>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
+            return _TesteSeniorConext.Set<ViewMetrica>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
+        }
+
+        public IEnumerable<ViewMetrica> GetView()
+        {
+            ///_TesteSeniorConext.Database.ExecuteSqlRawAsync(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
+            return _TesteSeniorConext.Set<ViewMetrica>()
+                 .FromSqlRaw("select * from vw_Metricas;")
+                 .ToList();
+
         }
         /*
         public NovoTabelaApartamentoDTO SelectDTO(int id)
         {
-            QualidadeMetricas obj = _TesteSeniorConext.qualidadeMetricas.Find(id);
+            ViewMetrica obj = _TesteSeniorConext.ViewMetrica.Find(id);
 
             NovoTabelaApartamentoDTO objSelecionado = new NovoTabelaApartamentoDTO();
             if (obj != null)
@@ -108,7 +117,7 @@ namespace TesteSenior.Service.Service
             for (int i = 0; i < totalDias; i++)
             {
 
-                QualidadeMetricas QMA = new QualidadeMetricas();
+                ViewMetrica QMA = new ViewMetrica();
                 meses = r.Next(1, 12);
                 dias = r.Next(1, 28);
                 anos = r.Next(2019, 2021);
@@ -129,11 +138,11 @@ namespace TesteSenior.Service.Service
                 QMA.qmData = DateTime.Parse(anos.ToString()+"-"+ meses.ToString().PadLeft(2,'0')+"-" + dias.ToString().PadLeft(2, '0'));
                 QMA.qmTotal = 0;
                 QMA.qmQuantidade = 0;
-                _TesteSeniorConext.qualidadeMetricas.Add(QMA);
+                _TesteSeniorConext.ViewMetrica.Add(QMA);
                 _TesteSeniorConext.SaveChanges();
             }
 
-            // return _TesteSeniorConext.Set<QualidadeMetricas>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
+            // return _TesteSeniorConext.Set<ViewMetrica>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
         }*/
     }
 }

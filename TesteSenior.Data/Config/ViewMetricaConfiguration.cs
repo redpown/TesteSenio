@@ -7,20 +7,14 @@ using testesenior.Domain.Entity;
 
 namespace TesteSenior.Data.Config
 {
-    public class MetricasViewConfiguration : IEntityTypeConfiguration<Metrica>
+    public class ViewMetricaConfiguration : IEntityTypeConfiguration<ViewMetrica>
     {
-        public void Configure(EntityTypeBuilder<Metrica> builder)
+        public void Configure(EntityTypeBuilder<ViewMetrica> builder)
         {
 
-            builder.HasKey(e => e.ID)
-                .HasName("Metricas_ID");
+            builder.HasNoKey();
 
-            builder.Property(e => e.ID)
-                .ValueGeneratedOnAdd()
-                .HasMaxLength(50)
-                .HasColumnName("Metricas_ID");
-
-            builder.ToView("Metricas");
+            builder.ToView("vw_Metricas");
 
             builder.Property(e => e.Coleta).HasMaxLength(50);
 
@@ -34,7 +28,7 @@ namespace TesteSenior.Data.Config
 
             builder.Property(e => e.Tipo).HasMaxLength(50);
           
-
+            
 
         }
     }

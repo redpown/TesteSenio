@@ -25,11 +25,11 @@ namespace TesteSenior.web.Controllers
         }
         // GET: api/<MetricasTipoMesController>
         [HttpGet]
-        public IEnumerable<MetricasTipoMes> Get()
+        public IEnumerable<ViewMetricasTipoMes> Get()
         {
             try
             {
-                return _qMetricas.GetAll();
+                return _qMetricas.GetView();
             }
             catch (Exception Ex)
             {
@@ -40,21 +40,21 @@ namespace TesteSenior.web.Controllers
 
         // GET api/<MetricasTipoMesController>/5
         [HttpGet("{id}")]
-        public MetricasTipoMes Get(int id)
+        public ViewMetricasTipoMes Get(int id)
         {
             return _qMetricas.Select(id);
 ;        }
 
         // POST api/<MetricasTipoMesController>
         [HttpPost]
-        public void Post([FromBody] MetricasTipoMes value)
+        public void Post([FromBody] ViewMetricasTipoMes value)
         {
             _qMetricas.Insert(value);
         }
 
         // PUT api/<MetricasTipoMesController>/5
         [HttpPut]
-        public void Put([FromBody] MetricasTipoMes value)
+        public void Put([FromBody] ViewMetricasTipoMes value)
         {
             _qMetricas.Update(value);
         }

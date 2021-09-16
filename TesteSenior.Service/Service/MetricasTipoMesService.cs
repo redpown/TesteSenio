@@ -23,7 +23,7 @@ namespace TesteSenior.Service.Service
 
         /*
 
-        public void InsertDTO(QualidadeMetricas entity)
+        public void InsertDTO(MetricasTipoMes entity)
         {
       
             TabelaApartamento novoAPTO = new TabelaApartamento(entity.metragem, entity.andar, entity.numeroQuartos);
@@ -42,16 +42,26 @@ namespace TesteSenior.Service.Service
 
         public void DeleteId(int id)
         {
-            QualidadeMetricas deletar = new();
-            deletar.qmId = id;
-            _TesteSeniorConext.Set<QualidadeMetricas>().Remove(deletar);
-            _TesteSeniorConext.SaveChanges();
+          /*  nao ha id para essa entidade
+           *  ViewMetricasTipoMes deletar = new();
+            deletar.ID = id;
+            _TesteSeniorConext.Set<ViewMetricasTipoMes>().Remove(deletar);
+            _TesteSeniorConext.SaveChanges();*/
+        }
+
+        public IEnumerable<ViewMetricasTipoMes> GetView()
+        {
+            ///_TesteSeniorConext.Database.ExecuteSqlRawAsync(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
+            return _TesteSeniorConext.Set<ViewMetricasTipoMes>()
+                 .FromSqlRaw("select * from vw_Metricas_Tipo_Mes;")
+                 .ToList();
+
         }
         /*
-        public void UpdateByDTO(QualidadeMetricas novoObj)
+        public void UpdateByDTO(MetricasTipoMes novoObj)
         {
            
-            QualidadeMetricas velhoObj = Select(novoObj.qmId);
+            MetricasTipoMes velhoObj = Select(novoObj.qmId);
             velhoObj.qmColetaId = novoObj.qmColetaId;
             velhoObj.andar = novoObj.andar;
             velhoObj.numeroQuartos = novoObj.numeroQuartos;
@@ -59,16 +69,16 @@ namespace TesteSenior.Service.Service
             _TesteSeniorConext.SaveChanges();
         }
         */
-        public IEnumerable<QualidadeMetricas> GetAllFromDto()
+        public IEnumerable<ViewMetricasTipoMes> GetAllFromDto()
         {
 
 
-            return _TesteSeniorConext.Set<QualidadeMetricas>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
+            return _TesteSeniorConext.Set<ViewMetricasTipoMes>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
         }
         /*
         public NovoTabelaApartamentoDTO SelectDTO(int id)
         {
-            QualidadeMetricas obj = _TesteSeniorConext.qualidadeMetricas.Find(id);
+            MetricasTipoMes obj = _TesteSeniorConext.MetricasTipoMes.Find(id);
 
             NovoTabelaApartamentoDTO objSelecionado = new NovoTabelaApartamentoDTO();
             if (obj != null)
@@ -108,7 +118,7 @@ namespace TesteSenior.Service.Service
             for (int i = 0; i < totalDias; i++)
             {
 
-                QualidadeMetricas QMA = new QualidadeMetricas();
+                MetricasTipoMes QMA = new MetricasTipoMes();
                 meses = r.Next(1, 12);
                 dias = r.Next(1, 28);
                 anos = r.Next(2019, 2021);
@@ -129,12 +139,12 @@ namespace TesteSenior.Service.Service
                 QMA.qmData = DateTime.Parse(anos.ToString()+"-"+ meses.ToString().PadLeft(2,'0')+"-" + dias.ToString().PadLeft(2, '0'));
                 QMA.qmTotal = 0;
                 QMA.qmQuantidade = 0;
-                _TesteSeniorConext.qualidadeMetricas.Add(QMA);
+                _TesteSeniorConext.MetricasTipoMes.Add(QMA);
                 _TesteSeniorConext.SaveChanges();
         
             }
 
-            // return _TesteSeniorConext.Set<QualidadeMetricas>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
+            // return _TesteSeniorConext.Set<MetricasTipoMes>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
         }*/
     }
 }

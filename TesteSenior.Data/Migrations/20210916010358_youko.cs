@@ -11,8 +11,6 @@ namespace TesteSenior.Data.Migrations
                 name: "Metricas",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     Total = table.Column<int>(type: "int", nullable: true),
                     Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -23,23 +21,6 @@ namespace TesteSenior.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Metricas", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MetricaTipoMes",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Total = table.Column<int>(type: "int", nullable: true),
-                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Mes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Ano = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MetricaTipoMes", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -409,9 +390,6 @@ namespace TesteSenior.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Metricas");
-
-            migrationBuilder.DropTable(
-                name: "MetricaTipoMes");
 
             migrationBuilder.DropTable(
                 name: "SpRankingCondominio");

@@ -9,7 +9,7 @@ using TesteSenior.Data.Repositorios;
 
 namespace TesteSenior.Data.Repositories
 {
-    public class MetricaRepository : BaseRepository<Metrica>, IMetricaRepository
+    public class MetricaRepository : BaseRepository<ViewMetrica>, IMetricaRepository
     {
         public MetricaRepository(TesteSeniorConext testeSeniorConext, IMapper mapper) : base(testeSeniorConext, mapper)
         {
