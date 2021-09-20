@@ -1,3 +1,7 @@
+/*classe criado para servir como um objeto json generico para coleta , exames, tipo exame e estatus
+pois todas possuem os mesmos nomes de atributos
+
+*/
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -55,42 +59,7 @@ export class GenericoService {
         retry(2),
         catchError(this.handleError))
   }
-
-  // Obtem uma Cidade pelo id
-  getCidadeById(id: number): Observable<Cidade> {
-    return this.httpClient.get<Cidade>(this.url + '/' + id)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-
-  // salva uma Cidade
-  saveCidade(cidade: Cidade): Observable<Cidade> {
-    return this.httpClient.post<Cidade>(this.url, JSON.stringify(cidade), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-
-  // utualiza uma Cidade
-  updateCidade(cidade: Cidade): Observable<Cidade> {
-    return this.httpClient.put<Cidade>(this.url, JSON.stringify(cidade), this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      )
-  }
-
-  // deleta uma Cidade
-  deleteCidade(id:number) {
-    return this.httpClient.delete<Cidade>(this.url + '/' + id, this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      )
-  }
+  
 
   // Manipulação de erros
   handleError(error: HttpErrorResponse) {

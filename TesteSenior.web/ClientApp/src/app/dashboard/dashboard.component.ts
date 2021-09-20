@@ -1,6 +1,10 @@
+import { ReturnStatement } from '@angular/compiler';
 import { Component, OnInit, } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { Dashboard } from '../models/dashboard-model/dashboard';
+import { DashboardService } from '../services/dashboard/dashboard.services';
 
 @Component({
   selector: 'app-dashboard-component',
@@ -14,12 +18,33 @@ export  class DashBoardComponent implements OnInit {
 //tutorial from https://www.positronx.io/angular-chart-js-tutorial-with-ng2-charts-examples/
 //npm install ng2-charts chart.js --save
 
+  public acidoUrico: Dashboard[] = [];
+  public creatinina: Dashboard[] = [];
+  public hemograma: Dashboard[] = [];
+  public HIV: Dashboard[] = [];
+  public LDH: Dashboard[] = [];
+  public ureia: Dashboard[] = [];
+  public urina1: Dashboard[] = [];
+  public mensagem: string = "";
+
+
+
+  constructor(private router: Router,
+    private activatedRouter: ActivatedRoute,
+    private dashboardService: DashboardService) {
+
+  }
+
 ngOnInit() {
-  this.setDatas();
+  //this.setDatas();
+  this.carregarDashboard();
 
-}
+  }
 
-lineChartData: ChartDataSets[] = [
+
+  /*
+  lineChartData: ChartDataSets[] = [
+
   { data: [85, 72, 78, 75, 77, 75], label: 'Exame 01' },
   { data: [15, 12, 18, 15, 17, 15], label: 'Exame 02' },
   { data: [25, 22, 28, 25, 27, 25], label: 'Exame 03' },
@@ -28,11 +53,12 @@ lineChartData: ChartDataSets[] = [
   { data: [55, 52, 58, 55, 57, 55], label: 'Exame 06' },
   { data: [65, 62, 68, 65, 67, 65], label: 'Exame 07' },
   { data: [75, 72, 78, 75, 77, 75], label: 'Exame 08' }
+  
 ];
 
-public meses:string[]=[];
+  public meses: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June','July'];
+lineChartLabels: Label[] = [];
 
 lineChartOptions = {
   responsive: true,
@@ -79,10 +105,33 @@ lineChartType: ChartType = "line";
 
 setDatas(){
 
-  this.lineChartLabels.push("Agosto");
-
+ // this.lineChartLabels.includes(this.meses);
   this.lineChartData.push({ data: [105, 102, 108, 105, 107, 105], label: 'Exame 10' });
 
-}
+  }
+  */
+
+  carregarDashboard() {
+
+
+      this.dashboardService.GetAllCreatinina()
+        .subscribe(
+          getJson => {
+            this.creatinina = getJson;
+            console.log(getJson);
+            //console.log("Cidades carregadas!");
+          },
+          err => {
+            console.log(err.error);
+            this.mensagem = err.error;
+
+          }
+        );
+
+    
+
+
+  }
+
   
 }

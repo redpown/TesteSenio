@@ -14,6 +14,7 @@ namespace TesteSenior.Data.Config
     {
         public void Configure(EntityTypeBuilder<SPRankingCondominio> builder)
         {
+            builder.ToView("sp_Ranking_condominio");
             builder.HasNoKey();
 
             builder.Property(e => e.codigoApartamento).HasColumnName("CODIGO_APARTAMENTO");
@@ -26,6 +27,8 @@ namespace TesteSenior.Data.Config
             builder.Property(e => e.codigoApartamento).HasColumnName("CODIGO_APARTAMENTO");
             builder.Property(e => e.valorPagamento).HasColumnName("VALOR_PAGAMENTO");
             builder.Property(e => e.numeroQuartos).HasColumnName("NUMERO_QUARTOS");
+
+           
 
         }
     }

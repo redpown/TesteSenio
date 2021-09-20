@@ -24,6 +24,8 @@ import { GenericoService } from './services/generico/generico.services';
 import { ChartsModule } from 'ng2-charts';
 import { DashBoardComponent } from './dashboard/dashboard.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Dashboard } from './models/dashboard-model/dashboard';
+import { DashboardService } from './services/dashboard/dashboard.services';
 
 
 
@@ -60,7 +62,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ])
   ],
   providers: [CidadeService, EdificioService, ApartamentoService, PagamentoService, SPRankingCondominioService,
-    QualidadeMetricasService, GenericoService,
+    QualidadeMetricasService, GenericoService,DashboardService,
     DatePipe],
   bootstrap: [AppComponent]
 })

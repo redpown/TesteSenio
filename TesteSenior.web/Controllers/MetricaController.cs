@@ -24,12 +24,12 @@ namespace TesteSenior.web.Controllers
             _mapper = mapper;
         }
         // GET: api/<MetricaController>
-        [HttpGet]
-        public IEnumerable<ViewMetrica> Get()
+        [HttpGet("GetAllCreatinina")]
+        public IEnumerable<ViewMetrica> GetAllCreatinina()
         {
             try
             {
-                return _qMetricas.GetView();
+                return _qMetricas.GetViewAllCreatinina();
             }
             catch (Exception Ex)
             {
@@ -37,6 +37,92 @@ namespace TesteSenior.web.Controllers
             }
          
         }
+
+        [HttpGet("GetAllHemograma")]
+        public IEnumerable<ViewMetrica> GetAllHemograma()
+        {
+            try
+            {
+                return _qMetricas.GetViewAllHemograma();
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(Ex.Message);
+            }
+
+        }
+
+        [HttpGet("GetAllAcidoUrico")]
+        public IEnumerable<ViewMetrica> GetAllAcidoUrico()
+        {
+            try
+            {
+                return _qMetricas.GetViewAllAcidoUrico();
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(Ex.Message);
+            }
+
+        }
+
+        [HttpGet("GetAllHIV")]
+        public IEnumerable<ViewMetrica> GetAllHIV()
+        {
+            try
+            {
+                return _qMetricas.GetViewAllHIV();
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(Ex.Message);
+            }
+
+        }
+
+        [HttpGet("GetAllUrina1")]
+        public IEnumerable<ViewMetrica> GetAllUrina1()
+        {
+            try
+            {
+                return _qMetricas.GetViewAllUrina1();
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(Ex.Message);
+            }
+
+        }
+
+        [HttpGet("GetAllUreia")]
+        public IEnumerable<ViewMetrica> GetAllUreia()
+        {
+            try
+            {
+                return _qMetricas.GetViewAllUreia();
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(Ex.Message);
+            }
+
+        }
+
+        [HttpGet("GetAllLDH")]
+        public IEnumerable<ViewMetrica> GetAllLDH()
+        {
+            try
+            {
+                return _qMetricas.GetViewAllLDH();
+            }
+            catch (Exception Ex)
+            {
+                throw new Exception(Ex.Message);
+            }
+
+        }
+
+        
 
         // GET api/<MetricaController>/5
         [HttpGet("{id}")]

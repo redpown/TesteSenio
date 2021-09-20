@@ -13,18 +13,18 @@ namespace testesenior.Domain.DTO
         
 
         public int codigoApartamento { get; set; }
-        public int codigoEdificio { get; set; }
+        public decimal codigoEdificio { get; set; }
         public string nomeEdificio { get; set; }
-        public int metragem { get; set; }
-        public int andar { get; set; }
+        public decimal metragem { get; set; }
+        public decimal andar { get; set; }
         public string nomeCidade { get; set; }
         public string estado { get; set; }
-        public double valorPagamento { get; set; }
-        public int numeroQuartos { get; set; }
+        public decimal valorPagamento { get; set; }
+        public decimal numeroQuartos { get; set; }
 
         public SPRankingCondominio() { }
 
-        public SPRankingCondominio(int codigoApartamento, int codigoEdificio, string nomeEdificio, int metragem, int andar, string nomeCidade, string estado, double valorPagamento, int numeroQuartos)
+        public SPRankingCondominio(int codigoApartamento, decimal codigoEdificio, string nomeEdificio, decimal metragem, decimal andar, string nomeCidade, string estado, decimal valorPagamento, decimal numeroQuartos)
         {
             this.codigoApartamento = codigoApartamento;
             this.codigoEdificio = codigoEdificio;

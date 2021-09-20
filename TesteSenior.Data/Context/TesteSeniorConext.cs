@@ -1,14 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using testesenior.domain.Entity;
 using testesenior.Domain.DTO;
 using testesenior.Domain.Entity;
 using TesteSenior.Data.Config;
-using TesteSenior.Data.StoreProcedure;
 
 namespace TesteSenior.Data.Context
 {
@@ -59,6 +53,9 @@ namespace TesteSenior.Data.Context
             modelBuilder.ApplyConfiguration(new ViewMetricaConfiguration());
             modelBuilder.ApplyConfiguration(new ViewMetricasTipoMesConfiguration());
 
+
         }
+
+       
     }
 }

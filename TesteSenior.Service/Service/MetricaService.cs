@@ -43,7 +43,7 @@ namespace TesteSenior.Service.Service
         public void DeleteId(int id)
         {
             ViewMetrica deletar = new();
-          //  deletar.qmId = id;
+            //  deletar.qmId = id;
             _TesteSeniorConext.Set<ViewMetrica>().Remove(deletar);
             _TesteSeniorConext.SaveChanges();
         }
@@ -66,14 +66,77 @@ namespace TesteSenior.Service.Service
             return _TesteSeniorConext.Set<ViewMetrica>().ToList(); //_mapper.Map<List<TabelaApartamentoDTO>>(obj);
         }
 
-        public IEnumerable<ViewMetrica> GetView()
+        public IEnumerable<ViewMetrica> GetViewAllCreatinina()
         {
             ///_TesteSeniorConext.Database.ExecuteSqlRawAsync(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
             return _TesteSeniorConext.Set<ViewMetrica>()
-                 .FromSqlRaw("select * from vw_Metricas;")
+                 .FromSqlRaw(@"select * from vw_Metricas
+                              where Exame = 'Creatinina'
+                              and Ano = year(GETDATE()) - 1; ")
                  .ToList();
-
         }
+
+        public IEnumerable<ViewMetrica> GetViewAllUreia()
+        {
+            ///_TesteSeniorConext.Database.ExecuteSqlRawAsync(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
+            return _TesteSeniorConext.Set<ViewMetrica>()
+                 .FromSqlRaw(@"select * from vw_Metricas
+                              where Exame = 'Ureia'
+                              and Ano = year(GETDATE()) - 1; ")
+                 .ToList();
+        }
+
+        public IEnumerable<ViewMetrica> GetViewAllLDH()
+        {
+            ///_TesteSeniorConext.Database.ExecuteSqlRawAsync(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
+            return _TesteSeniorConext.Set<ViewMetrica>()
+                 .FromSqlRaw(@"select * from vw_Metricas
+                              where Exame = 'LDH'
+                              and Ano = year(GETDATE()) - 1; ")
+                 .ToList();
+        }
+
+        public IEnumerable<ViewMetrica> GetViewAllHIV()
+        {
+            ///_TesteSeniorConext.Database.ExecuteSqlRawAsync(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
+            return _TesteSeniorConext.Set<ViewMetrica>()
+                 .FromSqlRaw(@"select * from vw_Metricas
+                              where Exame = 'HIV'
+                              and Ano = year(GETDATE()) - 1; ")
+                 .ToList();
+        }
+
+        public IEnumerable<ViewMetrica> GetViewAllHemograma()
+        {
+            ///_TesteSeniorConext.Database.ExecuteSqlRawAsync(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
+            return _TesteSeniorConext.Set<ViewMetrica>()
+                 .FromSqlRaw(@"select * from vw_Metricas
+                              where Exame = 'Hemograma'
+                              and Ano = year(GETDATE()) - 1; ")
+                 .ToList();
+        }
+
+        public IEnumerable<ViewMetrica> GetViewAllAcidoUrico()
+        {
+            ///_TesteSeniorConext.Database.ExecuteSqlRawAsync(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
+            return _TesteSeniorConext.Set<ViewMetrica>()
+                 .FromSqlRaw(@"select * from vw_Metricas
+                              where Exame = 'Ácido Úrico'
+                              and Ano = year(GETDATE()) - 1; ")
+                 .ToList();
+        }
+
+        public IEnumerable<ViewMetrica> GetViewAllUrina1()
+        {
+            ///_TesteSeniorConext.Database.ExecuteSqlRawAsync(StoreProceduresSPRankingCondominio.STORE_PROCEDURE_SP_RANKING_CONDOMINIO);
+            return _TesteSeniorConext.Set<ViewMetrica>()
+                 .FromSqlRaw(@"select * from vw_Metricas
+                              where Exame = 'Urina 1'
+                              and Ano = year(GETDATE()) - 1; ")
+                 .ToList();
+        }
+
+       
         /*
         public NovoTabelaApartamentoDTO SelectDTO(int id)
         {
