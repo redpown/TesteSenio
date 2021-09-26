@@ -19,7 +19,7 @@ export  class DashBoardComponent implements OnInit {
 //npm install ng2-charts chart.js --save
 
   public acidoUrico: Dashboard[] = [];
-  public creatinina: Dashboard[] = [];
+  public creatinina: Dashboard[] =  [];
   public hemograma: Dashboard[] = [];
   public HIV: Dashboard[] = [];
   public LDH: Dashboard[] = [];
@@ -36,66 +36,61 @@ export  class DashBoardComponent implements OnInit {
   }
 
 ngOnInit() {
-  //this.setDatas();
+  
   this.carregarDashboard();
-
+  //se precsio esperar um retorno assincrono, colocar um funcao entro do subscribe
+  this.setDatas();
+  
   }
 
 
-  /*
-  lineChartData: ChartDataSets[] = [
-
-  { data: [85, 72, 78, 75, 77, 75], label: 'Exame 01' },
-  { data: [15, 12, 18, 15, 17, 15], label: 'Exame 02' },
-  { data: [25, 22, 28, 25, 27, 25], label: 'Exame 03' },
-  { data: [35, 32, 38, 35, 37, 35], label: 'Exame 04' },
-  { data: [45, 42, 48, 45, 47, 45], label: 'Exame 05' },
-  { data: [55, 52, 58, 55, 57, 55], label: 'Exame 06' },
-  { data: [65, 62, 68, 65, 67, 65], label: 'Exame 07' },
-  { data: [75, 72, 78, 75, 77, 75], label: 'Exame 08' }
+  
+  public lineChartData: ChartDataSets[] = [
+  { data: [85, 72, 78, 75, 77, 75], label: 'Exame 01' }
+ 
   
 ];
 
   public meses: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-lineChartLabels: Label[] = [];
+  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July','AGoste','Setembre','Outubro','Novembro','Dezembro'];
+  public valores: number[] = [];
 
 lineChartOptions = {
   responsive: true,
 };
-
-lineChartColors: Color[] = [
+//cores
+public lineChartColors: Color[] = [
   {
     borderColor: 'rgb(0, 83, 225)',
-    backgroundColor: 'rgba(225, 225, 225,0.28)',
+    backgroundColor: 'rgba(225, 225, 225,0.00)',
   },
   {
     borderColor: 'rgb(255, 8, 9)',
-    backgroundColor: 'rgba(225, 225, 225,0.28)',
+    backgroundColor: 'rgba(225, 225, 225,0.00)',
   },
   {
     borderColor: 'rgb(255, 8, 255)',
-    backgroundColor: 'rgba(225, 225, 225,0.28)',
+    backgroundColor: 'rgba(225, 225, 225,0.00)',
   },
   {
     borderColor: 'rgb(0, 194, 19)',
-    backgroundColor: 'rgba(225, 225, 225,0.28)',
+    backgroundColor: 'rgba(225, 225, 225,0.00)',
   },
   {
     borderColor: 'rgb(255, 160, 9)',
-    backgroundColor: 'rgba(225, 225, 225,0.28)',
+    backgroundColor: 'rgba(225, 225, 225,0.00)',
   },
   {
     borderColor: 'rgb(0, 225, 225)',
-    backgroundColor: 'rgba(225, 225, 225,0.28)',
+    backgroundColor: 'rgba(225, 225, 225,0.00)',
   },
   {
     borderColor: 'rgb(249, 255, 0)',
-    backgroundColor: 'rgba(225, 225, 225,0.28)',
+    backgroundColor: 'rgba(225, 225, 225,0.00)',
   },
   {
     borderColor: 'rgb(148, 1, 130)',
-    backgroundColor: 'rgba(225, 225, 225,0.28)',
+    backgroundColor: 'rgba(225, 225, 225,0.00)',
   }
 ];
 
@@ -106,32 +101,180 @@ lineChartType: ChartType = "line";
 setDatas(){
 
  // this.lineChartLabels.includes(this.meses);
-  this.lineChartData.push({ data: [105, 102, 108, 105, 107, 105], label: 'Exame 10' });
+ // this.lineChartData.push({ data: [105, 102, 108, 105, 107, 105], label: 'Exame 10' });
+
+  //console.log(this.creatinina[0].mes);
 
   }
-  */
+  
+
 
   carregarDashboard() {
 
+     this.dashboardService.GetAllHemograma()
+      .subscribe(
+        getJson => {
+          //se precsio esperar um retorno assincrono, colocar um funcao entro do subscribe
+          this.hemograma = getJson;
+          this.CarregarDadosDashboard(this.hemograma);
+       
+         
+        },
+        err => {
+          console.log(err.error);
+          this.mensagem = err.error;
 
-      this.dashboardService.GetAllCreatinina()
-        .subscribe(
-          getJson => {
-            this.creatinina = getJson;
-            console.log(getJson);
-            //console.log("Cidades carregadas!");
-          },
-          err => {
-            console.log(err.error);
-            this.mensagem = err.error;
+        }
+    );
 
-          }
-        );
+    this.dashboardService.GetAllCreatinina()
+      .subscribe(
+        getJson => {
+          //se precsio esperar um retorno assincrono, colocar um funcao entro do subscribe
+          this.creatinina = getJson;
+          this.CarregarDadosDashboard(this.creatinina);
+
+         
+        },
+        err => {
+          console.log(err.error);
+          this.mensagem = err.error;
+
+        }
+
+    );
+
+    this.dashboardService.GetAllAcidoUrico()
+      .subscribe(
+        getJson => {
+          //se precsio esperar um retorno assincrono, colocar um funcao entro do subscribe
+          this.acidoUrico = getJson;
+          this.CarregarDadosDashboard(this.acidoUrico);
+
+        },
+        err => {
+          console.log(err.error);
+          this.mensagem = err.error;
+
+        }
+    );
+
+    this.dashboardService.GetAllUrina1()
+      .subscribe(
+        getJson => {
+          //se precsio esperar um retorno assincrono, colocar um funcao entro do subscribe
+          this.urina1 = getJson;
+          this.CarregarDadosDashboard(this.urina1);
+
+
+        },
+        err => {
+          console.log(err.error);
+          this.mensagem = err.error;
+
+        }
+    );
+
+    this.dashboardService.GetAllUreia()
+      .subscribe(
+        getJson => {
+          //se precsio esperar um retorno assincrono, colocar um funcao entro do subscribe
+          this.ureia = getJson;
+          this.CarregarDadosDashboard(this.ureia);
+
+        
+        },
+        err => {
+          console.log(err.error);
+          this.mensagem = err.error;
+
+        }
+    );
+
+    this.dashboardService.GetAllLDH()
+      .subscribe(
+        getJson => {
+          //se precsio esperar um retorno assincrono, colocar um funcao entro do subscribe
+          this.LDH = getJson;
+          this.CarregarDadosDashboard(this.LDH);
+
+        },
+        err => {
+          console.log(err.error);
+          this.mensagem = err.error;
+
+        }
+    );
+
+    this.dashboardService.GetAllHIV()
+      .subscribe(
+        getJson => {
+          //se precsio esperar um retorno assincrono, colocar um funcao entro do subscribe
+          this.HIV = getJson;
+          this.CarregarDadosDashboard(this.HIV);
+
+     
+        },
+        err => {
+          console.log(err.error);
+          this.mensagem = err.error;
+
+        }
+    );
+   
 
     
-
-
+   
   }
+  CarregarDadosDashboard(obj:Dashboard[]) {
+    let val:number[]= [];
+    obj.forEach((dado) => {
+      if (dado.ano == 2020) {
+        //  this.lineChartLabels.push(dado.mes + " - " + dado.ano);
+        val.push(dado.total);
+      }
+    });
+    this.lineChartColors.push({
+      borderColor: 'rgb(0, 83, 225)',
+      backgroundColor: 'rgba(225, 225, 225,0.00)',
+    });
+    this.lineChartData.push({ data: val, label: obj[0].exame });
+    ///removendo o inciador que usei
+   // for (var i = 0; i < this.lineChartData.length; i++) {
+      if (this.lineChartData[0].label == "Exame 01") {
+        this.lineChartData.splice(0, 1);
+      }
+  //  }
+
+   
+    console.log("removendo exame");
+    console.log(this.lineChartData);
+  }
+
+  /*
+  exemplo de de remover em array
+function removeItemOnce(arr, value) {
+  var index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  return arr;
+}
+
+function removeItemAll(arr, value) {
+  var i = 0;
+  while (i < arr.length) {
+    if (arr[i] === value) {
+      arr.splice(i, 1);
+    } else {
+      ++i;
+    }
+  }
+  return arr;
+}
+// Usage
+
+*/
 
   
 }

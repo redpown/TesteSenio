@@ -12,7 +12,7 @@ import { Dashboard } from '../../models/dashboard-model/dashboard';
   providedIn: 'root'
 })
 export class DashboardService {
-//aqui crio funcoes que retonar apenas um Observable
+//aqui crio funcoes que retonar apenas um Observable que case sensitive
   public base: string =  document.getElementsByTagName('base')[0].href; // api
   public url: string = "";
 

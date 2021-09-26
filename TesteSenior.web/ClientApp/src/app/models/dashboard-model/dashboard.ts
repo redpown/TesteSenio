@@ -1,10 +1,10 @@
 export class Dashboard {
- // public Total: number = 0;
-  public Tipo: string = "";
-  public Status: string = "";
-  public Coleta: string = "";
-  public Exame: string = "";
-  public Mes: string = "";
- // public Ano: number = 0;
+  public total: number = 0;
+  public tipo: string = "";
+  public status: string = "";
+  public coleta: string = "";
+  public exame: string = "";
+  public mes: string = "";
+  public ano: number = 0;
 
 }
