@@ -4,3 +4,36 @@ esse erro quer dizer q a clase é virtual, somente para navegação do entity
 
 The property or navigation 'tabelaCidade' cannot be added to the entity type 'TabelaEdificio' 
 because a property or navigation with the same name already exists on entity type 'TabelaEdificio'.
+
+
+
+public class RouteConfig
+    {
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*allpng}", new { allpng = @".*\.png(/.*)?" });
+            routes.IgnoreRoute("{*allcss}", new { allcss = @".*\.css(/.*)?" });
+            routes.IgnoreRoute("{*alljs}", new { alljs = @".*\.js(/.*)?" });
+
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }              
+            );
+
+            //routes.MapRoute(
+            //    name: "Default_Language",
+            //    url: "{lang}",
+            //    constraints: new { lang = @"(\w{2})|(\w{2}-\w{2})" }
+            //);
+
+            routes.MapRoute(
+                name: "DefaultLocalized",
+                url: "{lang}/{controller}/{action}/{id}",
+                constraints: new { lang = @"(\w{2})|(\w{2}-\w{2})" },   // en or en-US
+                //constraints: new { lang = new CultureConstraint(defaultCulture: "pt-BR", pattern: "[a-z][2]") },
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+        }
+    }
