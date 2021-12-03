@@ -4,3 +4,163 @@ esse erro quer dizer q a clase é virtual, somente para navegação do entity
 
 The property or navigation 'tabelaCidade' cannot be added to the entity type 'TabelaEdificio' 
 because a property or navigation with the same name already exists on entity type 'TabelaEdificio'.
+
+
+
+public class RouteConfig
+    {
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*allpng}", new { allpng = @".*\.png(/.*)?" });
+            routes.IgnoreRoute("{*allcss}", new { allcss = @".*\.css(/.*)?" });
+            routes.IgnoreRoute("{*alljs}", new { alljs = @".*\.js(/.*)?" });
+
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }              
+            );
+
+            //routes.MapRoute(
+            //    name: "Default_Language",
+            //    url: "{lang}",
+            //    constraints: new { lang = @"(\w{2})|(\w{2}-\w{2})" }
+            //);
+
+            routes.MapRoute(
+                name: "DefaultLocalized",
+                url: "{lang}/{controller}/{action}/{id}",
+                constraints: new { lang = @"(\w{2})|(\w{2}-\w{2})" },   // en or en-US
+                //constraints: new { lang = new CultureConstraint(defaultCulture: "pt-BR", pattern: "[a-z][2]") },
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+        }
+    }
+    
+    CREATE TABLE TEVENTO_NOTIFICACAO_PUSH (
+    CD_EVENTO INT IDENTITY(1,1) PRIMARY KEY 
+   ,ID INT
+   ,ENDPOINT VARCHAR(125)
+   ,ID_EVENTO VARCHAR(50)
+	--CONSTRAINT PK_ACESSO_SUFRAMA_CD_EMPRESA FOREIGN KEY (CD_EMPRESA)
+	---REFERENCES [dbo].[TEMPRESA_NAC](CD_EMPRESA)
+);
+--drop table TSUBSCRICOES
+--select * from TEVENTO_NOTIFICACAO_PUSH
+
+CREATE TABLE TSUBSCRICOES (
+    CD_SUBSCRICAO INT IDENTITY(1,1) PRIMARY KEY 
+   ,NM_DESPACHANTE  VARCHAR(256)
+   ,ID_EVENTO VARCHAR(50)
+   ,ENDPOINT VARCHAR(50)
+   ,ID_SUBSCRICAO int
+   ,DATA_SUBSCRICAO datetime
+	--CONSTRAINT PK_ACESSO_SUFRAMA_CD_EMPRESA FOREIGN KEY (CD_EMPRESA)
+	---REFERENCES [dbo].[TEMPRESA_NAC](CD_EMPRESA)
+	--select * from TSUBSCRICOES
+);
+
+
+CREATE TABLE TNOTIFICACAO_PUSH_DUE (
+    CD_PUSH INT IDENTITY(1,1) PRIMARY KEY 
+	,TIPO VARCHAR(50)
+	,DESCRICAO VARCHAR(35)
+	,DATA datetime
+	,NUMERO VARCHAR(14)
+	,RUC VARCHAR(35)
+	,DT_INCLUSAO DATETIME NULL
+	CONSTRAINT DT_INCLUSAO_Constraint DEFAULT GetDate() FOR DT_INCLUSAO,
+	CONSTRAINT DTM_Constraint DEFAULT GetDate() FOR DATA
+	--CONSTRAINT PK_ACESSO_SUFRAMA_CD_EMPRESA FOREIGN KEY (CD_EMPRESA)
+	---REFERENCES [dbo].[TEMPRESA_NAC](CD_EMPRESA)
+);
+----select * from TNOTIFICACAO_PUSH_DUE 
+drop table TNOTIFICACAO_PUSH_DUE
+/*
+ALTER PROCEDURE Masterinsertupdatedelete (@id            INTEGER,
+                                          @first_name    VARCHAR(10),
+                                          @last_name     VARCHAR(10),
+                                          @salary        DECIMAL(10, 2),
+                                          @city          VARCHAR(20),
+                                          @StatementType NVARCHAR(20) = '')
+AS
+  BEGIN
+      IF @StatementType = 'Insert'
+        BEGIN
+            INSERT INTO employee
+                        (id,
+                         first_name,
+                         last_name,
+                         salary,
+                         city)
+            VALUES     ( @id,
+                         @first_name,
+                         @last_name,
+                         @salary,
+                         @city)
+        END
+
+      IF @StatementType = 'Select'
+        BEGIN
+            SELECT *
+            FROM   employee
+        END
+
+      IF @StatementType = 'Update'
+        BEGIN
+            UPDATE employee
+            SET    first_name = @first_name,
+                   last_name = @last_name,
+                   salary = @salary,
+                   city = @city
+            WHERE  id = @id
+        END
+      ELSE IF @StatementType = 'Delete'
+        BEGIN
+            DELETE FROM employee
+            WHERE  id = @id
+        END
+  END
+  
+
+ALTER PROCEDURE sp_insert_evento_notificacao_push (@id            INTEGER,
+													  @ENDPOINT     VARCHAR,
+													  @EVENTO       VARCHAR,
+													  @StatementType NVARCHAR(20) = ''
+													)
+AS
+  BEGIN
+    IF @StatementType = 'Insert'
+        BEGIN
+            INSERT INTO TEVENTO_NOTIFICAOCAO_PUSH
+                        (ID,
+                         ENDPOINT,
+                         EVENTO)
+
+            VALUES     ( @id,
+                         @ENDPOINT,
+                         @EVENTO
+                          )
+		END
+     IF @StatementType = 'Select'
+        BEGIN
+            SELECT *
+            FROM   TEVENTO_NOTIFICAOCAO_PUSH
+        END
+      
+
+END
+
+   ,ID INT
+   ,ENDPOINT VARCHAR
+   ,EVENTO VARCHAR(50)*/
+
+
+   select dbo.udf_Criptografa_Senha('Brcd2021'),
+   CD_USUARIO,CD_SENHA, AP_USUARIO, IN_ATIVO from TUSUARIO where AP_USUARIO = 'amdlima'
+   select CD_USUARIO, CD_SENHA, AP_USUARIO, IN_ATIVO 
+   --update u set CD_SENHA = dbo.udf_Criptografa_Senha('Brcd2021')
+   from brokerItem..TUSUARIO u where AP_USUARIO = 'amdlima'
+   select * from TB_SISTEMA_USUARIO_PERFIL where CD_USUARIO = 6688
+   select * from TB_TELA
