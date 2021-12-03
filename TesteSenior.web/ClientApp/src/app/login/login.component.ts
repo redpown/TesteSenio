@@ -11,27 +11,31 @@ import { UsuariosService } from '../services/usuario/usuario.services';
 })
 export class UserLoginComponent implements OnInit {
 
-  public usario: Usuarios;
+  public usuario: Usuarios;
   public usarios: Usuarios[];
   public showLogin: string | null = 'false';
   @Output('parentFun') parentFun: EventEmitter<any> = new EventEmitter();
   constructor(private titleService: Title, private router: Router, private storageService: SessionService, private usuarioService: UsuariosService) {
-    this.usario = new Usuarios();
+  
     this.usarios = new Array();
-
+    this.usuario = new Usuarios();
   }
-  public usuario: Usuarios = new Usuarios();
-  logar(usuarios: Usuarios): void {
+  
+  logar(userLog: Usuarios): void {
 
-    console.log(usuarios);
-    this.usuarioService.validarUsuariosByLogin(usuarios)
+    console.log(userLog);
+    this.usuarioService.validarUsuariosByLogin(userLog)
       .subscribe(
-        getJson => {
-          console.log(getJson);
-          getJson = this.usuario;
+        data => {
+          console.log('Data:');
+          console.log(data);
+          this.usuario = data;
+         
+          
           if (this.usuario.email != '') {
             console.log('Nome de usuario');
-            console.log(this.usuario.nome);
+            console.log(data.nome);
+            console.log(this.usuario);
             this.storageService.set("isLogado", true);
             this.storageService.set("userName", this.usuario.nome);
             this.parentFun.emit();

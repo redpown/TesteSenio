@@ -6,8 +6,12 @@ import { Injectable } from '@angular/core';
 export class SessionService {
   private storage: Storage;
 
+
+
+
   constructor() {
     this.storage = window.sessionStorage;
+    
 
   }
 
@@ -25,6 +29,8 @@ export class SessionService {
     }
     return null;
   }
+
+
 
   remove(key: string): boolean {
     if (this.storage) {
