@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Cidade } from '../models/cidade-model/cidade';
 import { CidadeService } from '../services/cidade/cidade.services';
+import { SessionService } from '../services/session/session.services';
 
 @Component({
   selector: 'app-cidade-component',
@@ -39,6 +40,7 @@ export class CidadeComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private cidadeService: CidadeService,
     config: NgbModalConfig,
+    private storageService: SessionService,
     private modalService: NgbModal) {
    
     // customize default values of modals used by this component tree
@@ -57,6 +59,7 @@ export class CidadeComponent implements OnInit {
     this.cidade.estado = "";
     this.msg = "ola";
     this.carregarCidades();
+    this.storageService.set("isLogado", "true");
 
   }
 

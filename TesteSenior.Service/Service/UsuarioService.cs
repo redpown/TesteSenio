@@ -20,9 +20,13 @@ namespace TesteSenior.Service.Service
 
         public UsuarioDTO GetUsuario(UsuarioDTO user)
         {
-            Usuario userGet = _TesteSeniorConext.Usuarios.Where(w => w.email == user.email && w.senha == user.senha).FirstOrDefault();
+            UsuarioDTO userDTO = new UsuarioDTO();
+           Usuario userGet = _TesteSeniorConext.Usuarios.Where(w => w.email == user.email && w.senha == user.senha).FirstOrDefault();
             //return _TesteSeniorConext.usuarios.Find(user);
-            UsuarioDTO userDTO = new UsuarioDTO(userGet.nome, userGet.email, userGet.senha);
+            if (userGet != null) {
+                 userDTO = new UsuarioDTO(userGet.nome, userGet.email, userGet.senha);
+            }
+
             return userDTO;
 
         }
@@ -35,6 +39,7 @@ namespace TesteSenior.Service.Service
 
         }
 
+       
         public void PutUsuario(UsuarioDTO user)
         {
             Usuario userPut = new Usuario(null, user.nome, user.email, user.senha);

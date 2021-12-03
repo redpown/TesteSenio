@@ -30,12 +30,22 @@ namespace TesteSenior.web.Controllers
             return _usuarioService.GetAllUsuario();
         }
 
+
         // GET api/<UsuarioController>/5
         [HttpGet("{id}")]
         public Usuario Get(int id)
         {
             return _usuarioService.Select(id);
 ;        }
+
+        // GET api/<UsuarioController>/5
+        [HttpPost("login")]
+        public UsuarioDTO Login([FromBody] UsuarioDTO value)
+        {
+            return _usuarioService.GetUsuario(value);
+
+
+        }
 
         // POST api/<UsuarioController>
         [HttpPost]
@@ -50,6 +60,7 @@ namespace TesteSenior.web.Controllers
         {
             _usuarioService.UpdateByDTO(value);
         }
+
 
         // DELETE api/<UsuarioController>/5
         [HttpDelete("{id}")]

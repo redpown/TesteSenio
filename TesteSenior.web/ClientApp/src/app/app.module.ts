@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { DatePipe } from '@angular/common'; 
+import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -26,6 +26,10 @@ import { DashBoardComponent } from './dashboard/dashboard.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Dashboard } from './models/dashboard-model/dashboard';
 import { DashboardService } from './services/dashboard/dashboard.services';
+import { UserLoginComponent } from './login/login.component';
+import { SessionService } from './services/session/session.services';
+import { UsuariosService } from './services/usuario/usuario.services';
+
 
 
 
@@ -40,8 +44,8 @@ import { DashboardService } from './services/dashboard/dashboard.services';
     ApartamentoComponent,
     QualidadeMetricasComponent,
     SPRankingCondominioComponent,
-    DashBoardComponent
-
+    DashBoardComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,7 +54,7 @@ import { DashboardService } from './services/dashboard/dashboard.services';
     ChartsModule,
     NgxPaginationModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'login', component: AppComponent },
       { path: 'apartamento', component: ApartamentoComponent },
       { path: 'edificio', component: EdificioComponent },
       { path: 'cidade', component: CidadeComponent },
@@ -58,11 +62,11 @@ import { DashboardService } from './services/dashboard/dashboard.services';
       { path: 'metricas-de-qualidade', component: QualidadeMetricasComponent },
       { path: 'dashboard', component: DashBoardComponent },
       { path: 'Ranking-Condominio', component: SPRankingCondominioComponent }
-      
+
     ])
   ],
   providers: [CidadeService, EdificioService, ApartamentoService, PagamentoService, SPRankingCondominioService,
-    QualidadeMetricasService, GenericoService,DashboardService,
+    QualidadeMetricasService, GenericoService, DashboardService, SessionService,UsuariosService,
     DatePipe],
   bootstrap: [AppComponent]
 })

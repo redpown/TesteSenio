@@ -82,6 +82,7 @@ namespace TesteSenior.web
             services.AddScoped<ColetasService>();
             services.AddScoped<MetricaService>();
             services.AddScoped<MetricasTipoMesService>();
+ 
 
 
             // Add the processing server as IHostedService

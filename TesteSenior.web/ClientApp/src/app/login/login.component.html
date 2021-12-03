@@ -1,0 +1,100 @@
+  <main>
+    <div class="container mt-5 mb-4">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+          <div class="card">
+            <div class="card-body p-5 text-center">
+              <div class="h3 font-weight-light mb-3">Sign In</div>
+              <button class="btn btn-icon btn-facebook mx-1">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+              <button class="btn btn-icon btn-github mx-1">
+
+                <i class="fab fa-github"></i>
+
+              </button>
+              <button class="btn btn-icon btn-google mx-1">
+
+                <i class="fab fa-google"></i>
+
+              </button>
+              <button class="btn btn-icon btn-twitter mx-1">
+
+                <i class="fab fa-twitter"></i>
+
+              </button>
+            </div>
+            <hr class="my-0">
+            <div class="card-body p-5">
+              <form novalidate="" class="ng-pristine ng-invalid ng-touched">
+                <div class="form-group">
+                  <label for="inputEmailAddress" class="text-gray-600 small">Email address</label>
+                  <!--
+                                         formcontrolname="email"-> cria a variavel do input ou do form
+                       [ngModelOptions]="{standalone: true}" -> indica que o input nao tem um form
+                       [(ngModel)]="usuario.email"->objeto do componete.ts
+                       #email="ngModel"-> variavel de template
+                        required-> necessario para a validacao do invalid,diry e touched
+
+                  -->
+                  <input id="inputEmailAddress" type="email" class="form-control form-control-solid py-4" placeholder="Enter email address" aria-describedby="emailHelp"
+                         formcontrolname="email"
+                         [ngModelOptions]="{standalone: true}"
+                         [(ngModel)]="usuario.email"
+                         #email="ngModel"
+                         [ngClass]="{
+                                   'is-invalid':email.invalid &&(email.dirty || email.touched),
+                                   'is-valid':email.valid &&(email.dirty || email.touched)
+                                   }" required>
+
+                  <small class="invalid-feedback" *ngIf="email.errors?.required">
+                    Este campo deve ser prenchido.
+                  </small>
+                  <small class="invalid-feedback" *ngIf="email.errors?.email">
+                    Formato inválido.
+                  </small>
+                  <div class="invalid-feedback">Email required.</div><!---->
+                  <!---->
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword" class="text-gray-600 small">Senha</label>
+                  <input id="inputPassword" type="text" class="form-control form-control-solid py-4" placeholder="Enter password"
+                         formcontrolname="senha"
+                         [ngModelOptions]="{standalone: true}"
+                         [(ngModel)]="usuario.senha"
+                         #senha="ngModel"
+                         [ngClass]="{
+                                   'is-invalid':senha.invalid &&(senha.dirty || senha.touched),
+                                   'is-valid':senha.valid &&(senha.dirty || senha.touched)
+                                   }" required>
+                  <small class="invalid-feedback" *ngIf="senha.errors?.required">
+                    Este campo deve ser prenchido.
+                  </small>
+                  <small class="invalid-feedback" *ngIf="senha.errors?.email">
+                    Formato inválido.
+                  </small>
+                  <div class="invalid-feedback">Password required.</div>
+
+                </div>
+                <div class="form-group">
+                  <a class="small" [routerLink]="['/user-trocar-senha']">Forgot your password?</a>
+                </div>
+                <div class="form-group d-flex align-items-center justify-content-between mb-0">
+                  <div class="custom-control custom-control-solid custom-checkbox">
+                    <input id="rememberPasswordCheck" type="checkbox" formcontrolname="checkbox" class="custom-control-input small">
+                    <label for="rememberPasswordCheck" class="custom-control-label">Remember password</label>
+                  </div><button type="button" (click)='logar(usuario)' class="btn btn-outline-primary">Login</button>
+                </div>
+              </form>
+            </div><hr class="my-0">
+            <div class="card-body px-5 py-4">
+              <div class="small text-center">
+                New user?
+                <a [routerLink]="['/user-registro']">Create an account!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
