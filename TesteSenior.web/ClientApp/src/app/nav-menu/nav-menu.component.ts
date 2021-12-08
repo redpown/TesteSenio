@@ -7,7 +7,7 @@ import { SessionService } from '../services/session/session.services';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent implements OnInit {
-  public userName: string = 'teste';
+  public userPerfil: string = 'teste';
   @Output('Logout') Logout: EventEmitter<any> = new EventEmitter();
 
   constructor(private session: SessionService) {
@@ -15,10 +15,13 @@ export class NavMenuComponent implements OnInit {
   }
   public showMenu: boolean = this.session.get("isLogado");
   ngOnInit() {
-  this.userName = this.session.get("userName");
+    this.userPerfil = this.session.get("perfil");
     this.showMenu = this.session.get("isLogado");
     console.log('Comp NavMenu: ');
-    console.log(this.userName);
+   
+    console.log('Perfil:');
+    console.log(this.session.get("perfil"));
+    console.log(this.userPerfil);
     console.log(this.session.get("userName"));
 
   }

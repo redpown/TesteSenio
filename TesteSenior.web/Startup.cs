@@ -36,7 +36,8 @@ namespace TesteSenior.web
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                // define a pasta onde esta o projeto dentro do dist
+                configuration.RootPath = "ClientApp/dist/TesteSenior";
             });
 
             //Configure Cors
@@ -145,6 +146,7 @@ namespace TesteSenior.web
                 .AllowCredentials()
             );
             app.UseWebSockets();
+
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,

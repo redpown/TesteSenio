@@ -14,7 +14,7 @@
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
              [ngClass]="{ show: isExpanded }">
           <ul class="navbar-nav flex-grow">
-            <ng-container *ngIf="userName=='andre'">
+            <ng-container *ngIf="userPerfil=='1'">
               <li class="nav-item" [routerLinkActive]="['link-active']">
                 <a class="nav-link text-dark" [routerLink]="['/apartamento']">Apartamento</a>
               </li>

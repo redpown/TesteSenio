@@ -41,7 +41,7 @@ namespace TesteSenior.Data.Config
 
             builder.Property(tabelaQUALIDADEMETRICAS => tabelaQUALIDADEMETRICAS.qmTipoExame)
              .HasMaxLength(256)
-             .HasColumnName("QN_TIPO");
+             .HasColumnName("QM_TIPO");
 
             builder.Property(tabelaQUALIDADEMETRICAS => tabelaQUALIDADEMETRICAS.qmTotal)
              .HasMaxLength(256)

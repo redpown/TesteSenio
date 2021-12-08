@@ -33,11 +33,14 @@ namespace TesteSenior.Data.Config
             builder.Property(tabelaUsuario => tabelaUsuario.senha)
                 .HasMaxLength(256)
                 .HasColumnName("USUARIO_SENHA");
+            builder.Property(tabelaUsuario => tabelaUsuario.perfil)
+                .HasMaxLength(256)
+                .HasColumnName("USUARIO_PERFIL");
 
             builder.HasData(
 
-                new Usuario{ id = 1, nome = "andre", email = "teste@teste.com", senha = "1234"},
-                new Usuario { id = 2, nome = "youko", email = "teste@teste.com", senha = "1234"}
+                new Usuario{ id = 1, nome = "andre", email = "teste@teste.com", senha = "1234", perfil = "1" },
+                new Usuario { id = 2, nome = "youko", email = "teste@teste.com", senha = "1234", perfil = "2" }
                 
                );
 

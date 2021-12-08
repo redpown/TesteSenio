@@ -35,7 +35,7 @@ namespace TesteSenior.Data.Config
                 new ExameStatus
                 {
                     ID = 1,
-                    Descricao = "Aguaradando Liberação"
+                    Descricao = "Aguardando Liberação"
 
                 },
                 new ExameStatus

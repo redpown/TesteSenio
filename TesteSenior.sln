@@ -23,8 +23,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteSenior.web", "TesteSen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteSenior.Service", "TesteSenior.Service\TesteSenior.Service.csproj", "{E3C221A0-27BA-4E68-9C6C-557CA1337246}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteSenior.Asp", "TesteSenior.Asp\TesteSenior.Asp.csproj", "{48243DE7-443B-4785-A126-3A124E4CC700}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{E3C221A0-27BA-4E68-9C6C-557CA1337246}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3C221A0-27BA-4E68-9C6C-557CA1337246}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3C221A0-27BA-4E68-9C6C-557CA1337246}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48243DE7-443B-4785-A126-3A124E4CC700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48243DE7-443B-4785-A126-3A124E4CC700}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48243DE7-443B-4785-A126-3A124E4CC700}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48243DE7-443B-4785-A126-3A124E4CC700}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,7 +56,6 @@ Global
 		{59F824D6-5C7E-4E79-8B3D-2435255283FC} = {C07D1B2A-2D10-4363-96FB-2F6048CD39B9}
 		{66A3FCA1-78D5-43F1-AA5C-5586F99DF61A} = {59633F00-8B70-4FA0-AE88-BEDD519A0745}
 		{E3C221A0-27BA-4E68-9C6C-557CA1337246} = {36A5E08C-0F7A-4249-AD0E-625940F61966}
-		{48243DE7-443B-4785-A126-3A124E4CC700} = {59633F00-8B70-4FA0-AE88-BEDD519A0745}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C855C465-FB18-4211-AC4B-35DF39B5318B}

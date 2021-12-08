@@ -51,20 +51,30 @@ console.log(this.VerifyLogin);
     //this.child.ngOnInit();
   }
 
-  parentFun(){
-    if(this.VerifyLogin=='false'){
-      this.VerifyLogin ='true';
+  parentFun() {
+
+    
+    if (this.VerifyLogin == 'false') {
+
+      if (this.session.get('perfil') != null) {
+        if (this.session.get('perfil') != '') {
+          this.VerifyLogin = 'true';
+          this.router.navigateByUrl("metricas-de-qualidade");
+        }
+      }
+     
     }else{
       this.VerifyLogin ='false';
     }
-    this.router.navigateByUrl("metricas-de-qualidade");
+    
   }
 
   Loginout(){
 
-      this.VerifyLogin ='false';
-      this.titleService.setTitle("Eme - Login");
-      this.router.navigateByUrl("login");
+    this.VerifyLogin ='false';
+    this.titleService.setTitle("Eme - Login");
+    this.session.clear();
+    this.router.navigateByUrl("login");
 
     }
 

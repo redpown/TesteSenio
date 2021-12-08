@@ -37,7 +37,9 @@ export class UserLoginComponent implements OnInit {
             console.log(data.nome);
             console.log(this.usuario);
             this.storageService.set("isLogado", true);
-            this.storageService.set("userName", this.usuario.nome);
+            this.storageService.set("perfil", this.usuario.perfil);
+            console.log('Perfil:');
+            console.log(this.storageService.get("perfil"));
             this.parentFun.emit();
           }
          
@@ -59,7 +61,7 @@ export class UserLoginComponent implements OnInit {
 
     //this.storageService.clear();
     this.titleService.setTitle("Eme - Login");
-    this.carregarUsuarios();
+  
     console.log('child: login.component')
     //console.log('COMP-login: ');
     //console.log(sessionStorage.getItem('isLogado'));

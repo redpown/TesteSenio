@@ -29,6 +29,7 @@ import { DashboardService } from './services/dashboard/dashboard.services';
 import { UserLoginComponent } from './login/login.component';
 import { SessionService } from './services/session/session.services';
 import { UsuariosService } from './services/usuario/usuario.services';
+import { RouteGuard } from './routeguard/routeguard';
 
 
 
@@ -55,13 +56,13 @@ import { UsuariosService } from './services/usuario/usuario.services';
     NgxPaginationModule,
     RouterModule.forRoot([
       { path: 'login', component: AppComponent },
-      { path: 'apartamento', component: ApartamentoComponent },
-      { path: 'edificio', component: EdificioComponent },
-      { path: 'cidade', component: CidadeComponent },
-      { path: 'pagamento', component: PagamentoComponent },
-      { path: 'metricas-de-qualidade', component: QualidadeMetricasComponent },
-      { path: 'dashboard', component: DashBoardComponent },
-      { path: 'Ranking-Condominio', component: SPRankingCondominioComponent }
+      { path: 'apartamento', component: ApartamentoComponent, canActivate: [RouteGuard]  },
+      { path: 'edificio', component: EdificioComponent, canActivate: [RouteGuard]  },
+      { path: 'cidade', component: CidadeComponent, canActivate: [RouteGuard]  },
+      { path: 'pagamento', component: PagamentoComponent, canActivate: [RouteGuard]  },
+      { path: 'metricas-de-qualidade', component: QualidadeMetricasComponent, canActivate: [RouteGuard] },
+      { path: 'dashboard', component: DashBoardComponent, canActivate: [RouteGuard] },
+      { path: 'Ranking-Condominio', component: SPRankingCondominioComponent, canActivate: [RouteGuard]  }
 
     ])
   ],

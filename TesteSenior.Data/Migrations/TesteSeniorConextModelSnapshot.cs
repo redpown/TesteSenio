@@ -21,24 +21,24 @@ namespace TesteSenior.Data.Migrations
 
             modelBuilder.Entity("testesenior.Domain.DTO.SPRankingCondominio", b =>
                 {
-                    b.Property<int>("andar")
-                        .HasColumnType("int")
+                    b.Property<decimal>("andar")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("ANDAR");
 
                     b.Property<int>("codigoApartamento")
                         .HasColumnType("int")
                         .HasColumnName("CODIGO_APARTAMENTO");
 
-                    b.Property<int>("codigoEdificio")
-                        .HasColumnType("int")
+                    b.Property<decimal>("codigoEdificio")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("CODIGO_EDIFICIO");
 
                     b.Property<string>("estado")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ESTADO");
 
-                    b.Property<int>("metragem")
-                        .HasColumnType("int")
+                    b.Property<decimal>("metragem")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("METRAGEM");
 
                     b.Property<string>("nomeCidade")
@@ -49,15 +49,15 @@ namespace TesteSenior.Data.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("NOME_EDIFICIO");
 
-                    b.Property<int>("numeroQuartos")
-                        .HasColumnType("int")
+                    b.Property<decimal>("numeroQuartos")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("NUMERO_QUARTOS");
 
-                    b.Property<double>("valorPagamento")
-                        .HasColumnType("float")
+                    b.Property<decimal>("valorPagamento")
+                        .HasColumnType("decimal(18,2)")
                         .HasColumnName("VALOR_PAGAMENTO");
 
-                    b.ToTable("SpRankingCondominio");
+                    b.ToView("sp_Ranking_condominio");
                 });
 
             modelBuilder.Entity("testesenior.Domain.Entity.Coleta", b =>
@@ -232,7 +232,7 @@ namespace TesteSenior.Data.Migrations
                     b.Property<int>("qmTipoExame")
                         .HasMaxLength(256)
                         .HasColumnType("int")
-                        .HasColumnName("QN_TIPO");
+                        .HasColumnName("QM_TIPO");
 
                     b.Property<int>("qmTotal")
                         .HasMaxLength(256)
@@ -328,6 +328,11 @@ namespace TesteSenior.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("USUARIO_NOME");
 
+                    b.Property<string>("perfil")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("USUARIO_PERFIL");
+
                     b.Property<string>("senha")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
@@ -344,6 +349,7 @@ namespace TesteSenior.Data.Migrations
                             id = 1,
                             email = "teste@teste.com",
                             nome = "andre",
+                            perfil = "1",
                             senha = "1234"
                         },
                         new
@@ -351,6 +357,7 @@ namespace TesteSenior.Data.Migrations
                             id = 2,
                             email = "teste@teste.com",
                             nome = "youko",
+                            perfil = "2",
                             senha = "1234"
                         });
                 });
@@ -361,24 +368,30 @@ namespace TesteSenior.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Coleta")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Exame")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Mes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(9)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(9)");
 
                     b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Tipo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("Total")
                         .HasColumnType("int");
 
-                    b.ToTable("Metricas");
+                    b.ToView("vw_Metricas");
                 });
 
             modelBuilder.Entity("testesenior.Domain.Entity.ViewMetricasTipoMes", b =>

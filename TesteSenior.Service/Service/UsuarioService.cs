@@ -24,7 +24,7 @@ namespace TesteSenior.Service.Service
            Usuario userGet = _TesteSeniorConext.Usuarios.Where(w => w.email == user.email && w.senha == user.senha).FirstOrDefault();
             //return _TesteSeniorConext.usuarios.Find(user);
             if (userGet != null) {
-                 userDTO = new UsuarioDTO(userGet.nome, userGet.email, userGet.senha);
+                 userDTO = new UsuarioDTO(userGet.nome, userGet.email, userGet.senha, userGet.perfil);
             }
 
             return userDTO;
@@ -42,7 +42,7 @@ namespace TesteSenior.Service.Service
        
         public void PutUsuario(UsuarioDTO user)
         {
-            Usuario userPut = new Usuario(null, user.nome, user.email, user.senha);
+            Usuario userPut = new Usuario(null, user.nome, user.email, user.senha, user.perfil);
             _TesteSeniorConext.Usuarios.Add(userPut);
             _TesteSeniorConext.SaveChanges();
 
@@ -71,7 +71,7 @@ namespace TesteSenior.Service.Service
         public void InsertDTO(UsuarioDTO entity)
         {
 
-            Usuario novoUsuario = new Usuario(null,entity.nome, entity.email,entity.senha);
+            Usuario novoUsuario = new Usuario(null,entity.nome, entity.email,entity.senha, entity.perfil);
 
             _TesteSeniorConext.Set<Usuario>().Add(novoUsuario);
 

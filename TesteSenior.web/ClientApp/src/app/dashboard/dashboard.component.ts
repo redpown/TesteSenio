@@ -126,7 +126,7 @@ setDatas(){
 
         }
     );
-
+   
     this.dashboardService.GetAllCreatinina()
       .subscribe(
         getJson => {

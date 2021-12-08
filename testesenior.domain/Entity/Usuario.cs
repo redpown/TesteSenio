@@ -11,6 +11,7 @@ namespace testesenior.Domain.Entity
         public string nome { get; set; }
         public string email { get; set; }
         public string senha { get; set; }
+        public string perfil { get; set; }
 
         /*
         public string senha
@@ -30,7 +31,7 @@ namespace testesenior.Domain.Entity
 
         public Usuario() { }
 
-        public Usuario(int? id, string nome, string email, string senha)
+        public Usuario(int? id, string nome, string email, string senha, string perfil)
         {
             if (id!=null) {
                 this.id =(int) id;
@@ -39,6 +40,7 @@ namespace testesenior.Domain.Entity
             this.nome = nome;
             this.email = email;
             this.senha = senha;
+            this.perfil = perfil;
         }
         public string GenerateHashSenha(string value)
         {
