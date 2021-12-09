@@ -1,0 +1,986 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Subscription } from 'rxjs';
+import { RetornoPadrao } from '../../Controles/config-sistema/config-sistema.module';
+
+
+export class historicoValuesModel<T>{
+    value: T;
+    data: Date;
+    codigoUsuario: number;
+    constructor() {
+      this.codigoUsuario = null;
+      this.data = null;
+      this.value = null;
+    }
+}
+
+export class AutoCompleteHistoricoValuesModel<T, K>{
+  value: T;
+  descricao: K;
+
+  data: Date;
+  codigoUsuario: number;
+  constructor() {
+    this.codigoUsuario = null;
+    this.data = null;
+    this.value = null;
+    this.descricao = null;
+  }
+}
+
+//  TODO: Em caso de performance ruim, tentar migrar histórico e itens validos para uma nova coleção
+export class historicoModel<T>{
+    value: T;
+    historico: historicoValuesModel<T>[] = [];
+    
+    constructor(value: T = null) {
+      this.value = value;
+    }
+}
+
+export class AutoCompleteModel<T, K>{
+  value: T;
+  descricao: K
+  historico: AutoCompleteHistoricoValuesModel<T, K>[] = [];
+  
+  constructor() {
+    this.value = null;
+    this.descricao = null;
+  }
+}
+
+export class AutoCompleteProduto<T, K, M>{
+  codigo: T;
+  versao: K;
+  situacao: M;
+  ultimaAlteracao: T;
+
+  constructor() {
+    this.codigo = null;
+    this.versao = null;
+    this.situacao = null;
+    this.ultimaAlteracao = null;
+  }
+}
+
+export class AutoCompleteFabricanteModel<T, K > {
+  value: T[];
+  descricao: K[];
+  historico: AutoCompleteHistoricoValuesModel<T, K>[] = [];
+
+  constructor() {
+    this.value = new Array<T>();
+    this.descricao = new Array<K>();
+  }
+}
+
+export class AutoCompleteRefModel<T, K, R>{
+  value: T;
+  descricao: K;
+  valueRef: R;
+  historico: AutoCompleteHistoricoValuesRefModel<T, K, R>[] = [];
+  
+  constructor() {
+    this.value = null;
+    this.descricao = null;
+    this.valueRef = null;
+  }
+}
+
+export class AutoCompleteHistoricoValuesRefModel<T, K, R>{
+  value: T;
+  descricao: K;
+  valueRef: R;
+
+  data: Date;
+  codigoUsuario: number;
+  constructor() {
+    this.codigoUsuario = null;
+    this.data = null;
+    this.value = null;
+    this.descricao = null;
+    this.valueRef = null;
+  }
+}
+
+
+export class fornecedorModel{
+  cd_empresa:number;
+  nm_empresa:string;
+  end_empresa:string;
+  end_numero:string;
+  end_cidade:string;
+  end_estado:string;
+
+  codigoPais: string;
+  nomePais: string;
+}
+
+export class PaisModel {
+  codigoPais: string;
+  nomePais: string;
+}
+
+export class unidadeComercializadaModel{
+  cd_unidade_medida:number;
+  nm_unidade_medida:string;
+}
+
+export class naladiModel{
+  codigo: string;
+  descricao: string;
+}
+
+export class NveModel{
+    nveNivel?: string;
+    nveAtributo?: string;
+    nveEspecificacao?: string;
+}
+
+export class Nve{
+  codigoEspecificacao: string;
+  descricaoEspecificacao: string;
+  codigoAtributo: string;
+  descricaoAtributo: string;
+  codigoNivel: string;
+  descricaoNivel: string;
+  codNivel: string;
+}
+
+export class ExTarifario{
+  codigoExtarifario: number;
+  ex: string;
+  descricao: string;
+  resolucao: string;
+  ato: string;
+  numero: string;
+  dataResolucao: Date;
+  vigencia: Date;
+  tipo: string;
+  anoResolucao: number;
+}
+
+export class ncmClassificacaoModel {
+  // CODIGO: string;
+  // DESCRICAO: string;
+  ncm: string;
+  ncm_descricao: string;
+
+  codigoUnidadeMedidaEstatistica: string;
+  descricaoUnidadeMedidaEstatistica: string;
+
+  capitulo_codigo: string;
+  capitulo_descricao: string;
+
+  posicao_codigo: string;
+  posicao_descricao: string;
+
+  subposicao1_codigo: string;
+  subposicao1_descricao: string;
+
+  subposicao2_codigo: string;
+  subposicao2_descricao: string;
+
+  item_codigo: string;
+  item_descricao: string;
+
+  listaDestaqueNCM: Destaque[];
+  listaNveNcm: Nve[];
+  listaExTarifario: ExTarifario[];
+  listaNCMAtributos: NCMAtributosCampos[];
+}
+
+export class PadraoComboBox
+{
+  codigo: string;
+  descricao: string;
+}
+
+export class NCMAtributosCampos {
+  ncm: string;
+  codigo: string;
+  formaPreenchimento: string;
+  modalidade: string;
+  nomeApresentacao: string;
+  isObrigatorio: boolean;
+  orientacaoPreenchimento: string;
+  tamanhoMaximo: number;
+  listaDominio: PadraoComboBox[];
+  value: string;
+}
+
+export class ListaNCMAtributos {
+  item1: NCMAtributosCampos;
+  item2: NCMAtributosCampos;
+  item3: NCMAtributosCampos;
+}
+
+export class Destaque{
+  destaqueManual: boolean;
+  selected: boolean
+  selectOrgao: { [name: string]: boolean };  
+  codigoDestaque: string;
+  descricaoDestaque: string;
+  nomeFinalidade: string;
+  descricaoSiscomexWeb: string;
+  ncm: string;
+
+  constructor() {
+    this.selected = false;    
+    this.destaqueManual = false;
+  }
+}
+
+export class FileUploadModel {
+  id: string;
+  fileBase64: string;
+  data: File;
+  state: string;
+  inProgress: boolean;
+  progress: number;
+  canRetry: boolean;
+  canCancel: boolean;
+  sub?: Subscription;
+  reader: FileReader;
+  /**
+   *
+   */
+  constructor() {
+    this.setReader();
+  }
+
+  setReader() {
+    this.reader= new FileReader();
+
+    this.reader.onloadend = (event) =>{
+      // console.log('load: ' + JSON.stringify(event));
+      // console.log('Result: ' + this._arrayBufferToBase64(this.reader.result));
+      this.fileBase64 = this._arrayBufferToBase64(this.reader.result);
+    }
+  }
+
+  private _arrayBufferToBase64( buffer ) {
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+  }
+}
+
+export class FileUploadModelBrasiliense extends FileUploadModel{
+  nomeArquivo: string;  
+
+  constructor(nomeArquivo?: string, id?: string, fileBase64?: string) {        
+    super();
+    if (nomeArquivo)
+      this.nomeArquivo = nomeArquivo;
+    else
+      this.nomeArquivo = "";
+    // if (id)
+    //   this.id = id;
+    // if (fileBase64)
+    //   this.fileBase64 = fileBase64;
+    
+  }
+    
+}
+
+export class AnexosModel {
+  tipo: string;
+  fileUpload: FileUploadModelBrasiliense;
+  isObrigatorio: boolean;
+
+  constructor() {
+    this.fileUpload = new FileUploadModelBrasiliense();
+    
+  }
+  
+  set(tipo: string, isObrigatorio: boolean, fileUpload: FileUploadModelBrasiliense){
+    this.tipo = tipo;
+    this.isObrigatorio = isObrigatorio;
+    this.fileUpload = fileUpload;    
+  }
+}
+
+export class historicoAlteracao {
+  codigoUsuario: number;
+  nomeUsuario: string;
+  dataAlteracao: Date;
+  alteracoes: string;
+  statusMercadoria: string;
+
+  constructor() {
+    this.codigoUsuario = null;
+    this.nomeUsuario = null;
+    this.dataAlteracao = null;
+    this.alteracoes = null;
+    this.statusMercadoria = null;    
+  }
+}
+
+export class MercadoriaRetorno<T> extends RetornoPadrao<T>{  
+  id: number;
+  statusMercadoria: string;
+}
+
+export class ItemModel{
+
+  //#region Grupo
+    id: number;
+    statusMercadoria: string;
+
+    codigoGrupo: number;    
+    descricaoGrupo: string;
+    cnpjRaiz: string;
+    //#endregion
+
+    //#region Dados
+    partNumber: string;
+    partNumberSecundario?: string;
+
+    apelidoItem: historicoModel<string>;
+    modalidadeOperacao: historicoModel<string>;
+    unidadeMedidaEstatistica: AutoCompleteModel<string, string>;
+    isFabricanteProdutor?: boolean;
+    //fabricanteProdutorEstangeiro: AutoCompleteModel<string, string>;
+    paisFabricanteProdutor: AutoCompleteModel<string, string>;
+    
+    descricaoFiscalAduaneira: historicoModel<string>;
+    descricaoCurtaNotaFiscal?: historicoModel<string>;
+    descricaoComercialFantasia?: historicoModel<string>;    
+    descricaoIngles?: historicoModel<string>;
+    descricaoIdiomaFornecedor?: historicoModel<string>;
+
+    fabricante?: AutoCompleteFabricanteModel<number, string>;
+
+    pesoLiquido?: historicoModel<number>;
+    precoItem?: historicoModel<number>;
+    unidadeComercializada?: AutoCompleteModel<string, string>;
+
+    ncm?: historicoModel<string>;
+    destaque?: Destaque;
+    naladi?: AutoCompleteModel<string, string>;
+    naladiNCCA?: AutoCompleteModel<string, string>;
+
+    nve?: historicoModel<NveModel[]>
+
+    
+    
+    //#region Ex-Tarifario
+
+    //#region II
+    //tipoAcordoTarifario_II?: AutoCompleteModel<string, string>;
+    //tipoAladi_II?: AutoCompleteModel<string, string>;
+    digitacaoAutomatica_II?: historicoModel<boolean>;
+    exTarifario_II?: AutoCompleteModel<string, string>;
+    tipoAtoLegal_II?: AutoCompleteModel<string, string>;
+    orgaoEmissor_II?: AutoCompleteModel<string, string>;
+    numero_II?: historicoModel<string>;
+    ano_II?: historicoModel<string>;
+    dataVigencia_II?: historicoModel<Date>;
+    texto_II?: historicoModel<string>;
+    //#endregion
+
+    //#region IPI    
+    digitacaoAutomatica_IPI?: historicoModel<boolean>;
+    exTarifario_IPI?: AutoCompleteModel<string, string>;
+    tipoAtoLegal_IPI?: AutoCompleteModel<string, string>;
+    orgaoEmissor_IPI?: AutoCompleteModel<string, string>;
+    numero_IPI?: historicoModel<string>;
+    ano_IPI?: historicoModel<string>;
+    dataVigencia_IPI?: historicoModel<Date>;
+    texto_IPI?: historicoModel<string>;
+    //#endregion
+    
+    //#endregion
+
+    //#endregion
+
+    ncmAtributos?: historicoModel<ncmAtributosModel[]>;
+    
+    //#region ANVISA
+    classeAnvisa: AutoCompleteRefModel<string, string, number>;
+    subClasseAnvisa: AutoCompleteModel<string, string>;
+    caracteristicaAnvisa: AutoCompleteModel<string, string>;
+
+    temperatura: AutoCompleteModel<string, string>;
+    umidade: AutoCompleteModel<string, string>;
+    luminosidade: AutoCompleteModel<string, string>;
+
+    tercerizada: AutoCompleteModel<string, string>;
+    numeroProcessoAnvisa: historicoModel<string>;
+    numeroRegistroMS: historicoModel<string>;
+    dataVencimentoAnvisa: historicoModel<Date>;
+
+    isAmostraGratis: historicoModel<boolean>;
+    //#endregion
+
+    //#region MAPA
+    numeroLicencaMapa: historicoModel<string>;
+    validadeMapa: historicoModel<Date>;
+    informacaoComplementarMapa: historicoModel<string>;
+    //#endregion
+
+    //#region Nota Fiscal
+    cest: historicoModel<string>;
+    gtin: historicoModel<string>;
+    gtinTributavel: historicoModel<string>;
+    //#endregion
+
+    //#region Ministerio do Exército
+    numeroRegistroMAPA: historicoModel<string>;    
+    //#endregion
+
+    //#region ANP
+    isPossuiRegistroANP: boolean;
+    numeroRegistroANP_CAS: historicoModel<string>;
+    numeroRegistroANP_DCB: historicoModel<string>;
+    justificativaANP: historicoModel<string>;
+    //#endregion
+
+    //#region INMETRO
+    isPossuiRegistroINMETRO: boolean;
+    numeroRegistroINMETRO: historicoModel<string>;
+    numeroCertificadoINMETRO: historicoModel<string>;
+    //#endregion
+
+    //#region PIS / COFINS
+    tributacaoPIS_COFINS: AutoCompleteModel<string, string>;
+    aliquotaDiferenciadaPIS: historicoModel<number>;
+    aliquotaDiferenciadaCOFINS: historicoModel<number>;
+    codigoFundamentoLegal: AutoCompleteModel<string, string>;
+    //codigoFundamentoLegalCOFINS: AutoCompleteModel<string, string>;
+    //#endregion
+
+    //#region ICMS
+    tributacaoICMS: AutoCompleteModel<string, string>;
+    aliquotaICMS: historicoModel<number>;
+    cargaTributariaICMS: historicoModel<number>;
+    // dispositivoLegalICMS: AutoCompleteModel<string, string>;
+    // tributacaoICMS: AutoCompleteModel<string, string>;
+    // tributacaoEspecificaICMS: historicoModel<string>;
+    //#endregion
+
+    //#region Produto Perigoso
+    isProdutoPerigoso: boolean;
+    numeroONU: AutoCompleteRefModel<number, string, string>;
+    codigoClasseRiscoProdutoPerigoso: AutoCompleteModel<number, string>;
+    codigoSubClasseRiscoProdutoPerigoso: AutoCompleteModel<string, string>;
+    grupoEmbalagemProdutoPerigoso: AutoCompleteModel<number, string>;
+    numeroRisco?: number;
+    qtdeLimitada: number;
+    //#endregion
+        
+    //#region Anexos de Documentos
+    private filesCatalogoTecnico: FileUploadModelBrasiliense = new FileUploadModelBrasiliense();
+    private filesFichaEmergencia: FileUploadModelBrasiliense = new FileUploadModelBrasiliense();
+    private filesCertificadoDeclaracao: FileUploadModelBrasiliense = new FileUploadModelBrasiliense();
+    anexos = new Array<AnexosModel>();    
+    //#endregion
+
+    //#region Outros Dados
+    tipoCalculo: AutoCompleteModel<string, string>;
+    htcCode: historicoModel<string>;
+    serialNumber:historicoModel<string>;
+    isPossuiDrawback: historicoModel<boolean>;
+    
+    cfop: AutoCompleteModel<string, string>;
+    exportador: AutoCompleteModel<string, string>;
+    paisAquisicao: AutoCompleteModel<string, string>;
+    //#endregion
+
+
+  historicoAlteracaoes: historicoAlteracao[];
+
+  produto: AutoCompleteProduto<string, string, string>;
+
+  portalUnicoAPIlog: IPortalUnicoAPIlog;
+  //PortalUnicoAPIlog: PortalUnicoAPIlog<string, string, boolean>;
+
+    rowVersion?: Date;
+
+    constructor() {
+
+        //#region Inicializar Atributos
+
+        //#region Grupo
+        this.codigoGrupo = 0;
+        this.descricaoGrupo = "";
+        this.cnpjRaiz = "";
+        //#endregion
+
+        //#region Dados
+        this.partNumber = "";
+        this.partNumberSecundario = "";
+
+        this.apelidoItem = new historicoModel<string>();
+        this.modalidadeOperacao = new historicoModel<string>();    
+        this.unidadeMedidaEstatistica = new AutoCompleteModel<string, string>();
+        this.isFabricanteProdutor = false;
+        this.paisFabricanteProdutor = new AutoCompleteModel<string, string>();
+            
+        this.descricaoFiscalAduaneira = new historicoModel<string>();    
+        this.descricaoCurtaNotaFiscal = new historicoModel<string>();
+        this.descricaoComercialFantasia = new historicoModel<string>();
+        this.descricaoIngles = new historicoModel<string>();
+        this.descricaoIdiomaFornecedor = new historicoModel<string>();
+
+        this.fabricante = new AutoCompleteFabricanteModel<number, string>();
+
+        this.pesoLiquido = new historicoModel<number>();
+        this.precoItem = new historicoModel<number>();
+        this.unidadeComercializada = new AutoCompleteModel<string, string>();
+
+        this.ncm = new historicoModel<string>();
+        this.destaque = new Destaque();
+        this.naladi = new AutoCompleteModel<string, string>();
+        this.naladiNCCA = new AutoCompleteModel<string, string>();
+
+        this.nve = new historicoModel<NveModel[]>();
+
+        this.ncmAtributos = new historicoModel<ncmAtributosModel[]>();
+
+        //#region Ex-Tarifário
+
+        //#region II
+        this.digitacaoAutomatica_II = new  historicoModel<boolean>();
+        this.digitacaoAutomatica_II.value = true;
+        this.exTarifario_II = new AutoCompleteModel<string, string>();    
+        this.tipoAtoLegal_II = new AutoCompleteModel<string, string>();
+        this.orgaoEmissor_II = new AutoCompleteModel<string, string>();
+        this.numero_II = new historicoModel<string>();
+        this.ano_II = new historicoModel<string>();
+        this.dataVigencia_II = new historicoModel<Date>();
+        this.texto_II = new historicoModel<string>();
+        //#endregion
+
+        //#region IPI
+        this.digitacaoAutomatica_IPI = new  historicoModel<boolean>();
+        this.digitacaoAutomatica_IPI.value = false;
+        this.exTarifario_IPI = new AutoCompleteModel<string, string>();
+        this.tipoAtoLegal_IPI = new AutoCompleteModel<string, string>();
+        this.orgaoEmissor_IPI = new AutoCompleteModel<string, string>();
+        this.numero_IPI = new historicoModel<string>();
+        this.ano_IPI = new historicoModel<string>();
+        this.dataVigencia_IPI = new historicoModel<Date>();
+        this.texto_IPI = new historicoModel<string>();
+        //#endregion
+
+        //#endregion
+
+        
+        //#endregion
+
+        //#region ANVISA
+        this.classeAnvisa = new AutoCompleteRefModel<string, string, number>();
+        this.subClasseAnvisa = new AutoCompleteModel<string, string>();
+        this.subClasseAnvisa.value = "";
+        this.subClasseAnvisa.descricao = "";
+        //this.finalidadeAnvisa = new AutoCompleteModel<string, string>();
+        this.caracteristicaAnvisa = new AutoCompleteModel<string, string>();
+        this.temperatura = new AutoCompleteModel<string, string>();
+        this.umidade = new AutoCompleteModel<string, string>();
+        this.luminosidade = new AutoCompleteModel<string, string>();
+        this.tercerizada = new AutoCompleteModel<string, string>();
+        this.numeroProcessoAnvisa = new historicoModel<string>();
+        this.numeroRegistroMS = new historicoModel<string>();
+        this.dataVencimentoAnvisa = new historicoModel<Date>();
+        //#endregion
+
+        //#region MAPA
+        this.numeroLicencaMapa = new historicoModel<string>();
+        this.validadeMapa = new historicoModel<Date>();
+        this.informacaoComplementarMapa = new historicoModel<string>();
+        //#endregion
+
+        //#region Ministerio do Exercito
+        this.numeroRegistroMAPA = new historicoModel<string>();
+        //#endregion
+
+        //#region ANP
+        this.isPossuiRegistroANP = false; 
+        this.numeroRegistroANP_CAS = new historicoModel<string>();
+        this.numeroRegistroANP_DCB = new historicoModel<string>();
+        this.justificativaANP = new historicoModel<string>();
+        //#endregion
+
+        //#region INMETRO
+        this.isPossuiRegistroINMETRO = false;
+        this.numeroRegistroINMETRO = new historicoModel<string>();
+        this.numeroCertificadoINMETRO = new historicoModel<string>();
+        //#endregion
+
+        //#region Produto Perigoso
+        this.isProdutoPerigoso = false;
+        this.numeroONU =  new AutoCompleteRefModel<number, string, string>();
+        this.codigoClasseRiscoProdutoPerigoso =  new AutoCompleteModel<number, string>();
+        this.codigoSubClasseRiscoProdutoPerigoso =  new AutoCompleteModel<string, string>();
+        this.grupoEmbalagemProdutoPerigoso =  new AutoCompleteModel<number, string>();
+        this.numeroRisco =  null;
+        this.qtdeLimitada =  null;
+        //#endregion
+
+        //#region PIS / COFINS
+        this.tributacaoPIS_COFINS = new AutoCompleteModel<string, string>();
+        this.tributacaoPIS_COFINS.value = "1";
+        this.tributacaoPIS_COFINS.descricao = "RECOLHIMENTO INTEGRAL";
+        this.aliquotaDiferenciadaPIS = new historicoModel<number>();
+        this.aliquotaDiferenciadaCOFINS = new historicoModel<number>();
+        this.codigoFundamentoLegal = new AutoCompleteModel<string, string>();
+        //this.codigoFundamentoLegalCOFINS = new AutoCompleteModel<string, string>();
+        //#endregion
+
+        //#region ICMS
+        this.tributacaoICMS = new AutoCompleteModel<string, string>();
+        this.tributacaoICMS.value = "1";
+        this.tributacaoICMS.descricao = "INTEGRAL";
+
+        this.aliquotaICMS = new historicoModel<number>();
+        this.cargaTributariaICMS = new historicoModel<number>();
+        // this.dispositivoLegalICMS = new AutoCompleteModel<string, string>();
+        // this.tributacaoICMS = new AutoCompleteModel<string, string>();
+        // this.tributacaoEspecificaICMS = new historicoModel<string>();
+        //#endregion
+
+        //#region Nota Fiscal
+        this.cest = new historicoModel<string>();
+        this.gtin = new historicoModel<string>();
+        this.gtinTributavel = new historicoModel<string>();
+        //#endregion
+
+        //#region Anexos
+        this.anexos = new Array<AnexosModel>();
+        let aux = new AnexosModel();
+        aux.set('CatalogoTecnico', false, this.filesCatalogoTecnico);        
+        this.anexos.push(aux);
+        aux = new AnexosModel();
+        aux.set('FichaEmergencia', false, this.filesFichaEmergencia);        
+        this.anexos.push(aux);
+        aux = new AnexosModel();
+        aux.set('CertificadoDeclaracao', false, this.filesCertificadoDeclaracao);        
+        this.anexos.push(aux);
+        //#endregion
+        
+
+        //#region Historicos
+        this.historicoAlteracaoes = new Array<historicoAlteracao>();
+        //#endregion
+
+        //#region Outros Dados
+        this.tipoCalculo = new AutoCompleteModel<string, string>();
+        this.htcCode = new historicoModel<string>();
+        this.serialNumber = new historicoModel<string>();
+        this.isPossuiDrawback = new historicoModel<boolean>(false);
+        this.isPossuiDrawback.value = false;
+        this.isAmostraGratis = new historicoModel<boolean>(false);
+        this.isAmostraGratis.value = false;
+        this.cfop = new AutoCompleteModel<string, string>();
+        this.exportador = new AutoCompleteModel<string, string>();
+        this.paisAquisicao = new AutoCompleteModel<string, string>();
+        //#endregion
+
+        this.rowVersion = null;
+      //#endregion
+      this.produto = new AutoCompleteProduto<string, string, string>();
+      //this.portalUnicoAPIlog = new PortalUnicoAPIlog<string, string, boolean>();
+    }
+}
+
+export class itemFindModel{
+  id: number;
+  partNumber: string;
+  partNumberSecundario: string;
+  apelido: string;
+  descricaoMercadoria: string;
+  statusMercadoria: string
+}
+
+export class ControleTela{
+  isNew: boolean;
+  isEdit: boolean;
+  isNCMPreenchido: boolean;
+  isNVE: boolean;
+  isTratamentoAdministrativo: boolean;
+  isANVISA: boolean;
+  isMAPA: boolean;
+  isMinisterioExercito: boolean;
+  isANP: boolean;
+  isINMETRO: boolean;  
+  isProdutoPerigoso: boolean
+  isPIS_COFINS: boolean;
+  isICMS: boolean;
+  isNotaFiscal: boolean;
+  isAnexos: boolean;
+  isOpenAnexos: boolean;
+
+  isSubmit: boolean;
+
+  isDados: boolean;
+
+  constructor() {
+    this.setAllFalse();
+  }
+
+  setAllFalse() {
+    this.isNew = false;
+    this.isEdit = false;
+    this.isNCMPreenchido = false;
+    this.isNVE = false;
+    this.isTratamentoAdministrativo = false;
+    this.isANVISA = false;
+    this.isMAPA = false;
+    this.isMinisterioExercito = false;
+    this.isANP = false;
+    this.isINMETRO = false;  
+    this.isProdutoPerigoso = false;
+    this.isPIS_COFINS = false;
+    this.isICMS = false;
+    this.isNotaFiscal = false;
+    this.isAnexos = false;
+    this.isOpenAnexos = false;
+    this.isSubmit = false;
+ 
+    this.isDados = false;
+  }
+}
+
+
+//#region Rotinas relacionadas ao Tree-View da NVE
+export class TodoItemNode {
+    children: TodoItemNode[];
+    item: string;
+    checked: boolean;
+
+    /**
+     *
+     */
+    constructor() {
+      //this.children = new Array<TodoItemNode>();
+      this.item = "";
+      this.checked = false;
+    }
+}
+
+export class TodoItemFlatNode {
+    item: string;
+    level: number;
+    expandable: boolean;
+    checked: boolean;
+    objChecked: any;
+
+    constructor(){
+
+      this.checked = false;
+      this.item = "";
+      this.expandable = false;
+
+    }
+}
+
+
+@Injectable()
+export class ChecklistDatabase {
+  dataChange = new BehaviorSubject<TodoItemNode[]>([]);
+
+  get data(): TodoItemNode[] { return this.dataChange.value; }
+
+  constructor() {
+    //this.initialize();
+  }
+
+  // initialize() {
+  //   // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
+  //   //     file node as children.
+  //   const data = this.buildFileTree(TREE_DATA, 0);
+
+  //   // Notify the change.
+  //   this.dataChange.next(data);
+  // }
+  
+  loadDataNVE(data){
+    this.dataChange.next(data);
+    
+    // let _dataChange = this.buildFileTree(data, 0);
+    // console.log(_dataChange);
+    // // Notify the change.
+    // this.dataChange.next(_dataChange);
+  }
+
+  clearData(){
+    this.dataChange.next(new Array<TodoItemNode>())
+  }
+  
+  /**
+   * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
+   * The return value is the list of `TodoItemNode`.
+   */
+  // buildFileTree(obj: {[key: string]: any}, level: number): TodoItemNode[] {
+  //   return Object.keys(obj).reduce<TodoItemNode[]>((accumulator, key) => {
+  //     let _checked: boolean = false;
+  //     if (key.indexOf("|=>|") != -1){
+  //       let aux = key.substring(key.indexOf("|=>|_checked:")+13).toLocaleLowerCase()
+  //       _checked = aux == "true";
+  //       key = key.substring(0, key.indexOf("|=>|"))
+  //     }
+
+  //     const value = obj[key];
+  //     const node = new TodoItemNode();
+  //     node.item = key;
+  //     node.checked = _checked;
+
+  //     if (value != null) {
+  //       if (typeof value === 'object') {
+  //         node.children = this.buildFileTree(value, level + 1);        
+  //       } else {
+  //         node.item = value;
+  //       }
+  //     }
+
+  //     return accumulator.concat(node);
+  //   }, []);
+  // }
+
+  // /** Add an item to to-do list */
+  // insertItem(parent: TodoItemNode, name: string) {
+  //   if (parent.children) {
+  //     parent.children.push({item: name} as TodoItemNode);
+  //     this.dataChange.next(this.data);
+  //   }
+  // }
+
+  // updateItem(node: TodoItemNode, name: string) {
+  //   node.item = name;
+  //   this.dataChange.next(this.data);
+  // }
+}
+//#endregion
+
+
+export class classeModel{  
+  codigoClasse: string;	
+  nomeClasse: string;
+  codigoClasseAnvisa: string;
+  listaSubClasse: subClassModel[];
+
+  constructor() {
+    this.listaSubClasse = new Array<subClassModel>();    
+  }
+}
+
+export class subClassModel{
+  codigoSubClasse: string;	
+	nomeSubClasse: string;
+}
+
+export class caracteristicaModel{
+  codigoCaracteristica: string;
+  nomeCaracateristica: string;
+}
+
+export class temperaturaModel{
+  codigoTemperatura: string;
+  nomeTemperatura: string;
+}
+
+export class umidadeModel{
+  codigoUmidade:string;
+  nomeUmidade:string;
+}
+
+export class luminosidadeModel{
+  codigoLuminosidade: string;
+  nomeLuminosidade: string;
+}
+
+export class terceirizadaModel{
+  codigoTerceirizada: number;
+  nomeTerceirizada: string;
+}
+
+export class tipoCalculoModel{
+  codigoTipoCalculo: string;
+  descricaoTipoCalculo: string;
+}
+
+export class cfopModel{
+  codigoCfop: string;
+  descricaoCfop: string;
+}
+
+export class ExTarifarioModel{
+  codigoExtarifario: number;
+  ex: string;
+  descricao: string;
+  resolucao: string;
+  ato: string;
+  numero: string;
+  dataResolucao: Date;
+  vigencia: Date;
+  tipo: string;
+  anoResolucao: number;
+}
+
+export class itensStatusModel {
+  qtde: number;
+  descricao: string;
+}
+
+export class ncmAtributosModel {
+  codigo: string;
+  modalidade: string;
+  valor: string;
+  constructor() {
+    this.valor = "";
+    this.modalidade = "";
+    this.codigo = "";
+  }
+
+}
+export class PortalUnicoAPIlog<T,K,M>
+{
+
+  codigo: T[];
+  erros: Array<T[]>;
+  seq: K[];
+  sucesso: M[];
+  ultimaAlteracao: T[];
+  tipoErro: TipoErro[];
+
+  constructor() {
+    this.codigo = new Array<T>();
+    this.erros = new Array<T[]>();
+    this.seq = new Array<K>();
+    this.sucesso = new Array<M>();
+    this.ultimaAlteracao = new Array<T>();
+    this.tipoErro = new Array<TipoErro>();
+  }
+}
+
+export interface IPortalUnicoAPIlog {
+  codigo: string[];
+  erros: Array<string[]>;
+  seq: number[];
+  sucesso: boolean[];
+  ultimaAlteracao: string[];
+  tipoErro: TipoErro[];
+}
+
+export enum TipoErro {
+  CADProduto = "Cad Produto",
+  OpEstrangeiro = "Op estrangeiro",
+  Vinculo = "Vinculo",
+}
+
+
+
+export interface CatalogoProdutoResult {
+  Mensagem : string;
+  Status: boolean;
+  
+}
+
+
