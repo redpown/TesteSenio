@@ -1,0 +1,800 @@
+using Library;
+using ServicosWEB.Shared.Classes;
+using System;
+using System.Linq;
+using System.Web.Script.Serialization;
+using RestSharp;
+using System.Security.Cryptography.X509Certificates;
+using System.Net;
+using System.Collections.Generic;
+using MongoDB.Driver;
+using MongoDB.Bson;
+using ServicosWEB.Shared.Database.CatalogoProduto;
+using ServicosWEB.ICatalogoProduto.Model;
+using System.IO;
+using System.Text;
+using ServicosWEB.Shared.Database.CatalogoProduto.Model;
+using System.IO.Compression;
+using ServicosWEB.PortalUnicoCatalogoProduto;
+
+namespace ServicosWEB
+{
+    public partial class WebServicos : ICatalogoProdutoService
+    {
+        //primeiro cadastrar o produto e depois o operador estrangeiro e por ultimo vincular.
+
+        #region metodo que traz os dados autenticados
+        public DadosAutenticacaoPortalUnico Autenticar(string NomeDespachante)
+        {
+            DadosAutenticacaoPortalUnico autenticacao = new DadosAutenticacaoPortalUnico();
+            try
+            {
+                X509Certificate certificado;
+
+                NavegadorWeb navegador = new NavegadorWeb("AppBRCD/1.0");
+                certificado = navegador.GetCertificado(NomeDespachante);
+
+                RestSharp.RestClient restClient;
+
+#if DEBUG_HOMOLOGACAO
+                restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_VALIDACAO);
+#else
+                restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_PRODUCAO);
+#endif
+
+                restClient.Timeout = 10 * 60 * 1000;
+                restClient.ClientCertificates = new X509CertificateCollection();
+                restClient.ClientCertificates.Add(certificado);
+
+                #region Autenticação
+                var requestAut = new RestRequest(Configuracoes.URL_PORTALUNICO.URI_WS_AUTENTICACAO, Method.POST);
+                requestAut.AddHeader("Role-Type", "IMPEXP");
+
+                IRestResponse response = restClient.Execute(requestAut);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    autenticacao.SetToken = response.Headers.Where(it => it.Name == "Set-Token").Select(it => it.Value.ToString()).FirstOrDefault();
+                    autenticacao.XCSRFExpiration = response.Headers.Where(it => it.Name == "X-CSRF-Expiration").Select(it => it.Value.ToString()).FirstOrDefault();
+                    autenticacao.XCSRFToken = response.Headers.Where(it => it.Name == "X-CSRF-Token").Select(it => it.Value.ToString()).FirstOrDefault();
+                }
+                #endregion
+
+                return autenticacao;
+            }
+            catch (Exception ex)
+            {
+
+                autenticacao.TokenExpirationTime = null;
+                autenticacao.XCSRFExpiration = null;
+                autenticacao.XCSRFToken = ex.Message;
+                autenticacao.SetToken = ex.ToString();
+                return autenticacao;
+            }
+
+
+        }
+        #endregion
+
+        #region metodo que faz o cadastro dos produtos
+        public RetornoPadrao Produtos_Post(DadosAutenticacaoPortalUnico autenticacao, string id, RetonoPortalunicoCatalogoProduto<string, int?, bool> log, string app)
+        {
+
+#if DEBUG_HOMOLOGACAO
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_VALIDACAO);
+#else
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_PRODUCAO);
+#endif
+
+            CatalogoProdutoDB catalogoProdutoDB = new CatalogoProdutoDB("ebroker");
+            MercadoriaModelDB mercadoriaCollection = new MercadoriaModelDB();
+            if (app=="BDI") {
+                 mercadoriaCollection = catalogoProdutoDB.GetDados(id);
+            }
+
+            try
+            {
+
+                RestRequest request;
+
+                IdentificacaoAdicional[] fablista = new IdentificacaoAdicional[1];
+                List<Produto> produtosList = new List<Produto>();
+                Produto produtos = new Produto();
+                produtos.seq = 1;
+
+                #region Campos obrigatorios para tributos de impostos
+
+                #region Atributo
+
+                foreach (var ncmAtributos in mercadoriaCollection.ncmAtributos.value)
+                {
+                    if (ncmAtributos.valor != null)
+                    {
+
+                        Atributo atributos = new Atributo();
+                        atributos.atributo = ncmAtributos.codigo;
+                        atributos.valor = (ncmAtributos.valor.All(char.IsDigit)) ? ncmAtributos.valor.PadLeft(3, '0') : ncmAtributos.valor;
+                        produtos.atributos.Add(atributos);
+                    }
+                }
+
+                #endregion
+
+                #region Atributos Multivalorado
+
+                AtributosMultivalorado atributosMultivalorados = new AtributosMultivalorado();
+
+                //atributosMultivalorados.valores.Add("125");
+                //atributosMultivalorados.atributo = "ATT_2";
+                //produtos.atributosMultivalorados.Add(atributosMultivalorados);
+
+                #endregion
+
+                #region Atributos Composto
+
+                AtributosComposto atrinutosCompostos = new AtributosComposto();
+                Valor valores = new Valor();
+
+                //valores.valor = "126";
+                //valores.atributo = "ATT_3";
+                //atrinutosCompostos.atributo = "127";
+                //atrinutosCompostos.valores.Add(valores);
+                //produtos.atributosCompostos.Add(atrinutosCompostos);
+
+                #endregion
+
+                #region Atributos Compostos Multivalorado
+                AtributosCompostosMultivalorado atributosCompostosMultivalorados = new AtributosCompostosMultivalorado();
+                List<Valor> valoresList = new List<Valor>();
+                //valores = new Valor();
+
+
+                //valores.valor = "128";
+                //valores.atributo = "ATT_4";
+                //valoresList.Add(valores);
+                //atributosCompostosMultivalorados.valores.Add(valoresList);
+                //atributosCompostosMultivalorados.atributo = "ATT_5";
+                //atributosCompostosMultivalorados.atributo = "129";
+                // produtos.atributosCompostosMultivalorados.Add(atributosCompostosMultivalorados);
+                #endregion
+
+                #endregion
+                produtos.codigosInterno.Add(mercadoriaCollection.partNumber);
+                produtos.descricao = catalogoProdutoDB.GetDescricao(mercadoriaCollection.descricaoFiscalAduaneira.value);
+                produtos.denominacao = mercadoriaCollection.descricaoGrupo;
+                produtos.cpfCnpjRaiz = mercadoriaCollection.cnpjRaiz;
+                produtos.situacao = "ATIVADO";
+                produtos.modalidade = mercadoriaCollection.modalidadeOperacao.value.ToUpper();
+                produtos.ncm = mercadoriaCollection.ncm.value;
+                #region Data de referência, informar somente quando for criar produto com data retroativa
+                //produtos.dataReferencia = DateTime.Now.ToString("yyyy-MM-dd");
+                #endregion
+
+                #region Campos infomados apenas se houver retificacao
+
+                if ((mercadoriaCollection.produto.codigo != null) && (mercadoriaCollection.produto.codigo != "") && (mercadoriaCollection.produto.codigo.Length > 0))
+                {
+                    produtos.codigo = mercadoriaCollection.produto.codigo;
+                    produtos.versao = mercadoriaCollection.produto.versao;
+                }
+                #endregion
+
+                produtosList.Add(produtos);
+
+                request = new RestRequest(Configuracoes.URL_PORTALUNICO.URI_WS_PRODUTO, Method.POST);
+
+                request.ReadWriteTimeout = 5 * 60 * 1000;
+                request.Timeout = 5 * 60 * 1000;
+                request.AddHeader("Authorization", autenticacao.SetToken);
+                request.AddHeader("X-CSRF-Token", autenticacao.XCSRFToken);
+                request.AddHeader("Accept", "application/json");
+                request.AddJsonBody(produtosList);
+
+                IRestResponse response = restClient.Execute(request);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    RespostaRetornada[] retorno = js.Deserialize<RespostaRetornada[]>(response.Content);
+
+                    foreach (var result in retorno)
+                    {
+
+                        if (result.sucesso == false)
+                        {
+                            log.seq.Add(result.seq);
+                            log.codigo.Add((result.codigo != null) ? result.codigo.PadLeft(10, '0') : "sem código");
+                            log.erros.Add(result.erros.ToArray().ToList());
+                            log.sucesso.Add(result.sucesso);
+                            log.tipoErro.Add("Produto");
+                            log.ultimaAlteracao.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+                        }
+                        else
+                        {
+                            result.erros.Add("Integrado com Sucesso!..");
+                            log.seq.Add(result.seq);
+                            log.codigo.Add((result.codigo != null) ? result.codigo.PadLeft(10, '0') : "sem código");
+                            log.erros.Add(result.erros.ToArray().ToList());
+                            log.sucesso.Add(result.sucesso);
+                            log.tipoErro.Add("Produto");
+                            log.ultimaAlteracao.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+                        }
+                    }
+
+
+
+                }
+
+                return new RetornoPadrao() { Mensagem = "Cadastro Finalizado", Status = true };
+            }
+            catch (Exception ex)
+            {
+                return new RetornoPadrao() { Mensagem = "Erro na Inscrição: " + ex.Message, Status = false };
+            }
+
+        }
+        #endregion
+
+        #region metodo que busca o produto que foi cadsatrado
+        public RetornoPadrao Produtos_Get(DadosAutenticacaoPortalUnico autenticacao, string id, string app)
+        {
+
+#if DEBUG_HOMOLOGACAO
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_VALIDACAO);
+#else
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_PRODUCAO);
+#endif
+
+            CatalogoProdutoDB catalogoProdutoDB = new CatalogoProdutoDB("ebroker");
+            MercadoriaModelDB mercadoriaCollection = new MercadoriaModelDB();
+            if (app == "BDI")
+            {
+                mercadoriaCollection = catalogoProdutoDB.GetDados(id);
+            }
+
+            try
+            {
+
+                RestRequest request;
+
+                List<Produto> produtosList = new List<Produto>();
+
+                GetProdutos produtos = new GetProdutos();
+
+
+                //String query = String.Format("?codigo={0}&codigoInterno={1}&descricao={2}&denominacao={3}&ncm{4}&periodoRegistroInicio={5}&periodoRegistroFim={6}&situacao={7}&ultimaAlteracaoInicio={8}&&ultimaAlteracaoFim={9}&paisOrigem={10}&cpfCnpjFabricante={11}&cpfCnpjRaiz={12}&modalidade={13}&dataReferencia={14}&operadorEstrangeiroCodigo={15}", 
+
+
+                String query = String.Format("?cpfCnpjRaiz={0}&codigoInterno={1}",
+                 mercadoriaCollection.cnpjRaiz,
+                 mercadoriaCollection.partNumber
+                 );
+
+                request = new RestRequest(Configuracoes.URL_PORTALUNICO.URI_WS_PRODUTO + query, Method.GET);
+
+                request.ReadWriteTimeout = 5 * 60 * 1000;
+                request.Timeout = 5 * 60 * 1000;
+                request.AddHeader("Authorization", autenticacao.SetToken);
+                request.AddHeader("X-CSRF-Token", autenticacao.XCSRFToken);
+                request.AddHeader("Accept", "application/json");
+
+                IRestResponse response = restClient.Execute(request);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    Produto[] retorno = js.Deserialize<Produto[]>(response.Content);
+
+                    foreach (var result in retorno)
+                    {
+                        catalogoProdutoDB.UpdateDBI(mercadoriaCollection.id.ToString(), result.codigo, result.versao, result.situacao);
+
+                    }
+
+                }
+
+                return new RetornoPadrao() { Mensagem = "Cadastro Finalizado", Status = true };
+            }
+            catch (Exception ex)
+            {
+                return new RetornoPadrao() { Mensagem = "Erro na Inscrição: " + ex.Message, Status = false };
+            }
+        }
+        #endregion
+        #region metodo que busca os produtos detalhamente
+        public RetornoPadrao Produtos_Detalhados_Get(string NomeDespachante, string id, string app)
+        {
+
+#if DEBUG_HOMOLOGACAO
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_VALIDACAO);
+#else
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_PRODUCAO);
+#endif
+
+            CatalogoProdutoDB catalogoProdutoDB = new CatalogoProdutoDB("ebroker");
+            MercadoriaModelDB mercadoriaCollection = new MercadoriaModelDB();
+            if (app == "BDI")
+            {
+                mercadoriaCollection = catalogoProdutoDB.GetDados("289");
+            }
+
+            try
+            {
+
+                RestRequest request;
+
+                DadosAutenticacaoPortalUnico autenticacao = Autenticar(NomeDespachante);
+
+                Produto produtos = new Produto();
+
+                produtos.cpfCnpjRaiz = mercadoriaCollection.cnpjRaiz;
+                produtos.codigo = mercadoriaCollection.produto.codigo;
+                produtos.versao = mercadoriaCollection.produto.versao;
+
+                String path = String.Format("/{0}/{1}/{2}", produtos.cpfCnpjRaiz, produtos.codigo, produtos.versao);
+
+                request = new RestRequest(Configuracoes.URL_PORTALUNICO.URI_WS_PRODUTO + path, Method.GET);
+
+                request.ReadWriteTimeout = 5 * 60 * 1000;
+                request.Timeout = 5 * 60 * 1000;
+                request.AddHeader("Authorization", autenticacao.SetToken);
+                request.AddHeader("X-CSRF-Token", autenticacao.XCSRFToken);
+                request.AddHeader("Accept", "application/json");
+
+
+                IRestResponse response = restClient.Execute(request);
+
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    Produto retorno = js.Deserialize<Produto>(response.Content);
+
+                    File.WriteAllText(@"C:\Temporario\Produto_downlaod.txt", response.Content);
+
+                }
+
+                return new RetornoPadrao() { Mensagem = "Cadastro Finalizado", Status = true };
+            }
+            catch (Exception ex)
+            {
+                return new RetornoPadrao() { Mensagem = "Erro na Inscrição: " + ex.Message, Status = false };
+            }
+
+        }
+        #endregion
+        #region metodo que cadastra o operador estrangeiro
+        public RetornoPadrao Operador_Estrangeiro_Post(DadosAutenticacaoPortalUnico autenticacao, string id, RetonoPortalunicoCatalogoProduto<string, int?, bool> log, string app)
+        {
+#if DEBUG_HOMOLOGACAO
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_VALIDACAO);
+#else
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_PRODUCAO);
+#endif
+
+            CatalogoProdutoDB catalogoProdutoDB = new CatalogoProdutoDB("ebroker");
+            MercadoriaModelDB mercadoriaCollection = new MercadoriaModelDB();
+            if (app == "BDI")
+            {
+                mercadoriaCollection = catalogoProdutoDB.GetDados(id);
+            }
+
+            try
+            {
+
+                RestRequest request;
+                List<OperadorEstrangeiro> fablista = new List<OperadorEstrangeiro>();
+
+                int seq = 1;
+
+                foreach (var cd_mportador in mercadoriaCollection.fabricante.value)
+                {
+                    OperadorEstrangeiro fab = new OperadorEstrangeiro();
+
+                    fab = catalogoProdutoDB.GetEndereco(cd_mportador.ToString(), mercadoriaCollection.cnpjRaiz, seq);
+
+                    #region Data de referência, informar somente quando for criar Operador Estrangeiro com data retroativa
+                    //fab.dataReferencia = DateTime.Now.ToString("yyyy-MM-dd");
+                    #endregion
+                    //fab.identificacoesAdicionais.Add(new IdentificacaoAdicional() { numero = "1232121212123", codigo = "CCC" });
+                    seq++;
+                    fablista.Add(fab);
+
+                }
+                fablista.RemoveAll(zx => zx == null);
+
+
+                request = new RestRequest(Configuracoes.URL_PORTALUNICO.URI_WS_OPERADOR_ESTRANGEIRO, Method.POST);
+
+                request.ReadWriteTimeout = 5 * 60 * 1000;
+                request.Timeout = 5 * 60 * 1000;
+                request.AddHeader("Authorization", autenticacao.SetToken);
+                request.AddHeader("X-CSRF-Token", autenticacao.XCSRFToken);
+                request.AddHeader("Accept", "application/json");
+                request.AddJsonBody(fablista);
+
+                IRestResponse response = restClient.Execute(request);
+
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    RespostaRetornada[] retorno = js.Deserialize<RespostaRetornada[]>(response.Content);
+                    int count = 0;
+                    foreach (var result in retorno)
+                    {
+                        if (result.sucesso == false)
+                        {
+                            log.seq.Add(result.seq);
+                            log.codigo.Add((fablista[count].codigo != null) ? fablista[count].codigo : "sem código");
+                            log.erros.Add(result.erros.ToArray().ToList());
+                            log.sucesso.Add(result.sucesso);
+                            log.tipoErro.Add("Op estrangeiro");
+                            log.ultimaAlteracao.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+                        }
+                        else
+                        {
+                            result.erros.Add("Integrado com Sucesso!..");
+                            log.seq.Add(result.seq);
+                            log.codigo.Add((fablista[count].codigo != null) ? fablista[count].codigo : "sem código");
+                            log.erros.Add(result.erros.ToArray().ToList());
+                            log.sucesso.Add(result.sucesso);
+                            log.tipoErro.Add("Op estrangeiro");
+                            log.ultimaAlteracao.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+                        }
+                        count++;
+                    }
+
+
+
+
+                }
+                else
+                {
+                    File.WriteAllText(@"C:\Temporario\erro.txt", response.ToJson());
+                }
+
+                return new RetornoPadrao() { Mensagem = "Cadastro Finalizado", Status = true };
+            }
+            catch (Exception ex)
+            {
+                return new RetornoPadrao() { Mensagem = "Erro na Inscrição: " + ex.Message, Status = false };
+            }
+
+        }
+        #endregion
+
+        #region metodo que busca o operador estrangeiro (NomeDespachante, cpfCnpjRaiz codigoInterno)
+        public RetornoPadrao Operador_Estrangeiro_Get(DadosAutenticacaoPortalUnico autenticacao, string cpfCnpjRaiz, string codigoInterno)
+        {
+
+
+
+            OperadorEstrangeiro fab = new OperadorEstrangeiro();
+
+#if DEBUG_HOMOLOGACAO
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_VALIDACAO);
+#else
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_PRODUCAO);
+#endif
+
+            CatalogoProdutoDB catalogoProdutoDB = new CatalogoProdutoDB("ebroker");
+
+            try
+            {
+
+                RestRequest request;
+
+                String query = String.Format("?cpfCnpjRaiz={0}&codigoInterno={1}", cpfCnpjRaiz, codigoInterno);
+
+                request = new RestRequest(Configuracoes.URL_PORTALUNICO.URI_WS_OPERADOR_ESTRANGEIRO + query, Method.GET);
+
+                request.ReadWriteTimeout = 5 * 60 * 1000;
+                request.Timeout = 5 * 60 * 1000;
+                request.AddHeader("Authorization", autenticacao.SetToken);
+                request.AddHeader("X-CSRF-Token", autenticacao.XCSRFToken);
+                request.AddHeader("Accept", "application/json");
+                //request.AddJsonBody(fab);
+
+                IRestResponse response = restClient.Execute(request);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    RespostaRetornada[] retorno = js.Deserialize<RespostaRetornada[]>(response.Content);
+                    OperadorEstrangeiro[] retornoOperadores = js.Deserialize<OperadorEstrangeiro[]>(response.Content);
+
+                    File.WriteAllText(@"C:\Temporario\status.txt", retorno.ToJson().ToString());
+                    File.WriteAllText(@"C:\Temporario\operador_cadastrado.txt", retornoOperadores.ToJson().ToString());
+
+                    return new RetornoPadrao() { Mensagem = "Fabricante já cadastrado.!", Status = false };
+
+                }
+
+                return new RetornoPadrao() { Mensagem = "Consulta Finalizada", Status = true };
+            }
+            catch (Exception ex)
+            {
+                return new RetornoPadrao() { Mensagem = "Erro na Inscrição: " + ex.Message, Status = false };
+            }
+        }
+        #endregion
+
+        #region metodo para vincular o fabricante
+        public RetornoPadrao Vincular_Fabricante_Produtor_Post(DadosAutenticacaoPortalUnico autenticacao, string id, RetonoPortalunicoCatalogoProduto<string, int?, bool> log, string app)
+        {
+
+#if DEBUG_HOMOLOGACAO
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_VALIDACAO);
+#else
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_PRODUCAO);
+#endif
+
+            CatalogoProdutoDB catalogoProdutoDB = new CatalogoProdutoDB("ebroker");
+            MercadoriaModelDB mercadoriaCollection = new MercadoriaModelDB();
+            if (app == "BDI")
+            {
+                mercadoriaCollection = catalogoProdutoDB.GetDados(id);
+            }
+
+            try
+            {
+
+                RestRequest request;
+
+                List<VincularFabricanteProdutor> fablista = new List<VincularFabricanteProdutor>();
+
+                VincularFabricanteProdutor fabProd = new VincularFabricanteProdutor();
+
+                int seq = 1;
+
+                foreach (var cd_mportador in mercadoriaCollection.fabricante.value)
+                {
+                    VincularFabricanteProdutor fab = new VincularFabricanteProdutor();
+
+                    fab = catalogoProdutoDB.GetDadosVincular(cd_mportador.ToString(), mercadoriaCollection.cnpjRaiz, seq, mercadoriaCollection.produto.codigo, mercadoriaCollection.isFabricanteProdutor);
+
+                    seq++;
+
+                    fablista.Add(fab);
+                }
+                fablista.RemoveAll(zx => zx == null);
+
+
+                request = new RestRequest(Configuracoes.URL_PORTALUNICO.URI_WS_VINCULAR_FABRICANTE, Method.POST);
+
+                request.ReadWriteTimeout = 5 * 60 * 1000;
+                request.Timeout = 5 * 60 * 1000;
+                request.AddHeader("Authorization", autenticacao.SetToken);
+                request.AddHeader("X-CSRF-Token", autenticacao.XCSRFToken);
+                request.AddHeader("Accept", "application/json");
+                request.AddJsonBody(fablista);
+
+                IRestResponse response = restClient.Execute(request);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    RespostaRetornada[] retorno = js.Deserialize<RespostaRetornada[]>(response.Content);
+                    int count = 0;
+                    foreach (var result in retorno)
+                    {
+                        if (result.sucesso == false)
+                        {
+
+                            log.seq.Add(result.seq);
+                            log.codigo.Add((fablista[count].codigoOperadorEstrangeiro != null) ? fablista[count].codigoOperadorEstrangeiro : "sem código");
+                            log.erros.Add(result.erros);
+                            log.sucesso.Add(result.sucesso);
+                            log.tipoErro.Add("Vinculo");
+                            log.ultimaAlteracao.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+                        }
+                        else
+                        {
+                            result.erros.Add("Integrado com Sucesso!..");
+                            log.seq.Add(result.seq);
+                            log.codigo.Add((fablista[count].codigoOperadorEstrangeiro != null) ? fablista[count].codigoOperadorEstrangeiro : "sem código");
+                            log.erros.Add(result.erros.ToArray().ToList());
+                            log.sucesso.Add(result.sucesso);
+                            log.tipoErro.Add("Op estrangeiro");
+                            log.ultimaAlteracao.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+                        }
+                        count++;
+
+                    }
+
+                }
+
+                return new RetornoPadrao() { Mensagem = "Cadastro Finalizado", Status = true };
+            }
+            catch (Exception ex)
+            {
+                return new RetornoPadrao() { Mensagem = "Erro na Inscrição: " + ex.Message, Status = false };
+            }
+
+        }
+        #endregion
+
+        #region metodo que busca os vinculos
+        public RetornoPadrao Vincular_Fabricante_Produtor_Get(DadosAutenticacaoPortalUnico autenticacao, string id, RetonoPortalunicoCatalogoProduto<string, int?, bool> log, string app)
+        {
+#if DEBUG_HOMOLOGACAO
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_VALIDACAO);
+#else
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_PRODUCAO);
+#endif
+
+            CatalogoProdutoDB catalogoProdutoDB = new CatalogoProdutoDB("ebroker");
+                        MercadoriaModelDB mercadoriaCollection = new MercadoriaModelDB();
+            if (app=="BDI") {
+                 mercadoriaCollection = catalogoProdutoDB.GetDados(id);
+            }
+
+            try
+            {
+
+                RestRequest request;
+                //primeiro cadastrar o produto e depois o operador estrangeiro epor ultimo vincular.
+
+                List<VincularFabricanteProdutor> fablista = new List<VincularFabricanteProdutor>();
+
+                VincularFabricanteProdutor fabProd = new VincularFabricanteProdutor();
+
+                request = new RestRequest(Configuracoes.URL_PORTALUNICO.URI_WS_VINCULAR_FABRICANTE_EXPORTAR + mercadoriaCollection.cnpjRaiz, Method.GET);
+
+                request.ReadWriteTimeout = 5 * 60 * 1000;
+                request.Timeout = 5 * 60 * 1000;
+                request.AddHeader("Authorization", autenticacao.SetToken);
+                request.AddHeader("X-CSRF-Token", autenticacao.XCSRFToken);
+                request.AddHeader("Accept", "application/zip");
+                //request.AddHeader("Content-Type", "application/zip");
+
+                IRestResponse response = restClient.Execute(request);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    byte[] files = response.RawBytes;
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    FabricantesVinculados[] FabricantesProdutos = js.Deserialize<FabricantesVinculados[]>(Unzip(files));
+
+                    foreach (var vinculo in FabricantesProdutos)
+                    {
+                        catalogoProdutoDB.SalvarVinculo(vinculo);
+                    }
+                }
+
+                return new RetornoPadrao() { Mensagem = "Cadastro Finalizado", Status = true };
+            }
+            catch (Exception ex)
+            {
+                return new RetornoPadrao() { Mensagem = "Erro na Inscrição: " + ex.Message, Status = false };
+            }
+        }
+        #endregion
+
+        #region metodo que baixa o zip do NCM
+        public RetornoPadrao Atributos_NCM_Get(DadosAutenticacaoPortalUnico autenticacao)
+        {
+
+
+#if DEBUG_HOMOLOGACAO
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_VALIDACAO);
+#else
+            RestSharp.RestClient restClient = new RestClient(Configuracoes.URL_PORTALUNICO.URL_WS_PRODUCAO);
+#endif
+
+            try
+            {
+
+                RestRequest request;
+
+
+                String query = String.Format("?data={0}", "2021-11-24");
+
+                request = new RestRequest(Configuracoes.URL_PORTALUNICO.URI_WS_ATRIBUTO_NCM_JSON + query, Method.GET);
+
+                request.ReadWriteTimeout = 5 * 60 * 1000;
+                request.Timeout = 5 * 60 * 1000;
+                request.AddHeader("Authorization", autenticacao.SetToken);
+                request.AddHeader("X-CSRF-Token", autenticacao.XCSRFToken);
+                request.AddHeader("Accept", "application/zip");
+                //request.AddHeader("Content-Type", "application/zip");
+                //request.AddJsonBody(fab);
+
+                IRestResponse response = restClient.Execute(request);
+
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    byte[] arquivoTxt = response.RawBytes;
+
+
+                    Stream stream = new MemoryStream(arquivoTxt);
+
+#if DEBUG_HOMOLOGACAO
+                    File.WriteAllBytes(@"C:\Temporario\VAL_Atributos_NCM.zip", arquivoTxt);
+#else
+                 File.WriteAllBytes(@"C:\Temporario\Producao_NCM.zip", arquivoTxt);             
+#endif
+
+                }
+
+                return new RetornoPadrao() { Mensagem = "Cadastro Finalizado", Status = true };
+            }
+            catch (Exception ex)
+            {
+                return new RetornoPadrao() { Mensagem = "Erro na Inscrição: " + ex.Message, Status = false };
+            }
+
+        }
+        #endregion
+
+
+        #region metodo com todos os cadastros necessarios para o catalogo de produto
+        public RetornoPadrao CatalogoProduto(string nomeDespachante, string id, string app)
+        {
+
+            try
+            {
+                CatalogoProdutoDB catalogoProdutoDB = new CatalogoProdutoDB("ebroker");
+                MercadoriaModelDB mercadoriaCollection = catalogoProdutoDB.GetDados(id);
+                DadosAutenticacaoPortalUnico autenticacao = Autenticar(nomeDespachante);
+                RetonoPortalunicoCatalogoProduto<string, int?, bool> log = new RetonoPortalunicoCatalogoProduto<string, int?, bool>();
+
+
+                Produtos_Post(autenticacao, id, log, app);
+                Produtos_Get(autenticacao, id, app);
+                Operador_Estrangeiro_Post(autenticacao, id, log, app);
+                Vincular_Fabricante_Produtor_Post(autenticacao, id, log, app);
+                Vincular_Fabricante_Produtor_Get(autenticacao, id, log, app);
+
+                catalogoProdutoDB.Log(mercadoriaCollection.id.ToString(), log, app);
+
+
+                return new RetornoPadrao() { Mensagem = "Cadastro Processado! ", Status = true };
+
+            }
+            catch (Exception ex)
+            {
+                return new RetornoPadrao() { Mensagem = "Erro na Inscrição: " + ex.Message, Status = false };
+            }
+
+
+        }
+        #endregion
+
+        #region metodo para abrir arquivo zip em memoria
+        public static string Unzip(byte[] zippedBuffer)
+        {
+            using (var zippedStream = new MemoryStream(zippedBuffer))
+            {
+                using (var archive = new ZipArchive(zippedStream))
+                {
+                    var entry = archive.Entries.FirstOrDefault();
+
+                    if (entry != null)
+                    {
+                        using (var unzippedEntryStream = entry.Open())
+                        {
+                            using (var ms = new MemoryStream())
+                            {
+                                unzippedEntryStream.CopyTo(ms);
+                                var unzippedArray = ms.ToArray();
+
+                                return Encoding.Default.GetString(unzippedArray);
+                            }
+                        }
+                    }
+
+                    return null;
+                }
+
+
+            }
+        }
+        #endregion
+
+    }
+}
