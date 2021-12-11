@@ -2106,6 +2106,16 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Criptografa/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Criptografa.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Criptografa.dll": {}
+        }
+      },
       "TesteSenior.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -7327,6 +7337,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "Criptografa/1.0.0": {
+      "type": "project",
+      "path": "../CriptografarDescriptografar/Criptografa.csproj",
+      "msbuildProject": "../CriptografarDescriptografar/Criptografa.csproj"
+    },
     "TesteSenior.Data/1.0.0": {
       "type": "project",
       "path": "../TesteSenior.Data/TesteSenior.Data.csproj",
@@ -7340,6 +7355,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Criptografa >= 1.0.0",
       "TesteSenior.Data >= 1.0.0",
       "testesenior.Domain >= 1.0.0"
     ]
@@ -7379,6 +7395,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "E:\\Projetos\\VisualStudio\\TesteSenior\\CriptografarDescriptografar\\Criptografa.csproj": {
+              "projectPath": "E:\\Projetos\\VisualStudio\\TesteSenior\\CriptografarDescriptografar\\Criptografa.csproj"
+            },
             "E:\\Projetos\\VisualStudio\\TesteSenior\\TesteSenior.Data\\TesteSenior.Data.csproj": {
               "projectPath": "E:\\Projetos\\VisualStudio\\TesteSenior\\TesteSenior.Data\\TesteSenior.Data.csproj"
             },

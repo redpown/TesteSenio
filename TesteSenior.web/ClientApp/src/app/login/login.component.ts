@@ -38,6 +38,7 @@ export class UserLoginComponent implements OnInit {
             console.log(this.usuario);
             this.storageService.set("isLogado", true);
             this.storageService.set("perfil", this.usuario.perfil);
+            this.storageService.set("userName", this.usuario.nome);
             console.log('Perfil:');
             console.log(this.storageService.get("perfil"));
             this.parentFun.emit();

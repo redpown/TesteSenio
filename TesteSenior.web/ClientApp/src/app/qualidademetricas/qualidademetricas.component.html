@@ -1,4 +1,3 @@
-<div class="container-xl">
   <div class="table-responsive">
     <div class="table-wrapper">
       <div class="table-title">
@@ -21,17 +20,17 @@
                 <label for="selectAllC"></label>
               </span>
             </th>
-            <th>Codigo</th>
+            <th >Codigo</th>
             <th>Exame</th>
             <th>Tipo</th>
-            <th>Coleta</th>
-            <th>Data</th>
+            <th >Coleta</th>
+            <th >Data</th>
             <th>Status</th>
             <!--
             <th>Quantiade</th>
             <th>Total</th>
               -->
-            <th>Ações</th>
+            <th >Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -49,17 +48,17 @@
                 <label for="checkbox-c-{{dadosQm.qmQuantidade}}"></label>
               </span>
             </td>
-            <td>{{dadosQm.qmId}}</td>
+            <td >{{dadosQm.qmId}}</td>
             <td>{{setDescricaoExame(dadosQm)}}</td>
             <td>{{setDescricaoTipoExame(dadosQm)}}</td>
-            <td>{{setDescricaoColeta(dadosQm)}}</td>
-            <td>{{dadosQm.qmData | date: 'dd/MM/yyyy'}}</td>
+            <td >{{setDescricaoColeta(dadosQm)}}</td>
+            <td >{{dadosQm.qmData | date: 'dd/MM/yyyy'}}</td>
             <td>{{setDescricaoStatusExame(dadosQm)}}</td>
             <!--
             <td>{{dadosQm.qmQuantidade}}</td>
             <td>{{dadosQm.qmTotal}}</td>
               -->
-            <td>
+            <td >
               <a (click)="modalEditar(editarMetricas,dadosQm)" class="edit cursor" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
               <a (click)="modalExcluirId(deleteEmployeeModal,dadosQm.qmId)" class="delete cursor" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Excluir">&#xE872;</i></a>
             </td>

@@ -15,3 +15,5 @@ E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Service\obj\Debug\net5.0\TesteS
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Service\obj\Debug\net5.0\TesteSenior.Service.dll
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Service\obj\Debug\net5.0\ref\TesteSenior.Service.dll
 E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Service\obj\Debug\net5.0\TesteSenior.Service.pdb
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Service\bin\Debug\net5.0\Criptografa.dll
+E:\Projetos\VisualStudio\TesteSenior\TesteSenior.Service\bin\Debug\net5.0\Criptografa.pdb

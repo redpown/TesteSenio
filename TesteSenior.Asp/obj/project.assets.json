@@ -2167,6 +2167,16 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Criptografa/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Criptografa.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Criptografa.dll": {}
+        }
+      },
       "TesteSenior.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -2204,6 +2214,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "Criptografa": "1.0.0",
           "TesteSenior.Data": "1.0.0",
           "testesenior.Domain": "1.0.0"
         },
@@ -7481,6 +7492,11 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Criptografa/1.0.0": {
+      "type": "project",
+      "path": "../CriptografarDescriptografar/Criptografa.csproj",
+      "msbuildProject": "../CriptografarDescriptografar/Criptografa.csproj"
     },
     "TesteSenior.Data/1.0.0": {
       "type": "project",

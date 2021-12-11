@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Criptografa;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,10 @@ namespace TesteSenior.Service.Service
         public UsuarioDTO GetUsuario(UsuarioDTO user)
         {
             UsuarioDTO userDTO = new UsuarioDTO();
-           Usuario userGet = _TesteSeniorConext.Usuarios.Where(w => w.email == user.email && w.senha == user.senha).FirstOrDefault();
+           Usuario userGet = _TesteSeniorConext.Usuarios.Where(w =>  w.email == user.email && w.senha == Criptografar.Criptografia(user.senha,140)).FirstOrDefault();
             //return _TesteSeniorConext.usuarios.Find(user);
             if (userGet != null) {
-                 userDTO = new UsuarioDTO(userGet.nome, userGet.email, userGet.senha, userGet.perfil);
+                 userDTO = new UsuarioDTO(userGet.nome, userGet.email, Criptografar.Criptografia(userGet.senha,140), userGet.perfil);
             }
 
             return userDTO;
@@ -42,7 +43,7 @@ namespace TesteSenior.Service.Service
        
         public void PutUsuario(UsuarioDTO user)
         {
-            Usuario userPut = new Usuario(null, user.nome, user.email, user.senha, user.perfil);
+            Usuario userPut = new Usuario(null, user.nome, user.email, Criptografar.Criptografia(user.senha,140), user.perfil);
             _TesteSeniorConext.Usuarios.Add(userPut);
             _TesteSeniorConext.SaveChanges();
 
@@ -63,7 +64,7 @@ namespace TesteSenior.Service.Service
             Usuario velhoObj = Select(novoObj.id);
             velhoObj.nome = novoObj.nome;
             velhoObj.email = novoObj.email;
-            velhoObj.senha = novoObj.senha;
+            velhoObj.senha = Criptografar.Criptografia(novoObj.senha,140);
             _TesteSeniorConext.Entry(velhoObj).State = EntityState.Modified;
             _TesteSeniorConext.SaveChanges();
         }
@@ -71,7 +72,7 @@ namespace TesteSenior.Service.Service
         public void InsertDTO(UsuarioDTO entity)
         {
 
-            Usuario novoUsuario = new Usuario(null,entity.nome, entity.email,entity.senha, entity.perfil);
+            Usuario novoUsuario = new Usuario(null,entity.nome, entity.email, Criptografar.Criptografia(entity.senha,140), entity.perfil);
 
             _TesteSeniorConext.Set<Usuario>().Add(novoUsuario);
 
