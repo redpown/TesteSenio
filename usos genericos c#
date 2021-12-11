@@ -1,0 +1,1158 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using ProjetoBDI.Models.Shared;
+using ProjetoBDI.Shared.Converts;
+
+namespace ProjetoBDI.Models
+{
+    
+
+    // public class TesteModel
+    // {
+    //     [BsonId(IdGenerator = typeof(Generator<TesteModel>))]
+    //     [BsonElement("_id")]
+    //     public int id { get; set; }
+    //     public string nome { get; set; }
+    // }
+
+    public class MercadoriaRetorno<T>: RetornoPadrao<T>
+    {
+        public int id { get; set; }
+        public string statusMercadoria { get; set; }
+
+    }
+
+    public class HistoricoAlteracao {
+        public int codigoUsuario { get; set; }
+        public string nomeUsuario { get; set; }
+        public DateTime dataAlteracao { get; set; }
+        public string alteracoes { get; set; }
+        public string statusMercadoria { get; set; }
+    }
+
+    [BsonIgnoreExtraElements]    
+    public class MercadoriaModel
+    {           
+        [BsonId(IdGenerator = typeof(Generator<MercadoriaModel>))]
+        [BsonElement("_id")]
+        public int id { get; set; }
+        public DateTime ultimaAlteracao { get; set; }
+        public string statusMercadoria { get; set; }
+
+        #region Dados
+        public int codigoGrupo { get; set; }
+        public string descricaoGrupo { get; set; }
+        public string partNumber { get; set; }
+        public string partNumberSecundario { get; set; }
+        public string cnpjRaiz { get; set; }
+        
+//        [JsonConverter(typeof(HistoricoConverter<string>))]
+        public historicoModel<string> apelidoItem { get; set; }
+        
+        public historicoModel<string> modalidadeOperacao { get; set; }
+        public AutoCompleteModel<string, string> unidadeMedidaEstatistica { get; set; }
+        public bool isFabricanteProdutor { get; set;}
+        //public AutoCompleteModel<string, string> fabricanteProdutorEstangeiro { get; set;}
+        public AutoCompleteModel<string, string> paisFabricanteProdutor { get; set;}
+
+        //[JsonConverter(typeof(HistoricoConverter<string>))]
+        public historicoModel<string> descricaoFiscalAduaneira { get; set; }
+        public historicoModel<string> descricaoCurtaNotaFiscal { get; set; }
+        public historicoModel<string> descricaoComercialFantasia { get; set; }
+        public historicoModel<string> descricaoIngles { get; set; }
+        public historicoModel<string> descricaoIdiomaFornecedor { get; set; }
+
+        public AutoCompleteFabricanteModel<int?, string> fabricante { get; set; }
+        
+        public AutoCompleteModel<string, string> naladi { get; set; }
+        public AutoCompleteModel<string, string> naladiNCCA { get; set; }
+
+        // Não utilizar mais
+        //[JsonIgnore]
+        //public AutoCompleteModel<string, string> exTarifario { get; set; }
+        
+        //II
+        public historicoModel<bool> digitacaoAutomatica_II { get; set; }
+        public AutoCompleteModel<string, string> exTarifario_II { get; set; }
+        public AutoCompleteModel<string, string> tipoAtoLegal_II { get; set; }
+        public AutoCompleteModel<string, string> orgaoEmissor_II { get; set; }
+        public historicoModel<string> numero_II { get; set; }
+        public historicoModel<string> ano_II { get; set; }
+        public historicoModel<string> texto_II { get; set; }
+        public historicoModel<DateTime?> dataVigencia_II { get; set; }
+
+        //IPI
+        public historicoModel<bool> digitacaoAutomatica_IPI { get; set; }
+        public historicoModel<string> exTarifario_IPI { get; set; }
+        public AutoCompleteModel<string, string> tipoAtoLegal_IPI { get; set; }
+        public AutoCompleteModel<string, string> orgaoEmissor_IPI { get; set; }
+        public historicoModel<string> numero_IPI { get; set; }
+        public historicoModel<string> ano_IPI { get; set; }
+        public historicoModel<string> texto_IPI { get; set; }
+        public historicoModel<DateTime?> dataVigencia_IPI { get; set; }
+
+        public historicoModel<string> ncm { get; set; } //?: historicoModel<string>
+        
+        public Destaque destaque { get; set; }
+
+        public historicoModel<NveModel[]> nve {get; set;}
+
+        public historicoModel<AtributosNCMCamposModel[]> ncmAtributos { get; set; }
+        #endregion
+
+        #region ANVISA
+        public AutoCompleteRefModel<string, string, int?> classeAnvisa { get; set; }
+        public AutoCompleteModel<string, string> subClasseAnvisa { get; set; }        
+        public AutoCompleteModel<string, string> caracteristicaAnvisa { get; set; }
+        public AutoCompleteModel<string, string> temperatura { get; set; }
+        public AutoCompleteModel<string, string> umidade { get; set; }
+        public AutoCompleteModel<string, string> luminosidade { get; set; }
+        public AutoCompleteModel<string, string> tercerizada { get; set; }
+        public historicoModel<string> numeroProcessoAnvisa { get; set; }
+        public historicoModel<string> numeroRegistroMS { get; set; }
+        public historicoModel<DateTime?> dataVencimentoAnvisa { get; set; }
+        public historicoModel<bool> isAmostraGratis { get; set; }
+        #endregion
+
+        #region Mapa
+        public historicoModel<string> numeroLicencaMapa { get; set; }
+        public historicoModel<DateTime?> validadeMapa { get; set; }
+        public historicoModel<string> informacaoComplementarMapa { get; set; }
+        #endregion
+
+        #region Nota Fiscal
+        public historicoModel<string> cest { get; set; }
+        public historicoModel<string> gtin { get; set; }
+        public historicoModel<string> gtinTributavel { get; set; }
+        #endregion
+        
+        #region Ministerio do Exército
+        public historicoModel<string> numeroRegistroMAPA { get;  set; }
+        #endregion
+
+        #region ANP
+        public Boolean isPossuiRegistroANP { get; set; }
+        public historicoModel<string> numeroRegistroANP_CAS { get; set; }
+        public historicoModel<string> numeroRegistroANP_DCB { get; set; }
+        public historicoModel<string> justificativaANP { get; set; }
+        #endregion
+
+        #region INMETRO
+        public Boolean isPossuiRegistroINMETRO { get; set; }
+        public historicoModel<string> numeroRegistroINMETRO { get; set; }
+        public historicoModel<string> numeroCertificadoINMETRO { get; set; }
+        #endregion
+
+        #region PIS / CONFINS
+        public AutoCompleteModel<string, string> tributacaoPIS_COFINS { get; set; }
+        public AutoCompleteModel<string, string> codigoFundamentoLegal { get; set; }
+        public historicoModel<decimal?> aliquotaDiferenciadaPIS { get; set; }
+        public historicoModel<decimal?> aliquotaDiferenciadaCOFINS { get; set; }
+        
+        // public AutoCompleteModel<string, string> codigoFundamentoLegalCOFINS { get; set; }
+        #endregion
+
+        #region ICMS
+        public AutoCompleteModel<string, string> tributacaoICMS { get; set; }
+        public historicoModel<decimal?> aliquotaICMS { get; set; }
+        public historicoModel<decimal?> cargaTributariaICMS { get; set; }
+        // public AutoCompleteModel<string, string> dispositivoLegalICMS { get; set; }
+        // public AutoCompleteModel<string, string> tributacaoICMS { get; set; }
+        // public historicoModel<string> tributacaoEspecificaICMS { get; set; }
+        #endregion
+
+        #region Produto Perigoso
+        public bool isProdutoPerigoso { get; set; }
+        public AutoCompleteRefModel<int?, string, string> numeroONU { get; set; }
+        public AutoCompleteModel<int?, string> codigoClasseRiscoProdutoPerigoso { get; set; }
+        public AutoCompleteModel<string, string> codigoSubClasseRiscoProdutoPerigoso { get; set; }
+        public AutoCompleteModel<int?, string> grupoEmbalagemProdutoPerigoso { get; set; }
+        public string numeroRisco { get; set; }
+        public decimal? qtdeLimitada { get; set; }
+        #endregion
+
+        #region Anexos
+        public AnexosModel[] anexos { get; set; }
+        #endregion
+
+        #region Outros
+        public AutoCompleteModel<string, string> tipoCalculo { get; set; }    
+        public AutoCompleteModel<string, string> exportador { get; set; }
+        public AutoCompleteModel<string, string> paisAquisicao { get; set; }
+
+        public historicoModel<decimal?> pesoLiquido { get; set; } //?: historicoModel<number>;
+        public historicoModel<decimal?> precoItem { get; set; } //?: historicoModel<number>;
+        public AutoCompleteModel<string, string> cfop { get; set; }
+
+        public historicoModel<string> htcCode { get; set; }
+        public historicoModel<string> serialNumber { get; set; }
+
+        [BsonIgnoreIfNull]
+        public historicoModel<bool> isPossuiDrawback { get; set; }        
+
+        public AutoCompleteModel<string, string> unidadeComercializada { get; set; }
+
+        #endregion
+
+        #region Catalogo de Produto
+        public AutoCompleteProdutosModel<string,string,string> produto { get; set; }
+        #endregion
+
+        public List<HistoricoAlteracao> historicoAlteracaoes { get; set; }
+
+
+        public RetonoPortalunicoCatalogoProduto<string, int?, bool> PortalUnicoAPIlog { get; set; }
+
+        public DateTime? rowVersion { get; set; }
+        public MercadoriaModel()
+        {          
+            historicoAlteracaoes = new List<HistoricoAlteracao>();
+            partNumber = "";
+
+
+            apelidoItem = new historicoModel<string>();
+            modalidadeOperacao = new historicoModel<string>();
+            unidadeMedidaEstatistica = new AutoCompleteModel<string, string>();            
+            descricaoFiscalAduaneira = new historicoModel<string>();
+            descricaoCurtaNotaFiscal = new historicoModel<string>();
+            descricaoComercialFantasia = new historicoModel<string>();
+            descricaoIngles = new historicoModel<string>();
+            descricaoIdiomaFornecedor = new historicoModel<string>();
+            isFabricanteProdutor = false;
+            fabricante = new AutoCompleteFabricanteModel<int?, string>();
+            paisFabricanteProdutor = new AutoCompleteModel<string, string>();
+            unidadeComercializada = new AutoCompleteModel<string, string>();
+            naladi = new AutoCompleteModel<string, string>();
+            naladiNCCA = new AutoCompleteModel<string, string>();
+
+
+            digitacaoAutomatica_II = new historicoModel<bool>();
+            exTarifario_II = new AutoCompleteModel<string, string>();
+            tipoAtoLegal_II = new AutoCompleteModel<string, string>();
+            orgaoEmissor_II = new AutoCompleteModel<string, string>();
+            numero_II = new historicoModel<string>();
+            ano_II = new historicoModel<string>();
+            texto_II = new historicoModel<string>();
+            dataVigencia_II = new historicoModel<DateTime?>();
+
+            digitacaoAutomatica_IPI = new historicoModel<bool>();
+            exTarifario_IPI = new historicoModel<string>();
+            tipoAtoLegal_IPI = new AutoCompleteModel<string, string>();
+            orgaoEmissor_IPI = new AutoCompleteModel<string, string>();
+            numero_IPI = new historicoModel<string>();
+            ano_IPI = new historicoModel<string>();
+            texto_IPI = new historicoModel<string>();
+            dataVigencia_IPI = new historicoModel<DateTime?>();
+                        
+            ncm = new historicoModel<string>();
+
+            nve = new historicoModel<NveModel[]>();
+
+            ncmAtributos = new historicoModel<AtributosNCMCamposModel[]>();
+
+            classeAnvisa = new AutoCompleteRefModel<string, string, int?>();
+            subClasseAnvisa = new AutoCompleteModel<string, string>();
+            caracteristicaAnvisa = new AutoCompleteModel<string, string>();
+            temperatura = new AutoCompleteModel<string, string>();
+            umidade = new AutoCompleteModel<string, string>();
+            luminosidade = new AutoCompleteModel<string, string>();
+            tercerizada = new AutoCompleteModel<string, string>();
+            numeroProcessoAnvisa = new historicoModel<string>();
+            numeroRegistroMS = new historicoModel<string>();
+            dataVencimentoAnvisa = new historicoModel<DateTime?>();
+            isAmostraGratis = new historicoModel<bool>();
+
+            numeroLicencaMapa = new historicoModel<string>();
+            validadeMapa = new historicoModel<DateTime?>();
+            informacaoComplementarMapa = new historicoModel<string>();
+
+            cest = new historicoModel<string>();
+            gtin = new historicoModel<string>();
+            gtinTributavel = new historicoModel<string>();
+
+            numeroRegistroMAPA = new historicoModel<string>();
+
+            isPossuiRegistroANP = false;
+            numeroRegistroANP_CAS = new historicoModel<string>();
+            numeroRegistroANP_DCB = new historicoModel<string>();
+            justificativaANP = new historicoModel<string>();
+
+            isPossuiRegistroINMETRO = false;
+            numeroRegistroINMETRO = new historicoModel<string>();
+            numeroCertificadoINMETRO = new historicoModel<string>();
+
+            tributacaoPIS_COFINS = new AutoCompleteModel<string, string>();            
+            tributacaoPIS_COFINS.value = "1";
+            tributacaoPIS_COFINS.value = "RECOLHIMENTO INTEGRAL";
+            aliquotaDiferenciadaPIS = new historicoModel<decimal?>();
+            aliquotaDiferenciadaPIS.value = 0;
+            aliquotaDiferenciadaCOFINS = new historicoModel<decimal?>();
+            aliquotaDiferenciadaCOFINS.value = 0;
+            codigoFundamentoLegal = new AutoCompleteModel<string, string>();
+            //codigoFundamentoLegalCOFINS = new AutoCompleteModel<string, string>();
+
+            
+            tributacaoICMS = new AutoCompleteModel<string, string>();
+            tributacaoICMS.value = "1";
+            tributacaoICMS.descricao = "INTEGRAL";
+            aliquotaICMS = new historicoModel<decimal?>();
+            aliquotaICMS.value = 0;
+            cargaTributariaICMS = new historicoModel<decimal?>();
+            cargaTributariaICMS.value = 0;
+            // dispositivoLegalICMS = new AutoCompleteModel<string, string>();            
+            // tributacaoEspecificaICMS = new historicoModel<string>();
+
+            numeroONU = new AutoCompleteRefModel<int?, string, string>();
+            codigoClasseRiscoProdutoPerigoso = new AutoCompleteModel<int?, string>();
+            codigoSubClasseRiscoProdutoPerigoso = new AutoCompleteModel<string, string>();
+            grupoEmbalagemProdutoPerigoso = new AutoCompleteModel<int?, string>();            
+
+            tipoCalculo = new AutoCompleteModel<string, string>();
+            htcCode = new historicoModel<string>();
+            serialNumber = new historicoModel<string>();
+            cfop = new AutoCompleteModel<string, string>();
+            exportador = new AutoCompleteModel<string, string>();
+            paisAquisicao = new AutoCompleteModel<string, string>();
+            pesoLiquido = new historicoModel<decimal?>();
+            precoItem = new historicoModel<decimal?>();
+            isPossuiDrawback = new historicoModel<bool>();
+
+            produto = new AutoCompleteProdutosModel<string, string, string>();
+
+            PortalUnicoAPIlog = new RetonoPortalunicoCatalogoProduto<string, int?, bool>();
+        }
+    }
+
+    public class MercadoriaUploadModel : MercadoriaModel
+    {
+        public string mensagem { get; set; }
+
+        public MercadoriaModel ConvertMercadoriaModel(){
+            var local = this.GetType().GetProperties();
+
+            MercadoriaModel temp = new MercadoriaModel();
+            var convert = temp.GetType().GetProperties();
+
+            for (int i = 0; i < convert.Length; i++){                                
+                var value = local.FirstOrDefault(it => it.Name == convert[i].Name)?.GetValue(this);
+                convert[i].SetValue(temp, value);
+            }
+
+            if (temp.anexos == null) {
+                List<AnexosModel> anexos = new List<AnexosModel>();
+                anexos.Add(new AnexosModel(){ tipo = "CatalogoTecnico", fileUpload = new FileUploadModel(), isObrigatorio = false });
+                anexos.Add(new AnexosModel(){ tipo = "FichaEmergencia", fileUpload = new FileUploadModel(), isObrigatorio = false });
+                anexos.Add(new AnexosModel(){ tipo = "CertificadoDeclaracao", fileUpload = new FileUploadModel(), isObrigatorio = false });
+                temp.anexos = anexos.ToArray();
+            }
+            return temp;
+        }
+    }
+
+    public class MercadoriaFINDModel
+    {           
+        public int id { get; set; }
+        public string partNumber { get; set; }
+        public string partNumberSecundario { get; set; }
+        public string apelido { get; set; }
+        public string descricaoMercadoria { get; set; }
+        public string statusMercadoria { get; set; }
+
+    }
+
+    public class MercadoriaFindIDModel
+    {
+        public string partNumber1 { get; set; }
+        public int codigoGrupo { get; set; }
+        public string cnpjRaiz { get; set; }
+        public string modalidade { get; set; }
+        //string partNumber1, string partNumber2, int codigoGrupo, string cnpjRaiz, string modalidade
+        
+        public bool isCSV { get; set; }
+
+        public MercadoriaFindIDModel()
+        {
+            this.isCSV = false;
+        }
+    }
+
+    public class  MercadoriaFindPostModel
+    {
+        public int id { get; set; }
+        public int codigoGrupo { get; set; }
+        public string cnpjRaiz { get; set; }
+        public bool isHistorico { get; set; }
+        public bool isCSV { get; set; }
+        public MercadoriaFindPostModel()
+        {
+            this.isHistorico = true;
+            this.isCSV = false;
+        }        
+    }
+
+    public class MercadoriaStatusModel
+    {
+        public string status { get; set; }
+        public DateTime? ultimaAlteracao { get; set; }
+    }
+
+    public class MercadoriaFiltroListagemModel
+    {
+        public bool check { get; set; }
+        public int id { get; set; }
+        public string partNumber { get; set; }
+        public string partNumberSecundario { get; set; }
+        public string ncm { get; set; }
+        public string descricaoFiscalAduaneira { get; set; }
+        public string usuario { get; set; }
+        public DateTime? ultimaAlteracao { get; set; }
+        public string alteracoesPendentes { get; set; }
+        public string statusMercadoria { get; set; }
+        public int codigoGrupo { get; set; }
+        public string cnpjRaiz { get; set; }
+        public DateTime? rowVersion { get; set; }
+        public List<PlaylistItensModel> listaItensPlaylist { get; set; }
+    }
+
+    public class ParamMercadoriaFiltroListagemModel 
+    {
+        public List<MercadoriaFiltroListagemModel> listaItens  { get; set; }
+
+        public string operacao { get; set; }
+    }
+
+    #region  Modelos de AutoComplete
+
+    [BsonIgnoreExtraElements]
+    public abstract class historicoModelo<T> 
+    {
+        public T value { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            if (GetType() == obj.GetType())
+            {
+                historicoModelo<T> aux = (historicoModelo<T>)obj;
+                if (aux.value == null){
+                    return this.value == null;
+                }
+                else 
+                    return aux.value.Equals(this.value);
+            }
+            return base.Equals (obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        public abstract void AddHistorico(dynamic entityDB,JwtModel jwt);
+        public abstract void AddHistoricoManual(dynamic entityDB,JwtModel jwt = null);
+    }
+
+
+
+
+    [BsonIgnoreExtraElements]
+    public abstract class HistoricoFabricanteModelo
+    {
+      
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        public abstract void AddHistorico(dynamic entityDB, JwtModel jwt);
+        public abstract void AddHistoricoManual(dynamic entityDB, JwtModel jwt = null);
+    }
+
+    [BsonIgnoreExtraElements]
+    public abstract class historicoValuesModelo<T>
+    {
+        public T value { get; set; }
+        public DateTime? data { get; set; }
+        public int? codigoUsuario { get; set; }
+        public string nomeUsuario { get; set; }
+    }
+
+    [BsonIgnoreExtraElements]
+    public class historicoModel<T> : historicoModelo<T>
+    {
+        public historicoModel()
+        {
+            historico = new historicoValuesModel<T>[0];
+        }
+        public historicoValuesModel<T>[] historico { get; set; }
+
+        public override void AddHistoricoManual(dynamic entityDB,JwtModel jwt = null)
+        {
+            var result = this.historico.ToList();
+                        result.Insert(0, new historicoValuesModel<T>() { 
+                                        value = entityDB.value, 
+                                        codigoUsuario = jwt != null ? jwt.codigoUsuario : 9999, 
+                                        nomeUsuario = jwt != null ? jwt.nomeUsuario : "Sistema eBroker",
+                                        data = DateTime.Now });
+                        this.historico = result.ToArray();
+        }
+        public override void AddHistorico(dynamic entityDB,JwtModel jwt)
+        {
+            if (this.historico != null && 
+                entityDB != null) {
+                if (this.historico.Count() == 0 &&
+                    entityDB.value != this.value)
+                    this.historico = new historicoValuesModel<T>[]{
+                                            new historicoValuesModel<T>() { 
+                                                value = entityDB.value, 
+                                                codigoUsuario = jwt.codigoUsuario,
+                                                nomeUsuario = jwt.nomeUsuario,
+                                                data = DateTime.Now }};
+                        
+                else {
+                    if (entityDB.value != this.value
+                        //!this.historico.Last().value.Equals(this.value)
+                        ) 
+                    {
+                        var result = this.historico.ToList();
+                        result.Insert(0, new historicoValuesModel<T>() { 
+                                        value = entityDB.value, 
+                                        codigoUsuario = jwt.codigoUsuario, 
+                                        nomeUsuario = jwt.nomeUsuario,
+                                        data = DateTime.Now });
+                        this.historico = result.ToArray();
+                    }
+                }
+            }
+        }
+    }
+        
+    [BsonIgnoreExtraElements]
+    public class historicoValuesModel<T> : historicoValuesModelo<T>
+    {
+
+    }
+
+    [BsonIgnoreExtraElements]
+    public class AutoCompleteModel<T, K> : historicoModelo<T>
+    {        
+        public AutoCompleteModel()
+        {
+            this.historico = new AutoCompleteHistoricoValuesModel<T, K>[0];
+        }
+        public K descricao { get; set; }
+
+        public AutoCompleteHistoricoValuesModel<T, K>[] historico { get; set; }
+
+        public override void AddHistorico(dynamic entityDB, JwtModel jwt)
+        {
+            if (this.historico != null && 
+                entityDB != null) 
+            {            
+                if (this.historico.Count() == 0  &&                                        
+                    (entityDB.value != this.value || entityDB.descricao != this.descricao )
+                   )
+                    this.historico = new AutoCompleteHistoricoValuesModel<T, K>[]
+                                     {
+                                        new AutoCompleteHistoricoValuesModel<T, K>() 
+                                        { 
+                                            value = this.value, 
+                                            descricao = this.descricao,
+                                            codigoUsuario = jwt.codigoUsuario, 
+                                            nomeUsuario = jwt.nomeUsuario,
+                                            data = DateTime.Now 
+                                        }
+                                    };
+                else {
+                    if (
+                        (entityDB.value != this.value || entityDB.descricao != this.descricao) 
+                       )
+                    {
+                        var result = this.historico.ToList();
+                        result.Insert(0,  
+                            new AutoCompleteHistoricoValuesModel<T, K>() { 
+                                        value = this.value,
+                                        descricao = this.descricao,
+                                        codigoUsuario = jwt.codigoUsuario, 
+                                        nomeUsuario = jwt.nomeUsuario,
+                                        data = DateTime.Now }
+                        );
+                        this.historico = result.ToArray();
+                    }
+                }
+            }
+        }
+
+        public override void AddHistoricoManual(dynamic entityDB, JwtModel jwt = null)
+        {
+            var result = this.historico.ToList();
+            result.Insert(0,  
+                new AutoCompleteHistoricoValuesModel<T, K>() { 
+                            value = this.value,
+                            descricao = this.descricao,
+                            codigoUsuario = jwt != null ? jwt.codigoUsuario : 9999, 
+                            nomeUsuario = jwt != null ? jwt.nomeUsuario : "Sistema eBroker",
+                            data = DateTime.Now }
+            );
+            this.historico = result.ToArray();
+        }
+    }
+
+    [BsonIgnoreExtraElements]
+    public class AutoCompleteFabricanteModel<T, K> : HistoricoFabricanteModelo
+    {
+        public AutoCompleteFabricanteModel()
+        {
+            this.historico = new AutoCompleteHistoricoValuesModel<T, K>[0];
+        }
+        public T[] value { get; set; }
+        public K[] descricao { get; set; }
+
+        public AutoCompleteHistoricoValuesModel<T, K>[] historico { get; set; }
+
+        public override void AddHistorico(dynamic entityDB, JwtModel jwt)
+        {
+            if (this.historico != null &&
+                entityDB != null)
+            {
+                if (this.historico.Count() == 0 &&
+                    (entityDB.value[0] != this.value[0] || entityDB.descricao[0] != this.descricao[0])
+                   )
+                    this.historico = new AutoCompleteHistoricoValuesModel<T, K>[]
+                                     {
+                                        new AutoCompleteHistoricoValuesModel<T, K>()
+                                        {
+                                            value = this.value[0],
+                                            descricao = this.descricao[0] ,
+                                            codigoUsuario = jwt.codigoUsuario,
+                                            nomeUsuario = jwt.nomeUsuario,
+                                            data = DateTime.Now
+                                        }
+                                    };
+                else
+                {
+                    if (
+                        (entityDB.value[0] != this.value[0] || entityDB.descricao[0] != this.descricao[0])
+                       )
+                    {
+                        var result = this.historico.ToList();
+                        result.Insert(0,
+                            new AutoCompleteHistoricoValuesModel<T, K>()
+                            {
+                                value = this.value[0],
+                                descricao = this.descricao[0],
+                                codigoUsuario = jwt.codigoUsuario,
+                                nomeUsuario = jwt.nomeUsuario,
+                                data = DateTime.Now
+                            }
+                        );
+                        this.historico = result.ToArray();
+                    }
+                }
+            }
+        }
+
+        public override void AddHistoricoManual(dynamic entityDB, JwtModel jwt = null)
+        {
+            var result = this.historico.ToList();
+            result.Insert(0,
+                new AutoCompleteHistoricoValuesModel<T, K>()
+                {
+                    value = this.value[0],
+                    descricao = this.descricao[0],
+                    codigoUsuario = jwt != null ? jwt.codigoUsuario : 9999,
+                    nomeUsuario = jwt != null ? jwt.nomeUsuario : "Sistema eBroker",
+                    data = DateTime.Now
+                }
+            );
+            this.historico = result.ToArray();
+        }
+    }
+
+    [BsonIgnoreExtraElements]
+    public class AutoCompleteHistoricoValuesModel<T, K> : historicoValuesModelo<T>
+    {        
+        public K descricao { get; set; }
+        // public DateTime? data { get; set; }
+        // public int? codigoUsuario { get; set; }    
+    }
+    
+    [BsonIgnoreExtraElements]
+    public class AutoCompleteRefModel<T, K, R> : historicoModelo<T>
+    {
+        public AutoCompleteRefModel()
+        {
+            this.historico = new AutoCompleteHistoricoValuesRefModel<T, K, R>[0];
+        }
+        // public T value { get; set; }
+        public K descricao { get; set; }
+        public R valueRef { get; set; }
+        // public DateTime? data { get; set; }
+        // public int? codigoUsuario { get; set; }   
+        public AutoCompleteHistoricoValuesRefModel<T, K, R>[] historico { get; set; } 
+    
+        public override void AddHistorico(dynamic entityDB, JwtModel jwt)
+        {
+            if (this.historico != null && 
+                entityDB != null)
+            {
+                if (this.historico.Count() == 0 &&                                        
+                    (entityDB.value != this.value || entityDB.descricao != this.descricao ))
+                {
+                    this.historico = new AutoCompleteHistoricoValuesRefModel<T, K, R>[]
+                    {
+                        new AutoCompleteHistoricoValuesRefModel<T, K, R>() { 
+                            value = this.value, 
+                            descricao = this.descricao, 
+                            valueRef = this.valueRef,
+                            codigoUsuario = jwt.codigoUsuario, 
+                            nomeUsuario = jwt.nomeUsuario,
+                            data = DateTime.Now }
+                    };
+                }
+                else 
+                {
+                    if (
+                        (entityDB.value != this.value || entityDB.descricao != this.descricao) 
+                        // !this.historico.Last().value.Equals(this.value) || !this.historico.Last().descricao.Equals(this.descricao)
+                        ) 
+                    {
+                        var result = this.historico.ToList();
+                        result.Insert(0, 
+                            new AutoCompleteHistoricoValuesRefModel<T, K, R>() { 
+                                        value = this.value,
+                                        descricao = this.descricao,
+                                        valueRef = this.valueRef,
+                                        codigoUsuario = jwt.codigoUsuario, 
+                                        nomeUsuario = jwt.nomeUsuario,
+                                        data = DateTime.Now });
+                        this.historico = result.ToArray();
+                    }
+                }
+            }
+        }
+
+        public override void AddHistoricoManual(dynamic entityDB, JwtModel jwt = null)
+        {
+            var result = this.historico.ToList();
+            result.Insert(0, 
+                new AutoCompleteHistoricoValuesRefModel<T, K, R>() { 
+                            value = this.value,
+                            descricao = this.descricao,
+                            valueRef = this.valueRef,
+                            codigoUsuario = jwt != null ?  jwt.codigoUsuario : 9999, 
+                            nomeUsuario =  jwt != null ? jwt.nomeUsuario : "Sistema eBroker",
+                            data = DateTime.Now });
+            this.historico = result.ToArray();
+        }
+    }
+    
+    [BsonIgnoreExtraElements]
+    public class AutoCompleteHistoricoValuesRefModel<T, K, R> : historicoValuesModelo<T>
+    {
+        // public T value { get; set; }
+        public K descricao { get; set; }
+        public R valueRef { get; set; }
+        // public DateTime? data { get; set; }
+        // public int? codigoUsuario { get; set; }
+    }
+    
+    #endregion
+
+    #region Outros Modelos
+    public class Destaque 
+    {
+        public bool? destaqueManual { get; set; }
+        public bool selected { get; set; }
+        public Dictionary<string, bool> selectOrgao { get; set; }
+        public string codigoDestaque { get; set; }
+        public string descricaoDestaque { get; set; }
+
+        public Destaque()
+        {
+            this.selected = false;
+            this.destaqueManual = false;
+        }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {            
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            else if (GetType() == obj.GetType())
+            {
+                Destaque aux = (Destaque) obj;
+                return (this.selected == aux.selected && 
+                       this.codigoDestaque == aux.codigoDestaque && 
+                       this.descricaoDestaque == aux.descricaoDestaque && 
+                       String.Join(',', this.selectOrgao?.Where(it => (it.Key == "999" && it.Value == true) || (it.Key != "999")).Select(it => it.Key).ToList() ?? new List<string>()) == String.Join(',', aux.selectOrgao?.Where(it => (it.Key == "999" && it.Value == true) || (it.Key != "999")).Select(it => it.Key).ToList() ?? new List<string>()));
+            }            
+            return base.Equals (obj);
+        }
+        
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public string getMapa() 
+        {
+            try
+            {
+                return String.Join(',', this.selectOrgao?
+                                            .Where(it => it.Value == true)
+                                            .Select(it => it.Key)
+                                            .ToList() ?? new List<string>());    
+            }
+            catch (Exception)
+            {                
+                return "";
+            }            
+            
+        }
+    }
+    
+    public class NveModel 
+    {
+        public string nveNivel { get; set; }
+        public string nveAtributo { get; set; }
+        public string nveEspecificacao { get; set; }
+    }
+
+    public class AtributosNCMCamposModel
+    {
+        public string codigo { get; set; }
+        public string modalidade { get; set; }
+        public string valor { get; set; }
+    }
+
+
+
+    public class FileUploadModel {
+        public string id { get; set; }
+        public string fileBase64 { get; set; }
+        public string nomeArquivo { get; set; }
+        
+    }
+    
+    public class AnexosModel
+    {
+        public string tipo { get; set; }
+        public FileUploadModel fileUpload { get; set; }
+        public bool isObrigatorio { get; set; }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {            
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            else if (GetType() == obj.GetType())
+            {
+                AnexosModel aux = (AnexosModel)obj;
+                return this.fileUpload?.fileBase64 == aux.fileUpload?.fileBase64;
+            }
+            return base.Equals (obj);
+        }
+        
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {            
+            return base.GetHashCode();
+        }
+    }
+
+
+    public class MercadoriaValidacaoModel
+    {
+        public int id { get; set; }
+        public string partNumber { get; set; }
+        public DateTime dataValidacao { get; set; }
+        public bool isValido { get; set; }
+        public string adicao { get; set; }
+        public string item { get; set; }
+    }
+    #endregion
+
+    public enum Coluna
+    {
+        PARTNUMBER = 1,
+        CD_CLIENTE = 2,
+        NM_APELIDO = 3,
+        NCM = 4,
+        DESCRICAO = 5,
+        DESTAQUE = 6,
+        COTA = 7,
+        NVE = 8,
+        FABRICANTE_PRODUTOR_É_CONHECIDO = 9,
+        COD_FABRICANTE = 10, 
+        COD_PAIS_FABRICANTE = 11,
+        // NOME_FABRICANTE = 10,
+        // ENDERECO_FABRICANTE = 11,
+        // NUMERO_FABRICANTE = 12,
+        // CIDADE_FABRICANTE = 13,
+        // ESTADO_FABRICANTE = 14,
+        // PAIS_FABRICANTE = 15,
+        EX_TARIFARIO_II = 12,
+        DATA_VIGENCIA_EX_II = 13,
+        TIPO_ATO_LEGAL_EX_II = 14,
+        ORGAO_EMISSOR_EX_II = 15,
+        NUMERO_DO_TIPO_ATO_LEGAL_EX_II = 16,
+        ANO_TIPO_ATO_LEGAL_EX_II = 17,
+        TEXTO_DO_EX_II = 18,
+        EX_TARIFARIO_IPI = 19,
+        DATA_VIGENCIA_EX_IPI = 20,
+        TIPO_ATO_LEGAL_EX_IPI = 21,
+        ORGAO_EMISSOR_EX_IPI = 22,
+        NUMERO_DO_TIPO_ATO_LEGAL_EX_IPI = 23,
+        ANO_TIPO_ATO_LEGAL_EX_IPI = 24,
+        TEXTO_DO_EX_IPI = 25,
+    }
+
+    public class UploadBDI
+    {
+        public sealed class ColunasItensModel
+        {
+            public string this[Coluna name, int idx = 2]
+            {
+                get => getValue(name, idx);
+            }
+
+            private static string getValue(Coluna pos, int idx)
+            {
+                switch (pos)
+                {
+                    case Coluna.PARTNUMBER: return $"A{idx}";
+                    case Coluna.CD_CLIENTE: return $"B{idx}";
+                    case Coluna.NM_APELIDO: return $"C{idx}";
+                    case Coluna.NCM: return $"D{idx}";
+                    case Coluna.DESCRICAO: return $"E{idx}";
+                    case Coluna.DESTAQUE: return $"F{idx}";
+                    case Coluna.COTA: return $"G{idx}";
+                    case Coluna.NVE: return $"H{idx}";
+                    case Coluna.FABRICANTE_PRODUTOR_É_CONHECIDO: return $"I{idx}";
+                    
+                    case Coluna.COD_FABRICANTE: return $"J{idx}";
+                    case Coluna.COD_PAIS_FABRICANTE: return $"K{idx}";
+                    // case Coluna.NOME_FABRICANTE: return $"J{idx}";
+                    // case Coluna.ENDERECO_FABRICANTE: return $"K{idx}";
+                    // case Coluna.NUMERO_FABRICANTE: return $"L{idx}";
+                    // case Coluna.CIDADE_FABRICANTE: return $"M{idx}";
+                    // case Coluna.ESTADO_FABRICANTE: return $"N{idx}";
+                    // case Coluna.PAIS_FABRICANTE: return $"O{idx}";
+                    case Coluna.EX_TARIFARIO_II: return $"L{idx}";
+                    case Coluna.DATA_VIGENCIA_EX_II: return $"M{idx}";
+                    case Coluna.TIPO_ATO_LEGAL_EX_II: return $"N{idx}";
+                    case Coluna.ORGAO_EMISSOR_EX_II: return $"O{idx}";
+                    case Coluna.NUMERO_DO_TIPO_ATO_LEGAL_EX_II: return $"P{idx}";
+                    case Coluna.ANO_TIPO_ATO_LEGAL_EX_II: return $"Q{idx}";
+                    case Coluna.TEXTO_DO_EX_II: return $"R{idx}";
+                    case Coluna.EX_TARIFARIO_IPI: return $"S{idx}";
+                    case Coluna.DATA_VIGENCIA_EX_IPI: return $"T{idx}";
+                    case Coluna.TIPO_ATO_LEGAL_EX_IPI: return $"U{idx}";
+                    case Coluna.ORGAO_EMISSOR_EX_IPI: return $"V{idx}";
+                    case Coluna.NUMERO_DO_TIPO_ATO_LEGAL_EX_IPI: return $"W{idx}";
+                    case Coluna.ANO_TIPO_ATO_LEGAL_EX_IPI: return $"X{idx}";
+                    case Coluna.TEXTO_DO_EX_IPI: return $"Y{idx}";
+                    default: return "";
+                }
+            }
+        }
+
+        private static ColunasItensModel ColunasItens;
+
+        public static ColunasItensModel ColunasExcel
+        {
+            get { return ColunasItens ?? (ColunasItens = new ColunasItensModel()); }
+        }
+        
+    }
+
+    public enum UploadItensStatusEnum
+    {
+        Recebido = 1, 
+        Processados_Sem_Erro = 2,
+        Processados_Com_Erro = 3, 
+        Cancelado = 4
+    }
+
+    public enum UploadProcessamentoStatusEnum
+    {        
+        SemAcao = 0,
+        Incluir = 1, // Novo item
+        Ignorar = 2, //Opção para quando encontrar um registro já existente. OBS: Opção Default
+        Substituir = 3, //Opção para quando encontrar um registro já existente     
+        Erro = 4,
+    }
+    
+    public class UploadModel
+    {
+        [BsonId(IdGenerator = typeof(Generator<UploadModel>))]
+        [BsonElement("_id")]
+        public int id { get; set; }
+        public int codigoGrupo { get; set; }
+        public string cnpjRaiz { get; set; }        
+        public int codigoUsuario { get; set; }
+        public string nomeUsuario { get; set; }
+        public DateTime? dataTransmissao { get; set; }        
+        public DateTime? dataProcessamento { get; set; }  
+        public DateTime? dataCancelamento { get; set; }
+        public int? codigoUsuarioCancelamento { get; set; }
+        public string nomeUsuarioCancelamento { get; set; }
+        public string pathArquivo { get; set; }
+        public string nomeArquivoOriginal { get; set; }
+        public UploadItensStatusEnum status { get; set; }
+        public List<UploadItensResultadoModel> listaResultados { get; set; } 
+        
+        public UploadModel()        
+        {
+            this.codigoGrupo = 0;
+            this.cnpjRaiz = "";
+
+            
+            this.codigoUsuario = 0;
+            this.nomeUsuario = "";
+
+            this.dataTransmissao = null;
+            this.dataProcessamento = null;
+
+            this.dataCancelamento = null;
+            this.nomeUsuarioCancelamento = "";
+
+            this.pathArquivo = "";
+            this.nomeArquivoOriginal = "";
+
+            this.status = UploadItensStatusEnum.Recebido;
+
+            this.listaResultados = new List<UploadItensResultadoModel>();
+        }
+    }
+
+    public class UploadItensResultadoModel
+    {        
+        public string partNumber { get; set; }
+        public string partNumberSecundario { get; set; }
+        public string modalidade { get; set; } //Fixo Importação
+        public string mensagemErro { get; set; }
+        public UploadProcessamentoStatusEnum acaoItem { get; set; }
+
+        public UploadItensResultadoModel()
+        {
+            this.partNumber = "";
+            this.partNumberSecundario = "";
+            this.modalidade = "Importação";
+            this.mensagemErro = "";
+            this.acaoItem = UploadProcessamentoStatusEnum.Incluir;
+        }
+    }
+
+    public class UploadItensFiltroModel
+    {
+        public int id { get; set; }
+        public DateTime? dataTransmissao { get; set; }
+        public string nomeArquivoOriginal { get; set; }
+        public DateTime? dataProcessamento { get; set; }
+        public DateTime? dataCancelamento { get; set; }
+        public int codigoGrupo { get; set; }
+        public string cnpjRaiz { get; set; }
+        public int codigoUsuario { get; set; }        
+        public string nomeUsuario { get; set; }
+        public int quantidadeitens { get; set; }
+        
+        public List<UploadItensResultadoModel> listaResultados { get; set; }
+        public int status { get; set; }
+
+        public UploadItensFiltroModel()
+        {
+            listaResultados = new List<UploadItensResultadoModel>();
+        }
+        
+    }
+
+    public class MercadoriaVincularLote_old
+    {
+        public int index { get; set; }
+        public int? idBDI { get; set; }
+        public string numeroAdicao { get; set; }
+        public string numeroItem { get; set; }
+        public string partNumber { get; set; }
+        public string partNumberSecundario { get; set; }
+        public string ncm { get; set; }
+        public string descricaoMercadoria { get; set; }
+        public List<MercadoriaVincularLoteSelecionar> SelecionarItem { get; set; }
+        public string status { get; set; }
+        public List<string> acao { get; set; }
+
+        public int? codigoGrupo { get; set; }
+        public string cnpj { get; set; }
+    }
+
+    public class MercadoriaVincularLote
+    {
+        public int? idBDI { get; set; }
+        public string status { get; set; }
+        public string descricaoMercadoria { get; set; }
+        public string partNumberSecundario { get; set; }
+        public string apelido { get; set; }
+        public DateTime? dataUltimaAtualizacao { get; set; }
+        public List<MercadoriaVincularLoteSelecionar> SelecionarItem { get; set; }
+    }
+
+    public class MercadoriaVincularLoteSelecionar
+    {
+        public int idBdi { get; set; }
+        public string partNumber { get; set; }
+        public string partNumberSecundario { get; set; }
+        public string apelido { get; set; }
+        public string statusBDI { get; set; }
+        public string descricaoMercadoria { get; set; }
+        public DateTime? dataUltimaAtualizacao { get; set; }
+        
+    }
+
+
+
+    [BsonIgnoreExtraElements]
+    public class AutoCompleteProdutosModel<T, K, M>
+    {
+
+        public T codigo { get; set; }
+        public K versao { get; set; }
+        public M situacao { get; set; }
+        public K ultimaAlteracao { get; set; }
+
+    }
+
+    [BsonIgnoreExtraElements]
+    public class RetonoPortalunicoCatalogoProduto<T, X, Z>
+    {
+        public RetonoPortalunicoCatalogoProduto()
+        {
+            this.codigo = new List<T>();
+            this.erros = new List<List<T>>();
+            this.seq = new List<X>();
+            this.sucesso = new List<Z>();
+            this.ultimaAlteracao = new List<T>();
+            this.tipoErro = new List<T>();
+        }
+        public List<T> codigo { get; set; }
+        public List<List<T>> erros { get; set; }
+        public List<X> seq { get; set; }
+        public List<Z> sucesso { get; set; }
+        public List<T> ultimaAlteracao { get; set; }
+        public List<T> tipoErro { get; set; }
+    }
+
+
+
+}

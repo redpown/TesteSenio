@@ -1,0 +1,35 @@
+ static void Main()
+        {
+            int pid = 0;
+            Process[] pname = Process.GetProcessesByName("ExtratoDUE");
+            if (pname.Length > 1)
+            {
+                pid = pname[0].Id;
+                if (MessageBox.Show("Já existe uma sessão em execução, Deseja fechar e abrir uma nova sessão", "Novo", MessageBoxButtons.YesNo) ==
+                        System.Windows.Forms.DialogResult.No)
+                {
+                    Application.Exit();
+                }
+                else {
+                    foreach (var process in pname)
+                    {
+                        if (process.Id == pid) {
+                            process.Kill();
+                        }
+                        
+                    }
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new FormPrincipal());
+                }
+                
+                
+            }
+            else
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new FormPrincipal());
+            }
+           
+        }
