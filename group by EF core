@@ -1,0 +1,27 @@
+ var pendencias = (from tabProcDesvio in dbEtrack.TPROCESSO_DESVIO
+                                  join tabDesvio in dbEtrack.TTP_DESVIO on tabProcDesvio.CD_DESVIO equals tabDesvio.CD_DESVIO
+                                  join tabProc in dbEtrack.TPROCESSOs on tabProcDesvio.NR_PROCESSO equals tabProc.NR_PROCESSO
+                                  where tabProcDesvio.NR_PROCESSO == numeroProcesso
+                                  group tabProcDesvio by new
+                                  {
+                                      NR_PROCESSO = tabProcDesvio.NR_PROCESSO,
+                                      CD_DESVIO = tabProcDesvio.CD_DESVIO,
+                                      DT_DESVIO = tabProcDesvio.DT_DESVIO.ToString(),
+                                      DT_DESVIO_FECHAMENTO = tabProcDesvio.DT_DESVIO_FECHAMENTO != null ? tabProcDesvio.DT_DESVIO_FECHAMENTO.ToString() : "",
+                                      NM_DESVIO = tabDesvio.NM_DESVIO,
+                                      NM_COMPL_DESVIO = tabProcDesvio.NM_COMPL_DESVIO,
+                                      DIAS_ABERTO = ""
+
+
+                                  } into grupo
+                                  select new Pendencias
+                                  {
+                                      NR_PROCESSO = grupo.Key.NR_PROCESSO,
+                                      CD_DESVIO = grupo.Key.CD_DESVIO,
+                                      DT_DESVIO = grupo.Key.DT_DESVIO,
+                                      DT_DESVIO_FECHAMENTO = grupo.Key.DT_DESVIO_FECHAMENTO,
+                                      NM_DESVIO = grupo.Key.NM_DESVIO,
+                                      NM_COMPL_DESVIO = grupo.Key.NM_COMPL_DESVIO,
+                                      DIAS_ABERTO = grupo.Key.DT_DESVIO_FECHAMENTO != "" ? (DateTime.Parse(grupo.Key.DT_DESVIO) - DateTime.Now).Days.ToString() : ""
+                                  }
+                           ).ToList();
