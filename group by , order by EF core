@@ -25,3 +25,21 @@
                                       DIAS_ABERTO = grupo.Key.DT_DESVIO_FECHAMENTO != "" ? (DateTime.Parse(grupo.Key.DT_DESVIO) - DateTime.Now).Days.ToString() : ""
                                   }
                            ).ToList();
+                           
+                            var pendencias = (from tabProcDesvio in dbEtrack.TPROCESSO_DESVIO
+                                  join tabDesvio in dbEtrack.TTP_DESVIO on tabProcDesvio.CD_DESVIO equals tabDesvio.CD_DESVIO
+                                  join tabProc in dbEtrack.TPROCESSOs on tabProcDesvio.NR_PROCESSO equals tabProc.NR_PROCESSO
+                                  where tabProcDesvio.NR_PROCESSO == numeroProcesso 
+                                  && tabProc.IN_PENDENCIA == true
+                                  && !tabProcDesvio.DT_DESVIO_FECHAMENTO.HasValue
+                                  orderby tabProcDesvio.DT_DESVIO ascending
+                                  select new Pendencias
+                                  {
+                                      DT_DESVIO = tabProcDesvio.DT_DESVIO.ToString(),
+                                      DT_DESVIO_FECHAMENTO = tabProcDesvio.DT_DESVIO_FECHAMENTO.HasValue ? tabProcDesvio.DT_DESVIO_FECHAMENTO.Value.ToString() : "",
+                                      NM_DESVIO = tabDesvio.NM_DESVIO,
+                                      NM_COMPL_DESVIO = tabProcDesvio.NM_COMPL_DESVIO,
+                                      DIAS_ABERTO = "0"
+                                  }
+
+                           ).ToList();
