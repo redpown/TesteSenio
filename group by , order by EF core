@@ -43,3 +43,9 @@
                                   }
 
                            ).ToList();
+                           
+                           
+                           as vez é preciso usar a ordernação em todos os campos 
+                           descending ou ascending
+                           exemplo
+                           ->orderby tabOBS.DT_REALIZACAO_ATE != null ? tabOBS.DT_REALIZACAO_ATE : tabOBS.DT_REALIZACAO descending, tabOBS.CD_OBSERVACAO descending
